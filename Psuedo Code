@@ -1,0 +1,30 @@
+Psuedo Code
+
+
+Questions
+- project category as a property of the object? Or place it in 
+
+Create 'todo' class
+class properties:
+    - title
+    - description
+    - due date
+    - priority
+    - completed
+
+
+project array
+
+hierarchial process
+
+declare array
+
+create new project 
+    - new project method
+    - add a new project level item to arra
+delete old project
+    - delete old project (but only if it has no todo items)
+add item to project
+    -  traverse projects, add item to specific project
+delete item from project
+    -   traverse projects, delete item from specific project
