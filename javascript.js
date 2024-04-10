@@ -141,8 +141,18 @@ function itemEventListener() {
     items.forEach((e) => {
         e.addEventListener('click', () => {
             console.log(e)
-            alert( e.dataset.item)
+            alert(e.dataset.item)
             alert(projectsObject.projectsArray[e.dataset.categoryindex]['items'][e.dataset.itemindex]['description'])
+
+            const itemElement = document.getElementById(`ref${e.dataset.categoryindex}${e.dataset.itemindex}`)
+            console.log(`ref${e.dataset.categoryindex}${e.dataset.itemindex}`)
+            console.log(itemElement)
+            itemElement.innerHTML = 'Changed contents. Need to include the full info on this task.  Then allow for an click that resets it to the summary'
+            
+            alert(itemElement.closest());
+
+
+
         })
     })
     }
@@ -167,6 +177,7 @@ for (let i = 0; i < array.length; i++ ) {
     // So do you need to have a class based on the category name at all? And if so, can you abbreviate it? 
     // Or use another way of referencing it?
 
+
     const categories = document.querySelector('.categories');
     categories.appendChild(categoryElement);
 
@@ -179,6 +190,7 @@ for (let i = 0; i < array.length; i++ ) {
            
 
         itemElement.classList.add('item', `${array[i]['items'][j]['priority']}`, );
+        itemElement.id = `ref${i}${j}`,
 
         itemElement.innerHTML = `<p> ${array[i]['items'][j]['title']} </p> 
         <p class="item-description" > ${array[i]['items'][j]['description']} </p>

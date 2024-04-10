@@ -1,23 +1,46 @@
+
+
+* {
+    font-family: 'Courier New', Courier, monospace;
+
+}
 body {
     display:grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 5fr;
+    grid-template-columns: 1fr; 
+    grid-template-rows: 1fr 6fr;
+
 }
 
 .title {
-    grid-column: 2/3;
-
+    grid-column: 1/3;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    justify-content: center;
+    align-items: center;
+    
 }
 .header {
-font-size: 4rem;}
+font-size: 6rem;
+justify-self: center;
+padding: 20px;
+
+}
 
 
 .container {
+    display: flex;
+    grid-template-columns: 1fr 1fr 1fr ; 
+    height: 500px;
+
     grid-row: 2/4;
 }
 
 .categories {
     font-size: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+
 }
 
 
