@@ -3,7 +3,7 @@ addEventListener("DOMContentLoaded", () => {
 
 // Object for each 'Todo' item
 class Todo {
-    constructor(title, description, dueDate, priority, category) {
+    constructor(title, description, dueDate, priority) {
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
@@ -34,6 +34,14 @@ const projectsObject = {
         }
     ],
 
+    altArray: [
+        {   Home : [thirdItem, fourthItem, fifthItem] // initial population of array
+        },
+        {   Sport : [firstItem, secondItem]
+        }, 
+
+    ],
+   
     // methods
     addCategoryToProjectsArray(newCategory) {
         // checklist: 
@@ -99,6 +107,17 @@ const projectsObject = {
     }
 };
 
+
+console.log(projectsObject.projectsArray)
+
+console.table(projectsObject.altArray)
+
+console.log(projectsObject.altArray[0])
+
+console.log(Object.keys(projectsObject.altArray[0]))
+
+
+
 // function checkIfCategoryExists(categoryName){
 //     for (let i = 0; i < (projectsObject.projectsArray.length) ; i++) {
 //         if (categoryName.toLowerCase() === projectsObject.projectsArray[i]['category'].toLowerCase()) {
@@ -112,6 +131,25 @@ function checkIfCategoryExists(categoryName){
 }
 
 
+// item Event listener
+
+function itemEventListener() {
+    console.log('eventlistener called')
+    var items = document.querySelectorAll('.item');
+    console.log(items)
+
+    items.forEach((e) => {
+        e.addEventListener('click', () => {
+            console.log(e)
+            alert( e.dataset.item)
+            alert(projectsObject.projectsArray[e.dataset.categoryindex]['items'][e.dataset.itemindex]['description'])
+        })
+    })
+    }
+
+    setTimeout( () => {
+        itemEventListener() }, 1000)
+
 
 
 
@@ -124,20 +162,29 @@ for (let i = 0; i < array.length; i++ ) {
     const categoryElement = document.createElement('div');
 
     categoryElement.innerHTML = array[i]['category'];
-    categoryElement.classList.add('category', `${array[i]['category']}'`);
+    categoryElement.classList.add('category', `${array[i]['category']}'`); 
+    // Note, categories have spaces, and if you include them as a class you can't have spaces.
+    // So do you need to have a class based on the category name at all? And if so, can you abbreviate it? 
+    // Or use another way of referencing it?
 
     const categories = document.querySelector('.categories');
     categories.appendChild(categoryElement);
 
     for (let j = 0; j < array[i]['items'].length; j++) {
         const itemElement = document.createElement('p');
+        itemElement.dataset.categoryindex = i;
+        itemElement.dataset.category = array[i]['category'];
+        itemElement.dataset.itemindex = j;
+        itemElement.dataset.item = array[i]['items'][j]['title'];
+           
 
-        itemElement.classList.add('item', `${array[i]['items'][j]['priority']}`);
+        itemElement.classList.add('item', `${array[i]['items'][j]['priority']}`, );
 
-
-        itemElement.innerHTML = "So this is where you'd have little boxes and make everything nice with css <br>" + array[i]['items'][j]['title'] + '   ' +  array[i]['items'][j]['description'] + ' ' + array[i]['items'][j]['dueDate'];
-
-
+        itemElement.innerHTML = `<p> ${array[i]['items'][j]['title']} </p> 
+        <p class="item-description" > ${array[i]['items'][j]['description']} </p>
+        <p> ${ array[i]['items'][j]['dueDate']} </p>`
+        
+        
         categoryElement.appendChild(itemElement)
 
     }
@@ -148,6 +195,25 @@ for (let i = 0; i < array.length; i++ ) {
 }
 
 
+
+
+// Sample array manipulations
+
+projectsObject.addCategoryToProjectsArray('Poo Catcher');
+projectsObject.addCategoryToProjectsArray('Zucchni');
+projectsObject.addCategoryToProjectsArray('sport');
+projectsObject.addCategoryToProjectsArray('SpecialOps');
+console.table(projectsObject.projectsArray);
+
+projectsObject.deleteCategoryFromProjectArray('Sport');
+projectsObject.deleteCategoryFromProjectArray('Poo Catcher');
+projectsObject.deleteCategoryFromProjectArray('Smeg Catcher');
+projectsObject.deleteCategoryFromProjectArray("Doesn't exist and so can't be deleted");
+
+projectsObject.addItem('Zucchni', new Todo("Third Item", "This is the third item", "20 April 2025", "Low", "Third"));
+projectsObject.addItem('SpecialOps', new Todo("Special Ops Item", "This is the special ops item", "23 April 2025", "High", "Special"));
+projectsObject.addItem('Leisure', new Todo("Third Item", "This is the third item", "20 April 2025", "Low", "Third"));
+
 displayList(projectsObject.projectsArray)
 
 });
@@ -155,7 +221,7 @@ displayList(projectsObject.projectsArray)
 
 
 
-//Sample array manipulations
+// Sample array manipulations
 
 // projectsObject.addCategoryToProjectsArray('Poo Catcher');
 // projectsObject.addCategoryToProjectsArray('Zucchni');

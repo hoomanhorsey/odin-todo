@@ -1,14 +1,49 @@
+body {
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 5fr;
+}
+
+.title {
+    grid-column: 2/3;
+
+}
 .header {
 font-size: 4rem;}
+
+
+.container {
+    grid-row: 2/4;
+}
 
 .categories {
     font-size: 1rem;
 }
 
+
 .category {
     font-size: 3rem;
+    border-style: solid;
+    padding: 10px;
+    margin: 10px;
+
+
 }
 
 .item {
     font-size: 1rem;
+    border-style: dotted;
+    margin: 10px;
+    padding: 15px;
+    font-family: 'Courier New', Courier, monospace;
+
+}
+
+.item-description {
+    background-color: lightgrey;
+    padding: 20px 5px;
+}
+
+.itemTitle {
+    font-family: 'Courier New', Courier, monospace;
 }
