@@ -140,16 +140,21 @@ function itemEventListener() {
 
     items.forEach((e) => {
         e.addEventListener('click', () => {
+
             console.log(e)
             alert(e.dataset.item)
             alert(projectsObject.projectsArray[e.dataset.categoryindex]['items'][e.dataset.itemindex]['description'])
 
             const itemElement = document.getElementById(`ref${e.dataset.categoryindex}${e.dataset.itemindex}`)
+            itemElement.innerHTML = '';
+
             console.log(`ref${e.dataset.categoryindex}${e.dataset.itemindex}`)
             console.log(itemElement)
-            itemElement.innerHTML = 'Changed contents. Need to include the full info on this task.  Then allow for an click that resets it to the summary'
-            
-            alert(itemElement.closest());
+            // itemElement.innerHTML = 'include the full info on this task.' 
+
+            itemDisplayFull(itemElement, projectsObject.projectsArray, e.dataset.categoryindex, e.dataset.itemindex);
+            console.log(itemElement)
+             // alert(itemElement.closest());
 
 
 
@@ -181,23 +186,26 @@ for (let i = 0; i < array.length; i++ ) {
     const categories = document.querySelector('.categories');
     categories.appendChild(categoryElement);
 
-    for (let j = 0; j < array[i]['items'].length; j++) {
-        const itemElement = document.createElement('p');
-        itemElement.dataset.categoryindex = i;
-        itemElement.dataset.category = array[i]['category'];
-        itemElement.dataset.itemindex = j;
-        itemElement.dataset.item = array[i]['items'][j]['title'];
+    for (let j = 0; j < array[i]['items'].length; j++) {      
+
+        categoryElement.appendChild(itemDisplaySummary(array, i, j));
+
+        // const itemElement = document.createElement('p');
+        // itemElement.dataset.categoryindex = i;
+        // itemElement.dataset.category = array[i]['category'];
+        // itemElement.dataset.itemindex = j;
+        // itemElement.dataset.item = array[i]['items'][j]['title'];
            
 
-        itemElement.classList.add('item', `${array[i]['items'][j]['priority']}`, );
-        itemElement.id = `ref${i}${j}`,
+        // itemElement.classList.add('item', `${array[i]['items'][j]['priority']}`, );
+        // itemElement.id = `ref${i}${j}`,
 
-        itemElement.innerHTML = `<p> ${array[i]['items'][j]['title']} </p> 
-        <p class="item-description" > ${array[i]['items'][j]['description']} </p>
-        <p> ${ array[i]['items'][j]['dueDate']} </p>`
+        // itemElement.innerHTML = `<p> ${array[i]['items'][j]['title']} </p> 
+        // <p class="item-description" > ${array[i]['items'][j]['description']} </p>
+        // <p> ${ array[i]['items'][j]['dueDate']} </p>`
         
         
-        categoryElement.appendChild(itemElement)
+        // categoryElement.appendChild(itemElement)
 
     }
 }
@@ -207,6 +215,38 @@ for (let i = 0; i < array.length; i++ ) {
 }
 
 
+function itemDisplaySummary(array, i, j) {
+    //todo
+    const itemElement = document.createElement('p');
+    itemElement.dataset.categoryindex = i;
+    itemElement.dataset.category = array[i]['category'];
+    itemElement.dataset.itemindex = j;
+    itemElement.dataset.item = array[i]['items'][j]['title'];      
+
+    itemElement.classList.add('item', `${array[i]['items'][j]['priority']}`, );
+    itemElement.id = `ref${i}${j}`,
+    itemElement.innerHTML = `<p class="itemTitle" > ${array[i]['items'][j]['title']} </p> 
+    <p> ${ array[i]['items'][j]['dueDate']} </p>`
+    return itemElement;
+    // categoryElement.appendChild(itemElement)   
+};
+
+function itemDisplayFull(itemElement, array, i, j) {
+    //todo
+    // const itemElement = document.createElement('p');
+    // itemElement.dataset.categoryindex = i;
+    // itemElement.dataset.category = array[i]['category'];
+    // itemElement.dataset.itemindex = j;
+    // itemElement.dataset.item = array[i]['items'][j]['title'];      
+
+    // itemElement.classList.add('item', `${array[i]['items'][j]['priority']}`, );
+    // itemElement.id = `ref${i}${j}`,
+    itemElement.innerHTML = `<p class="itemTitle" > ${array[i]['items'][j]['title']} </p> 
+    <p class="item-description" > ${array[i]['items'][j]['description']} </p>
+    <p> ${ array[i]['items'][j]['dueDate']} </p>`
+    // return itemElement;
+    // categoryElement.appendChild(itemElement)   
+};
 
 
 // Sample array manipulations
