@@ -12,10 +12,10 @@ class Todo {
 }
 
 // Instantiating 'Todo Items
-const firstItem = new Todo("First Item", "This is the first item", "20 April 2024", "High");
-const secondItem = new Todo('Second Item', 'This is the second item', '21 April 2024', 'Low')
-const thirdItem = new Todo('Third Item', 'This is the third item', '1 April 2024', 'Medium',)
-const fourthItem = new Todo('Fourth Item', 'This is the fourth item', '9 April 2024', 'High')
+const firstItem = new Todo("See a man about a dog", "This is the first item", "20 April 2024", "High");
+const secondItem = new Todo('Fix a hole', 'This is the second item', '21 April 2024', 'Low')
+const thirdItem = new Todo('Do SWAT', 'This is the third item', '1 April 2024', 'Medium',)
+const fourthItem = new Todo('Live Life, give it time', 'This is the fourth item', '9 April 2024', 'High')
 const fifthItem = new Todo('Fifth Item', 'This is the fifth item', '10 April 2024', 'Low')
 
 // projectsObject, including a 'projectsArray'
@@ -34,6 +34,7 @@ const projectsObject = {
         }
     ],
 
+    // alternative structure for array. I don't it's necessary, or better in this instance
     altArray: [
         {   Home : [thirdItem, fourthItem, fifthItem] // initial population of array
         },
@@ -47,8 +48,6 @@ const projectsObject = {
         // checklist: 
         // - checks if category already exists - DONE
         // - converts category to upper case, or lowercase - TODO 
-
-
         if (checkIfCategoryExists(newCategory) > 0) {
             alert(`The category "${newCategory}" already exists. Please choose a new category`)
         } else {
@@ -71,7 +70,7 @@ const projectsObject = {
                 return;
             } else {
                 this.projectsArray.splice(categoryIndex, 1);
-                alert('The category of "' + oldCategory + '" has been deleted')          
+                alert('The category of "' + oldCategory + '" has been deleted');          
                 return;
                 } 
             }
@@ -79,11 +78,8 @@ const projectsObject = {
 
     addItem(category, itemName) {
         // checklist:
-        // - check if item of same name already exists - TODO - or maybe it's okay if there are two items of the same name....
-    
+        // - check if item of same name already exists - TODO - or maybe it's okay if there are two items of the same name....  
         for (let i = 0; i < (this.projectsArray.length); i++) {
-            // console.log('category: '+ this.projectsArray[i]['category'] + ', argument category '+ category)
-
             if (this.projectsArray[i]['category'] === category) {
                  this.projectsArray[i]['items'].push(itemName); 
             }
@@ -94,47 +90,26 @@ const projectsObject = {
         // checklist: 
         // - check if item exists - DONE .  If it doesn't exist, returns.
         for (let i = 0; i < (this.projectsArray.length); i++) {
-            // console.log('category: '+ this.projectsArray[i]['category'] + ', category '+ category)
             // finds the matching category
             if (this.projectsArray[i]['category'] === category) {
-                // console.log("It's a match") // console.log('Now address the item....by name?') // console.log('itemName.title:  ' +itemName);   // finds the title of the item that matches
                 let index = this.projectsArray[i]['items'].findIndex(obj => obj['title'] === itemName);
                 this.projectsArray[i]['items'].splice(index, 1);
                 return;
-                // console.log(this.projectsArray[i]['items']);
                 }
             }
     }
 };
 
 
-console.log(projectsObject.projectsArray)
 
-console.table(projectsObject.altArray)
-
-console.log(projectsObject.altArray[0])
-
-console.log(Object.keys(projectsObject.altArray[0]))
-
-
-
-// function checkIfCategoryExists(categoryName){
-//     for (let i = 0; i < (projectsObject.projectsArray.length) ; i++) {
-//         if (categoryName.toLowerCase() === projectsObject.projectsArray[i]['category'].toLowerCase()) {
-//             return true;
-//         }
-//     }
-// }
 
 function checkIfCategoryExists(categoryName){
     return projectsObject.projectsArray.findIndex(obj => obj['category'].toLowerCase() === categoryName.toLowerCase());
 }
 
-
 // item Event listener
 
 function itemEventListener() {
-    console.log('eventlistener called')
     var items = document.querySelectorAll('.item');
     console.log(items)
 
@@ -142,115 +117,155 @@ function itemEventListener() {
         e.addEventListener('click', () => {
 
             console.log(e)
-            alert(e.dataset.item)
-            alert(projectsObject.projectsArray[e.dataset.categoryindex]['items'][e.dataset.itemindex]['description'])
-
             const itemElement = document.getElementById(`ref${e.dataset.categoryindex}${e.dataset.itemindex}`)
-            itemElement.innerHTML = '';
-
-            console.log(`ref${e.dataset.categoryindex}${e.dataset.itemindex}`)
-            console.log(itemElement)
-            // itemElement.innerHTML = 'include the full info on this task.' 
-
-            itemDisplayFull(itemElement, projectsObject.projectsArray, e.dataset.categoryindex, e.dataset.itemindex);
-            console.log(itemElement)
-             // alert(itemElement.closest());
-
-
-
+            
+            if (itemElement.classList.contains('full')) {
+                console.log(itemElement.classList)
+            
+                itemDisplaySummary(itemElement, projectsObject.projectsArray, e.dataset.categoryindex, e.dataset.itemindex)
+            } else {
+                itemDisplayFull(itemElement, projectsObject.projectsArray, e.dataset.categoryindex, e.dataset.itemindex);
+            }
         })
     })
     }
 
+function createNewItemListener() {
+    let createNewItemButton = document.querySelector('.createNewItem');
+    createNewItemButton.addEventListener('click', () => {
+        createNewItemButton.disabled = true;
+
+        displayNewItemForm();
+        alert('create new item')
+
+    }
+)
+  
+
+};
+
+
+
+function editItemEventListener(){
+    let editButtons = document.querySelectorAll('.editItem');
+    console.log(editButtons);
+    editButtons.forEach((e) => {
+        e.addEventListener('click', () => {
+            alert('edit an item, now add the functionality. ie. the contents of the item preformatted into a form')
+            event.stopPropagation();
+        })
+    } )
+
+    }
+
     setTimeout( () => {
-        itemEventListener() }, 1000)
-
-
-
-
+        itemEventListener();
+        createNewItemListener(); 
+     }, 1000)
 
 function displayList(array) {
 
+    // add 'divs' for each category
+    for (let i = 0; i < array.length; i++ ) {
+        const categoryElement = document.createElement('div');
 
+        categoryElement.innerHTML = array[i]['category'];
+        categoryElement.classList.add('category', `${array[i]['category']}'`); 
+        // Note, categories have spaces, and if you include them as a class you can't have spaces.
+        // So do you need to have a class based on the category name at all? And if so, can you abbreviate it? 
+        // Or use another way of referencing it?
 
-for (let i = 0; i < array.length; i++ ) {
-    const categoryElement = document.createElement('div');
+        const categories = document.querySelector('.categories');
+        categories.appendChild(categoryElement);
 
-    categoryElement.innerHTML = array[i]['category'];
-    categoryElement.classList.add('category', `${array[i]['category']}'`); 
-    // Note, categories have spaces, and if you include them as a class you can't have spaces.
-    // So do you need to have a class based on the category name at all? And if so, can you abbreviate it? 
-    // Or use another way of referencing it?
-
-
-    const categories = document.querySelector('.categories');
-    categories.appendChild(categoryElement);
-
-    for (let j = 0; j < array[i]['items'].length; j++) {      
-
-        categoryElement.appendChild(itemDisplaySummary(array, i, j));
-
-        // const itemElement = document.createElement('p');
-        // itemElement.dataset.categoryindex = i;
-        // itemElement.dataset.category = array[i]['category'];
-        // itemElement.dataset.itemindex = j;
-        // itemElement.dataset.item = array[i]['items'][j]['title'];
-           
-
-        // itemElement.classList.add('item', `${array[i]['items'][j]['priority']}`, );
-        // itemElement.id = `ref${i}${j}`,
-
-        // itemElement.innerHTML = `<p> ${array[i]['items'][j]['title']} </p> 
-        // <p class="item-description" > ${array[i]['items'][j]['description']} </p>
-        // <p> ${ array[i]['items'][j]['dueDate']} </p>`
-        
-        
-        // categoryElement.appendChild(itemElement)
-
+        // add 'p' elements for each item
+        for (let j = 0; j < array[i]['items'].length; j++) {      
+            let itemElement = categoryElement.appendChild(setItemElementDetails(array, i, j));
+            itemDisplaySummary(itemElement, array, i, j);
+            }
     }
-}
-
-
 
 }
-
-
-function itemDisplaySummary(array, i, j) {
-    //todo
+function setItemElementDetails(array, i, j) {
+    console.log('setItemElementDetails called')
     const itemElement = document.createElement('p');
+
     itemElement.dataset.categoryindex = i;
     itemElement.dataset.category = array[i]['category'];
     itemElement.dataset.itemindex = j;
     itemElement.dataset.item = array[i]['items'][j]['title'];      
 
-    itemElement.classList.add('item', `${array[i]['items'][j]['priority']}`, );
-    itemElement.id = `ref${i}${j}`,
-    itemElement.innerHTML = `<p class="itemTitle" > ${array[i]['items'][j]['title']} </p> 
-    <p> ${ array[i]['items'][j]['dueDate']} </p>`
+    itemElement.classList.remove('full');
+    itemElement.classList.add('item', 'summary', `${array[i]['items'][j]['priority']}`, );
+
+    itemElement.id = `ref${i}${j}`;
+
     return itemElement;
     // categoryElement.appendChild(itemElement)   
 };
 
-function itemDisplayFull(itemElement, array, i, j) {
+function itemDisplaySummary(itemElement, array, i, j) {
     //todo
-    // const itemElement = document.createElement('p');
-    // itemElement.dataset.categoryindex = i;
-    // itemElement.dataset.category = array[i]['category'];
-    // itemElement.dataset.itemindex = j;
-    // itemElement.dataset.item = array[i]['items'][j]['title'];      
-
-    // itemElement.classList.add('item', `${array[i]['items'][j]['priority']}`, );
-    // itemElement.id = `ref${i}${j}`,
+    console.log('Summary called')
+    itemElement.classList.add('summary');
+    itemElement.classList.remove('full');
     itemElement.innerHTML = `<p class="itemTitle" > ${array[i]['items'][j]['title']} </p> 
-    <p class="item-description" > ${array[i]['items'][j]['description']} </p>
     <p> ${ array[i]['items'][j]['dueDate']} </p>`
-    // return itemElement;
-    // categoryElement.appendChild(itemElement)   
 };
 
+function itemDisplayFull(itemElement, array, i, j) {
+    console.log('Full called')
+    itemElement.classList.add('full');
+    itemElement.classList.remove('summary');
+    itemElement.innerHTML = `<p class="itemTitle" > ${array[i]['items'][j]['title']} </p> 
+    <p class="item-description" > ${array[i]['items'][j]['description']} </p>
+    <p> ${ array[i]['items'][j]['dueDate']} </p>
+    <button class="editItem"> edit</button>`
+    editItemEventListener();
+};
+
+function displayNewItemForm() {
+
+    let newItem = document.querySelector('.newItem')
+
+    let newItemForm = document.createElement('div');
+
+
+    newItemForm.innerHTML = ` <form action="https://httpbin.org/post" method="post" class="newbook" autocomplete="off">
+    
+
+    <div>
+        <label for="author" class="label-author">Author</label>
+        <input type="text" id="author" name="author" class="author">
+    </div>
+    <div>
+        <label for="title" class="label-title">Title</label>
+        <input type="text" id="title" name="title" class="title">
+    </div>
+
+    <div>
+        <label for="pages" class="label-pages">Number of pages</label>
+        <input type="number" id="pages" name="pages" class="pages">
+    </div>
+    
+    <div>
+        <label for="read" class="label-read">Read status</label>
+        <select id=read class="read">
+            <option value="read">read</option>   
+            <option value="unread">unread</option> 
+        </select>
+    </div>
+
+    <button>cancel</button>
+    hmm, cancel doesn't work. maybe fix
+    <button type="submit" class="newBookBtn">Submit</button>
+</form>`
+
+    newItem.appendChild(newItemForm);
+
+}
 
 // Sample array manipulations
-
 projectsObject.addCategoryToProjectsArray('Poo Catcher');
 projectsObject.addCategoryToProjectsArray('Zucchni');
 projectsObject.addCategoryToProjectsArray('sport');
