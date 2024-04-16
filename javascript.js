@@ -137,6 +137,9 @@ function createNewItemListener() {
 
         displayNewItemForm();
         alert('create new item')
+        getFormInfo();
+        alert('call getFormInfo, listener to extract form data')
+
 
     }
 )
@@ -164,6 +167,10 @@ function editItemEventListener(){
      }, 1000)
 
 function displayList(array) {
+
+    const categories = document.querySelector('.categories');
+    categories.innerHTML = '';
+
 
     // add 'divs' for each category
     for (let i = 0; i < array.length; i++ ) {
@@ -231,39 +238,114 @@ function displayNewItemForm() {
     let newItemForm = document.createElement('div');
 
 
-    newItemForm.innerHTML = ` <form action="https://httpbin.org/post" method="post" class="newbook" autocomplete="off">
-    
 
-    <div>
-        <label for="author" class="label-author">Author</label>
-        <input type="text" id="author" name="author" class="author">
-    </div>
-    <div>
-        <label for="title" class="label-title">Title</label>
-        <input type="text" id="title" name="title" class="title">
-    </div>
+    // this.title = title;
+    // this.description = description;
+    // this.dueDate = dueDate;
+    // this.priority = priority;
 
-    <div>
-        <label for="pages" class="label-pages">Number of pages</label>
-        <input type="number" id="pages" name="pages" class="pages">
-    </div>
+    newItemForm.innerHTML = ` <form action="https://httpbin.org/post" method="post" class="newItemForm" autocomplete="off">
     
-    <div>
-        <label for="read" class="label-read">Read status</label>
-        <select id=read class="read">
-            <option value="read">read</option>   
-            <option value="unread">unread</option> 
+    
+    <div class="formDiv" >
+        <label for="category" class="label-category"   >Category </label>
+        <select id=category class="select-category">
+        <option></option>
         </select>
     </div>
 
+    <div class="formDiv">
+        <label for="title" class="label-title">Title</label>
+        <input type="text" id="title" name="title" class="input-title">
+    </div>
+    <div class="formDiv">
+        <label for="description" class="label-description">description</label>
+        
+        <textarea id="description" name="description" class="input-description" rows="4" cols="50"></textarea>
+
+    </div>
+
+    <div class="formDiv">
+        <label for="dueDate" class="label-dueDate">Due Date</label>
+        <input type="date" id="dueDate" name="dueDate" class="input-dueDate">
+    </div>
+    
+    <div class="formDiv" >
+        <label for="status" class="label-status">Completed status</label>
+        <select id=status class="select-status">
+            <option value="completed">Completed</option>   
+            <option value="uncompleted">Uncompleted</option> 
+        </select>
+    </div>
+
+    <div class="formDiv">
+    <label for="priority" class="label-priority">Priority</label>
+    <select id=priority class="select-priority">
+        <option value="High">High</option>   
+        <option value="Medium">Medium</option>   
+        <option value="Low">Low</option> 
+    </select>
+    </div>
+
     <button>cancel</button>
-    hmm, cancel doesn't work. maybe fix
+    
     <button type="submit" class="newBookBtn">Submit</button>
 </form>`
 
+
     newItem.appendChild(newItemForm);
 
-}
+        const buttonInFunction = document.querySelector('.newBookBtn')
+        console.log(buttonInFunction)
+    
+    const selectCategory = document.getElementById('category');
+
+    for (let i = 0; i < projectsObject.projectsArray.length; i++) {
+        
+        const optionElement = document.createElement('option');
+        optionElement.value = projectsObject.projectsArray[i]['category'];
+
+        optionElement.textContent = projectsObject.projectsArray[i]['category'];
+        selectCategory.appendChild(optionElement);
+
+    }
+    
+    }
+
+
+function getFormInfo() {
+alert('getFormInto is actually called')
+const newItemFormData = document.querySelector('.newBookBtn')
+console.log(newItemFormData);
+
+newItemFormData.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    let category = document.querySelector('.select-category').value;
+    let title = document.querySelector('.input-title').value;
+    let description = document.querySelector('.input-description').value;
+    let dueDate = document.querySelector('.input-dueDate').value;
+
+    let status = document.querySelector('.select-status').value;
+    let priority = document.querySelector('.select-priority').value;
+
+
+    console.log(category + title + description + dueDate + priority + status);
+
+
+
+
+   const newItem = new Todo(title, description, dueDate, priority);
+
+projectsObject.addItem(category, newItem);
+
+displayList(projectsObject.projectsArray)
+itemEventListener();
+
+})
+};
+
+
 
 // Sample array manipulations
 projectsObject.addCategoryToProjectsArray('Poo Catcher');

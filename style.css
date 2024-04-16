@@ -114,3 +114,8 @@ background-color: rgb(231, 255, 231)
 .High {
 background-color: rgb(255, 224, 224)    ;
 }
+
+
+.formDiv {
+    padding: 20px;
+}
