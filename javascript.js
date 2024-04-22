@@ -12,11 +12,11 @@ class Todo {
 }
 
 // Instantiating 'Todo Items
-const firstItem = new Todo("See a man about a dog", "This is the first item", "20 April 2024", "High");
-const secondItem = new Todo('Fix a hole', 'This is the second item', '21 April 2024', 'Low')
-const thirdItem = new Todo('Do SWAT', 'This is the third item', '1 April 2024', 'Medium',)
-const fourthItem = new Todo('Live Life, give it time', 'This is the fourth item', '9 April 2024', 'High')
-const fifthItem = new Todo('Fifth Item', 'This is the fifth item', '10 April 2024', 'Low')
+const firstItem = new Todo('See a man about a dog', 'This is the first item', '2024-12-12', 'High');
+const secondItem = new Todo('Fix a hole', 'This is the second item', '2024-10-06', 'Low')
+const thirdItem = new Todo('Do SWAT', 'This is the third item', '2024-09-22', 'Medium',)
+const fourthItem = new Todo('Live Life, give it time', 'This is the fourth item', '2024-05-03', 'High')
+const fifthItem = new Todo('Fifth Item', 'This is the fifth item', '2024-11-10', 'Low')
 
 // projectsObject, including a 'projectsArray'
 const projectsObject = {   
@@ -97,6 +97,10 @@ const projectsObject = {
                 return;
                 }
             }
+    },
+
+    getItem(categoryIndex, itemIndex) {
+        return this.projectsArray[categoryIndex]['items'][itemIndex];
     }
 };
 
@@ -153,9 +157,10 @@ function editItemEventListener(){
     let editButtons = document.querySelectorAll('.editItem');
     console.log(editButtons);
     editButtons.forEach((e) => {
-        e.addEventListener('click', () => {
+        e.addEventListener('click', (pointerEvent) => {
             alert('edit an item, now add the functionality. ie. the contents of the item preformatted into a form')
-            event.stopPropagation();
+            pointerEvent.stopPropagation();
+            editItem(e.parentElement);
         })
     } )
 
@@ -227,7 +232,8 @@ function itemDisplayFull(itemElement, array, i, j) {
     itemElement.innerHTML = `<p class="itemTitle" > ${array[i]['items'][j]['title']} </p> 
     <p class="item-description" > ${array[i]['items'][j]['description']} </p>
     <p> ${ array[i]['items'][j]['dueDate']} </p>
-    <button class="editItem"> edit</button>`
+    <button class="editItem"> edit</button>
+    <button class="deleteItem">delete</button>`
     editItemEventListener();
 };
 
@@ -244,10 +250,35 @@ function displayNewItemForm() {
     // this.dueDate = dueDate;
     // this.priority = priority;
 
+    newItemForm = createNewForm(newItemForm);
+
+
+    newItem.appendChild(newItemForm);
+
+        const buttonInFunction = document.querySelector('.newBookBtn')
+        console.log(buttonInFunction)
+    
+    const selectCategory = document.getElementById('category');
+
+    for (let i = 0; i < projectsObject.projectsArray.length; i++) {
+        
+        const optionElement = document.createElement('option');
+        optionElement.value = projectsObject.projectsArray[i]['category'];
+
+        optionElement.textContent = projectsObject.projectsArray[i]['category'];
+        selectCategory.appendChild(optionElement);
+
+    }
+    
+    }
+
+
+
+
+function createNewForm(newItemForm) {
     newItemForm.innerHTML = ` <form action="https://httpbin.org/post" method="post" class="newItemForm" autocomplete="off">
     
-    
-    <div class="formDiv" >
+        <div class="formDiv" >
         <label for="category" class="label-category"   >Category </label>
         <select id=category class="select-category">
         <option></option>
@@ -287,30 +318,72 @@ function displayNewItemForm() {
     </select>
     </div>
 
-    <button>cancel</button>
+    <button>cancel</button>     
+
     
     <button type="submit" class="newBookBtn">Submit</button>
 </form>`
 
+return newItemForm;
+};
 
-    newItem.appendChild(newItemForm);
 
-        const buttonInFunction = document.querySelector('.newBookBtn')
-        console.log(buttonInFunction)
+function createEditForm(newItemForm, item, categoryindex, itemindex) {
+
+    alert(item.description)
+
+    console.log(item.title)
+    newItemForm.innerHTML = ` <form action="https://httpbin.org/post" method="post" class="newItemForm" autocomplete="off">
     
-    const selectCategory = document.getElementById('category');
+        <div class="formDiv" >
+        <label for="category" class="label-category"   >Category </label>
+        <select id=category class="select-category">
+        <option></option>
+        </select>
+    </div>
 
-    for (let i = 0; i < projectsObject.projectsArray.length; i++) {
+    <div class="formDiv">
+        <label for="title" class="label-title">Title</label>
+        <input type="text" id="title" name="title" class="input-title" value="${item.title}">
+    </div>
+    <div class="formDiv">
+        <label for="description" class="label-description">description</label>
         
-        const optionElement = document.createElement('option');
-        optionElement.value = projectsObject.projectsArray[i]['category'];
+        <textarea id="description" name="description" class="input-description" rows="4" cols="50">${item.description}</textarea>
 
-        optionElement.textContent = projectsObject.projectsArray[i]['category'];
-        selectCategory.appendChild(optionElement);
+    </div>
 
-    }
+    <div class="formDiv">
+        <label for="dueDate" class="label-dueDate">Due Date</label>
+        <input type="date" id="dueDate" name="dueDate" class="input-dueDate" value="${item.dueDate}">
+    </div>
     
-    }
+    <div class="formDiv" >
+        <label for="status" class="label-status">Completed status</label>
+        <select id=status class="select-status">
+            <option value="completed">Completed</option>   
+            <option value="uncompleted">Uncompleted</option> 
+        </select>
+    </div>
+
+    <div class="formDiv">
+    <label for="priority${categoryindex + itemindex}" class="label-priority">Priority</label>
+    <select id=priority${categoryindex + itemindex} class="select-priority">
+        <option value="High">High</option>   
+        <option value="Medium">Medium</option>   
+        <option value="Low">Low</option> 
+    </select>
+    </div>
+
+    <button>cancel</button>     
+
+    
+    <button type="submit" class="newBookBtn">Submit</button>
+</form>`
+
+return newItemForm;
+};
+
 
 
 function getFormInfo() {
@@ -345,6 +418,62 @@ itemEventListener();
 })
 };
 
+
+
+function editItem(e) {
+    alert('hello, editing item')
+
+    // Getting the item from the Project array, via the dataset index
+    console.log(e.id)
+   
+    console.log(e.dataset.categoryindex + e.dataset.itemindex);
+
+    const categoryindex = e.dataset.categoryindex;
+    const itemindex = e.dataset.itemindex;
+
+
+    console.log("get Item: " + projectsObject.getItem(e.dataset.categoryindex, e.dataset.itemindex).title);
+
+    console.log("get Item: " + projectsObject.getItem(e.dataset.categoryindex, e.dataset.itemindex));
+    
+    const item = projectsObject.getItem(e.dataset.categoryindex, e.dataset.itemindex);
+
+    console.log(item.title, item.description)
+
+    // Display the data in a form?
+
+    let element = document.getElementById(e.id)
+    console.log(element)
+
+    let newItemForm = document.createElement('div');
+
+    newItemForm = createEditForm(newItemForm, item, categoryindex, itemindex);
+
+    console.log(newItemForm)
+
+    element.appendChild(newItemForm);
+
+    console.log(item.priority);
+    let prioritySelector = document.getElementById(`priority${categoryindex+itemindex}`)
+
+    for (var i = 0; i < prioritySelector.options.length; i++) {
+        if (prioritySelector.options[i].value === item.priority) {
+            prioritySelector.selectedIndex = i;
+            break;
+        }
+    }
+
+
+
+
+
+    // - get the elment by ID
+    // replace javascript with a form
+    // prefill the form with the data from the array
+    // save the form by updating the
+    
+
+}
 
 
 // Sample array manipulations
