@@ -133,34 +133,6 @@ function itemEventListener() {
     })
     }
 
-// aternative event listener with remove event listener, named function and wrapper to call named function
-
-function itemEventListenerAlt() {
-    var items = document.querySelectorAll('.item');
-
-    items.forEach((e) => {
-
-        var eVariable = e;
-        console.log(eVariable)
-
-        var eventListener = switchItemDisplay(eVariable);
-
-        e.addEventListener('click', eventListener);
-    //     () => {
-
-    //         const itemElement = document.getElementById(`ref${e.dataset.categoryindex}${e.dataset.itemindex}`)
-            
-    //         if (itemElement.classList.contains('full')) {
-    //             console.log(itemElement.classList)
-            
-    //             itemDisplaySummary(itemElement, projectsObject.projectsArray, e.dataset.categoryindex, e.dataset.itemindex)
-    //         } else {
-    //             itemDisplayFull(itemElement, projectsObject.projectsArray, e.dataset.categoryindex, e.dataset.itemindex);
-    //         }
-    //     })
-    // })
-    // }
-    })}
 
 function switchItemDisplay(eVariable) {
     return function (event){
@@ -189,8 +161,6 @@ function createNewItemListener() {
         console.log('create new item')
         getFormInfo();
         console.log('call getFormInfo, listener to extract form data')
-
-
     }
 )
   
@@ -201,25 +171,26 @@ function createNewItemListener() {
 
 function editItemEventListener(){
     let editButtons = document.querySelectorAll('.editItem');
-    console.log(editButtons);
     editButtons.forEach((e) => {
         e.addEventListener('click', (pointerEvent) => {
             console.log('edit an item, now add the functionality. ie. the contents of the item preformatted into a form')
             pointerEvent.stopPropagation();
-            editItem(e.parentElement);
+            displayEditItem(e.parentElement);
 
-            var eventListener = switchItemDisplay(e);
+            console.log('e' +e.parentElement.dataset.categoryindex+e.parentElement.dataset.itemindex)
+            document.getElementById(`form${e.parentElement.dataset.categoryindex}${e.parentElement.dataset.itemindex}`).addEventListener('click', function(event) {
+                console.log('Form clicked');
+                event.stopPropagation(); // Prevent event from propagating to the parent div
+        })
 
-            e.removeEventListener('click', eventListener )
-            alert('calling remove event listener')
-
+          
         })
     } )
 
     }
 
     setTimeout( () => {
-        itemEventListenerAlt();
+        itemEventListener();
         createNewItemListener(); 
      }, 1000)
 
@@ -385,7 +356,7 @@ function createEditForm(newItemForm, item, categoryindex, itemindex) {
     console.log(item.description)
 
     console.log(item.title)
-    newItemForm.innerHTML = ` <form action="https://httpbin.org/post" method="post" class="newItemForm" autocomplete="off">
+    newItemForm.innerHTML = `<form id="form${categoryindex}${itemindex}" action="https://httpbin.org/post" method="post" class="newItemForm" autocomplete="off">
     
         <div class="formDiv" >
         <label for="category" class="label-category"   >Category </label>
@@ -465,14 +436,14 @@ newItemFormData.addEventListener('click', (e) => {
 projectsObject.addItem(category, newItem);
 
 displayList(projectsObject.projectsArray)
-itemEventListenerAlt();
+itemEventListener();
 
 })
 };
 
 
 
-function editItem(e) {
+function displayEditItem(e) {
     console.log('hello, editing item')
 
     // Getting the item from the Project array, via the dataset index
@@ -492,8 +463,15 @@ function editItem(e) {
 
     console.log(item.title, item.description)
 
+    //remove event listener for Item
+    // var eventListener = switchItemDisplay(e);
+    alert('did you get this far')
+
+    
+
     // Display the data in a form?
 
+    
     let element = document.getElementById(e.id)
     console.log(element)
 
