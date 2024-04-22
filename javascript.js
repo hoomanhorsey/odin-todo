@@ -49,7 +49,7 @@ const projectsObject = {
         // - checks if category already exists - DONE
         // - converts category to upper case, or lowercase - TODO 
         if (checkIfCategoryExists(newCategory) > 0) {
-            alert(`The category "${newCategory}" already exists. Please choose a new category`)
+            console.log(`The category "${newCategory}" already exists. Please choose a new category`)
         } else {
         this.projectsArray.push({category: `${newCategory}`, items: []});
         };
@@ -62,15 +62,15 @@ const projectsObject = {
         let categoryIndex = checkIfCategoryExists(oldCategory); // returns index if exists, -1 if not
 
         if (categoryIndex < 0)  {
-            alert(`The category "${oldCategory}" doesn't exist and so cannot be deleted`);
+            console.log(`The category "${oldCategory}" doesn't exist and so cannot be deleted`);
             return;
         } else if (categoryIndex >= 0) {
             if (this.projectsArray[categoryIndex]['items'].length !=0){     
-                alert(`The '${oldCategory}' category cannot be deleted as it has items attached to it. Please reassign or delete them first before deleting this category.`)
+                console.log(`The '${oldCategory}' category cannot be deleted as it has items attached to it. Please reassign or delete them first before deleting this category.`)
                 return;
             } else {
                 this.projectsArray.splice(categoryIndex, 1);
-                alert('The category of "' + oldCategory + '" has been deleted');          
+                console.log('The category of "' + oldCategory + '" has been deleted');          
                 return;
                 } 
             }
@@ -115,7 +115,6 @@ function checkIfCategoryExists(categoryName){
 
 function itemEventListener() {
     var items = document.querySelectorAll('.item');
-    console.log(items)
 
     items.forEach((e) => {
         e.addEventListener('click', () => {
@@ -134,15 +133,62 @@ function itemEventListener() {
     })
     }
 
+// aternative event listener with remove event listener, named function and wrapper to call named function
+
+function itemEventListenerAlt() {
+    var items = document.querySelectorAll('.item');
+
+    items.forEach((e) => {
+
+        var eVariable = e;
+        console.log(eVariable)
+
+        var eventListener = switchItemDisplay(eVariable);
+
+        e.addEventListener('click', eventListener);
+    //     () => {
+
+    //         const itemElement = document.getElementById(`ref${e.dataset.categoryindex}${e.dataset.itemindex}`)
+            
+    //         if (itemElement.classList.contains('full')) {
+    //             console.log(itemElement.classList)
+            
+    //             itemDisplaySummary(itemElement, projectsObject.projectsArray, e.dataset.categoryindex, e.dataset.itemindex)
+    //         } else {
+    //             itemDisplayFull(itemElement, projectsObject.projectsArray, e.dataset.categoryindex, e.dataset.itemindex);
+    //         }
+    //     })
+    // })
+    // }
+    })}
+
+function switchItemDisplay(eVariable) {
+    return function (event){
+    console.log(eVariable)
+    alert('switchItemDisplay caleed')
+
+    console.log(eVariable)
+    const itemElement = document.getElementById(`ref${eVariable.dataset.categoryindex}${eVariable.dataset.itemindex}`)
+            
+            if (itemElement.classList.contains('full')) {
+                console.log(itemElement.classList)
+            
+                itemDisplaySummary(itemElement, projectsObject.projectsArray, eVariable.dataset.categoryindex, eVariable.dataset.itemindex)
+            } else {
+                itemDisplayFull(itemElement, projectsObject.projectsArray, eVariable.dataset.categoryindex, eVariable.dataset.itemindex);
+            }
+}
+}
+
 function createNewItemListener() {
     let createNewItemButton = document.querySelector('.createNewItem');
     createNewItemButton.addEventListener('click', () => {
         createNewItemButton.disabled = true;
 
         displayNewItemForm();
-        alert('create new item')
+        console.log('create new item')
         getFormInfo();
-        alert('call getFormInfo, listener to extract form data')
+        console.log('call getFormInfo, listener to extract form data')
 
 
     }
@@ -158,16 +204,22 @@ function editItemEventListener(){
     console.log(editButtons);
     editButtons.forEach((e) => {
         e.addEventListener('click', (pointerEvent) => {
-            alert('edit an item, now add the functionality. ie. the contents of the item preformatted into a form')
+            console.log('edit an item, now add the functionality. ie. the contents of the item preformatted into a form')
             pointerEvent.stopPropagation();
             editItem(e.parentElement);
+
+            var eventListener = switchItemDisplay(e);
+
+            e.removeEventListener('click', eventListener )
+            alert('calling remove event listener')
+
         })
     } )
 
     }
 
     setTimeout( () => {
-        itemEventListener();
+        itemEventListenerAlt();
         createNewItemListener(); 
      }, 1000)
 
@@ -330,7 +382,7 @@ return newItemForm;
 
 function createEditForm(newItemForm, item, categoryindex, itemindex) {
 
-    alert(item.description)
+    console.log(item.description)
 
     console.log(item.title)
     newItemForm.innerHTML = ` <form action="https://httpbin.org/post" method="post" class="newItemForm" autocomplete="off">
@@ -387,7 +439,7 @@ return newItemForm;
 
 
 function getFormInfo() {
-alert('getFormInto is actually called')
+    console.log('getFormInto is actually called')
 const newItemFormData = document.querySelector('.newBookBtn')
 console.log(newItemFormData);
 
@@ -413,7 +465,7 @@ newItemFormData.addEventListener('click', (e) => {
 projectsObject.addItem(category, newItem);
 
 displayList(projectsObject.projectsArray)
-itemEventListener();
+itemEventListenerAlt();
 
 })
 };
@@ -421,7 +473,7 @@ itemEventListener();
 
 
 function editItem(e) {
-    alert('hello, editing item')
+    console.log('hello, editing item')
 
     // Getting the item from the Project array, via the dataset index
     console.log(e.id)
