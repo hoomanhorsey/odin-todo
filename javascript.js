@@ -126,6 +126,7 @@ function createNewItemListener() {
         console.log('create new item')
         getFormInfo();
         console.log('call getFormInfo, listener to extract form data')
+        
         }
     )
   };
@@ -135,7 +136,6 @@ function createNewItemListener() {
     createNewCategoryButton.addEventListener('click', () => {
         createNewCategoryButton.disabled = true;
         displayNewCategoryForm();
-        // createCategoryForm();
         getNewCategoryFormInfo();
         }
     )
@@ -237,6 +237,7 @@ function displayNewItemForm() {
 
     let newItem = document.querySelector('.newItem')
     let newItemForm = document.createElement('div');
+    newItemForm.classList.add('newItemFormDiv');
 
     // this.title = title;
     // this.description = description;
@@ -272,7 +273,11 @@ function displayNewCategoryForm() {
 
 
 
+function refreshNewItemForm() {
+    let newItemFormDiv = document.querySelector('.newItemFormDiv');
+    newItemFormDiv.remove()
 
+}
 
 
 
@@ -298,6 +303,11 @@ newItemFormData.addEventListener('click', (e) => {
 projectsObject.addItem(category, newItem);
 
 displayList(projectsObject.projectsArray)
+refreshNewItemForm();
+let createNewItemButton = document.querySelector('.createNewItem');
+
+createNewItemButton.disabled = false;
+
 itemEventListener();
 })
 };
