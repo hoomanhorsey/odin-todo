@@ -1,3 +1,4 @@
+import { createNewForm, createEditForm, createCategoryForm } from "./forms.js";
 
 addEventListener("DOMContentLoaded", () => {
 
@@ -33,21 +34,10 @@ const projectsObject = {
             items: [firstItem, secondItem]
         }
     ],
-
-    // alternative structure for array. I don't it's necessary, or better in this instance
-    altArray: [
-        {   Home : [thirdItem, fourthItem, fifthItem] // initial population of array
-        },
-        {   Sport : [firstItem, secondItem]
-        }, 
-
-    ],
    
     // methods
     addCategoryToProjectsArray(newCategory) {
-        // checklist: 
-        // - checks if category already exists - DONE
-        // - converts category to upper case, or lowercase - TODO 
+        // checklist:         // - checks if category already exists - DONE        // - converts category to upper case, or lowercase - TODO 
         if (checkIfCategoryExists(newCategory) > 0) {
             console.log(`The category "${newCategory}" already exists. Please choose a new category`)
         } else {
@@ -56,9 +46,7 @@ const projectsObject = {
     },
 
     deleteCategoryFromProjectArray(oldCategory) {    
-        // checklist: 
-        // - check if category exists - DONE .  If it doesn't exist, returns.
-        // - if category exists, checks if category has items - DONE. If category has items, returns
+        // checklist:         // - check if category exists - DONE .  If it doesn't exist, returns.         // - if category exists, checks if category has items - DONE. If category has items, returns
         let categoryIndex = checkIfCategoryExists(oldCategory); // returns index if exists, -1 if not
 
         if (categoryIndex < 0)  {
@@ -77,8 +65,7 @@ const projectsObject = {
     },
 
     addItem(category, itemName) {
-        // checklist:
-        // - check if item of same name already exists - TODO - or maybe it's okay if there are two items of the same name....  
+        // checklist:         // - check if item of same name already exists - TODO - or maybe it's okay if there are two items of the same name....  
         for (let i = 0; i < (this.projectsArray.length); i++) {
             if (this.projectsArray[i]['category'] === category) {
                  this.projectsArray[i]['items'].push(itemName); 
@@ -87,8 +74,7 @@ const projectsObject = {
     },
 
     deleteItem(category, itemName){
-        // checklist: 
-        // - check if item exists - DONE .  If it doesn't exist, returns.
+        // checklist:         // - check if item exists - DONE .  If it doesn't exist, returns.
         for (let i = 0; i < (this.projectsArray.length); i++) {
             // finds the matching category
             if (this.projectsArray[i]['category'] === category) {
@@ -103,9 +89,6 @@ const projectsObject = {
         return this.projectsArray[categoryIndex]['items'][itemIndex];
     }
 };
-
-
-
 
 function checkIfCategoryExists(categoryName){
     return projectsObject.projectsArray.findIndex(obj => obj['category'].toLowerCase() === categoryName.toLowerCase());
@@ -134,40 +117,29 @@ function itemEventListener() {
     }
 
 
-function switchItemDisplay(eVariable) {
-    return function (event){
-    console.log(eVariable)
-    alert('switchItemDisplay caleed')
-
-    console.log(eVariable)
-    const itemElement = document.getElementById(`ref${eVariable.dataset.categoryindex}${eVariable.dataset.itemindex}`)
-            
-            if (itemElement.classList.contains('full')) {
-                console.log(itemElement.classList)
-            
-                itemDisplaySummary(itemElement, projectsObject.projectsArray, eVariable.dataset.categoryindex, eVariable.dataset.itemindex)
-            } else {
-                itemDisplayFull(itemElement, projectsObject.projectsArray, eVariable.dataset.categoryindex, eVariable.dataset.itemindex);
-            }
-}
-}
 
 function createNewItemListener() {
     let createNewItemButton = document.querySelector('.createNewItem');
     createNewItemButton.addEventListener('click', () => {
         createNewItemButton.disabled = true;
-
         displayNewItemForm();
         console.log('create new item')
         getFormInfo();
         console.log('call getFormInfo, listener to extract form data')
-    }
-)
-  
+        }
+    )
+  };
 
-};
-
-
+  function createNewCategoryListener() {
+    let createNewCategoryButton = document.querySelector('.createNewCategory');
+    createNewCategoryButton.addEventListener('click', () => {
+        createNewCategoryButton.disabled = true;
+        displayNewCategoryForm();
+        // createCategoryForm();
+        getNewCategoryFormInfo();
+        }
+    )
+  };
 
 function editItemEventListener(){
     let editButtons = document.querySelectorAll('.editItem');
@@ -192,6 +164,7 @@ function editItemEventListener(){
     setTimeout( () => {
         itemEventListener();
         createNewItemListener(); 
+        createNewCategoryListener();
      }, 1000)
 
 function displayList(array) {
@@ -205,7 +178,7 @@ function displayList(array) {
         const categoryElement = document.createElement('div');
 
         categoryElement.innerHTML = array[i]['category'];
-        categoryElement.classList.add('category', `${array[i]['category']}'`); 
+        categoryElement.classList.add('category' ); 
         // Note, categories have spaces, and if you include them as a class you can't have spaces.
         // So do you need to have a class based on the category name at all? And if so, can you abbreviate it? 
         // Or use another way of referencing it?
@@ -263,10 +236,7 @@ function itemDisplayFull(itemElement, array, i, j) {
 function displayNewItemForm() {
 
     let newItem = document.querySelector('.newItem')
-
     let newItemForm = document.createElement('div');
-
-
 
     // this.title = title;
     // this.description = description;
@@ -274,8 +244,6 @@ function displayNewItemForm() {
     // this.priority = priority;
 
     newItemForm = createNewForm(newItemForm);
-
-
     newItem.appendChild(newItemForm);
 
         const buttonInFunction = document.querySelector('.newBookBtn')
@@ -290,122 +258,22 @@ function displayNewItemForm() {
 
         optionElement.textContent = projectsObject.projectsArray[i]['category'];
         selectCategory.appendChild(optionElement);
-
-    }
-    
+        }  
     }
 
+function displayNewCategoryForm() {
+
+    let newCategory = document.querySelector('.newCategory')
+    let newCategoryForm = document.createElement('div');
+
+    newCategoryForm = createCategoryForm(newCategoryForm);
+    newCategory.appendChild(newCategoryForm);
+}
 
 
 
-function createNewForm(newItemForm) {
-    newItemForm.innerHTML = ` <form action="https://httpbin.org/post" method="post" class="newItemForm" autocomplete="off">
-    
-        <div class="formDiv" >
-        <label for="category" class="label-category"   >Category </label>
-        <select id=category class="select-category">
-        <option></option>
-        </select>
-    </div>
-
-    <div class="formDiv">
-        <label for="title" class="label-title">Title</label>
-        <input type="text" id="title" name="title" class="input-title">
-    </div>
-    <div class="formDiv">
-        <label for="description" class="label-description">description</label>
-        
-        <textarea id="description" name="description" class="input-description" rows="4" cols="50"></textarea>
-
-    </div>
-
-    <div class="formDiv">
-        <label for="dueDate" class="label-dueDate">Due Date</label>
-        <input type="date" id="dueDate" name="dueDate" class="input-dueDate">
-    </div>
-    
-    <div class="formDiv" >
-        <label for="status" class="label-status">Completed status</label>
-        <select id=status class="select-status">
-            <option value="completed">Completed</option>   
-            <option value="uncompleted">Uncompleted</option> 
-        </select>
-    </div>
-
-    <div class="formDiv">
-    <label for="priority" class="label-priority">Priority</label>
-    <select id=priority class="select-priority">
-        <option value="High">High</option>   
-        <option value="Medium">Medium</option>   
-        <option value="Low">Low</option> 
-    </select>
-    </div>
-
-    <button>cancel</button>     
-
-    
-    <button type="submit" class="newBookBtn">Submit</button>
-</form>`
-
-return newItemForm;
-};
 
 
-function createEditForm(newItemForm, item, categoryindex, itemindex) {
-
-    console.log(item.description)
-
-    console.log(item.title)
-    newItemForm.innerHTML = `<form id="form${categoryindex}${itemindex}" action="https://httpbin.org/post" method="post" class="newItemForm" autocomplete="off">
-    
-        <div class="formDiv" >
-        <label for="category" class="label-category"   >Category </label>
-        <select id=category class="select-category">
-        <option></option>
-        </select>
-    </div>
-
-    <div class="formDiv">
-        <label for="title" class="label-title">Title</label>
-        <input type="text" id="title" name="title" class="input-title" value="${item.title}">
-    </div>
-    <div class="formDiv">
-        <label for="description" class="label-description">description</label>
-        
-        <textarea id="description" name="description" class="input-description" rows="4" cols="50">${item.description}</textarea>
-
-    </div>
-
-    <div class="formDiv">
-        <label for="dueDate" class="label-dueDate">Due Date</label>
-        <input type="date" id="dueDate" name="dueDate" class="input-dueDate" value="${item.dueDate}">
-    </div>
-    
-    <div class="formDiv" >
-        <label for="status" class="label-status">Completed status</label>
-        <select id=status class="select-status">
-            <option value="completed">Completed</option>   
-            <option value="uncompleted">Uncompleted</option> 
-        </select>
-    </div>
-
-    <div class="formDiv">
-    <label for="priority${categoryindex + itemindex}" class="label-priority">Priority</label>
-    <select id=priority${categoryindex + itemindex} class="select-priority">
-        <option value="High">High</option>   
-        <option value="Medium">Medium</option>   
-        <option value="Low">Low</option> 
-    </select>
-    </div>
-
-    <button>cancel</button>     
-
-    
-    <button type="submit" class="newBookBtn">Submit</button>
-</form>`
-
-return newItemForm;
-};
 
 
 
@@ -424,22 +292,34 @@ newItemFormData.addEventListener('click', (e) => {
 
     let status = document.querySelector('.select-status').value;
     let priority = document.querySelector('.select-priority').value;
-
-
     console.log(category + title + description + dueDate + priority + status);
-
-
-
-
-   const newItem = new Todo(title, description, dueDate, priority);
+    const newItem = new Todo(title, description, dueDate, priority);
 
 projectsObject.addItem(category, newItem);
 
 displayList(projectsObject.projectsArray)
 itemEventListener();
-
 })
 };
+
+function getNewCategoryFormInfo() {
+    const newCategoryBtn = document.querySelector('.newCategoryBtn');
+    
+    newCategoryBtn.addEventListener('click',  (e) => {
+        console.log('called new Category')
+        
+        e.preventDefault();
+
+        let newCategoryName = document.querySelector('.input-newCategory').value;
+        projectsObject.addCategoryToProjectsArray(newCategoryName);
+        displayList(projectsObject.projectsArray);
+
+    }
+
+);
+
+
+} 
 
 
 
@@ -528,42 +408,20 @@ displayList(projectsObject.projectsArray)
 
 
 
+// function switchItemDisplay(eVariable) {
+//     return function (event){
+//     console.log(eVariable)
+//     alert('switchItemDisplay caleed')
 
-// Sample array manipulations
-
-// projectsObject.addCategoryToProjectsArray('Poo Catcher');
-// projectsObject.addCategoryToProjectsArray('Zucchni');
-// projectsObject.addCategoryToProjectsArray('sport');
-// projectsObject.addCategoryToProjectsArray('Special Ops');
-// console.table(projectsObject.projectsArray);
-
-// projectsObject.deleteCategoryFromProjectArray('Sport');
-// projectsObject.deleteCategoryFromProjectArray('Poo Catcher');
-// projectsObject.deleteCategoryFromProjectArray('Smeg Catcher');
-// projectsObject.deleteCategoryFromProjectArray("Doesn't exist and so can't be deleted");
-
-// projectsObject.addItem('Zucchni', new Todo("Third Item", "This is the third item", "20 April 2025", "Low", "Third"));
-// projectsObject.addItem('Special Ops', new Todo("Special Ops Item", "This is the special ops item", "23 April 2025", "High", "Special"));
-// projectsObject.addItem('Leisure', new Todo("Third Item", "This is the third item", "20 April 2025", "Low", "Third"));
-
-
-// setTimeout( () => {
-//     projectsObject.deleteItem('Leisure','Second Item')}, 5000)
-// setTimeout( () => {
-//     console.table(projectsObject.projectsArray) }, 7000)
-
-// function checkForItems(category){
-//     console.log(category)
-//     if (category['items']) {
-//         console.log('there are items here, in this category')     
-//     } else {
-//     console.log('no items in category')
-//         }
-//     };
-
-
-// for (let i = 0; i < (projectsObject.projectsArray.length) ; i++) {
-//     console.log('each category from the array: ' + i)
-//     console.log(projectsObject.projectsArray[i])
-//     console.log('Category Name only:' +projectsObject.projectsArray[i]['category'])
+//     console.log(eVariable)
+//     const itemElement = document.getElementById(`ref${eVariable.dataset.categoryindex}${eVariable.dataset.itemindex}`)
+            
+//             if (itemElement.classList.contains('full')) {
+//                 console.log(itemElement.classList)
+            
+//                 itemDisplaySummary(itemElement, projectsObject.projectsArray, eVariable.dataset.categoryindex, eVariable.dataset.itemindex)
+//             } else {
+//                 itemDisplayFull(itemElement, projectsObject.projectsArray, eVariable.dataset.categoryindex, eVariable.dataset.itemindex);
+//             }
+// }
 // }
