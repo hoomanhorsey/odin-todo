@@ -1,0 +1,76 @@
+
+
+///OBJECTS///
+
+*projectsObject*
+
+- properties
+    - projectsArray 
+      
+      An array consisting of objects that contain all the data.
+      Each object contains key value pair:
+        - 'category': 'categoryName'
+        - 'items' : [array of objects representing each item]
+      [ 
+        { 
+            'category': 'categoryName' ,
+            'items' : 
+                [
+                    firstItem, secondItem, thirdItem,
+                ]
+        }
+
+      ]
+
+- methods
+
+    - getProjectsArray()
+    - addCategoryToProjectsArray()
+    - deleteCategoryFromProjectArray()
+    - addItem()
+    - deleteItem()
+    - getItem()
+
+// end of projectsObject description
+
+*screenControlObject*
+
+- properties
+- methods
+    - *displayList()*
+    - *itemDisplaySummary()*
+    - *itemDisplayFull()*
+
+
+
+
+///FUNCTIONS///
+
+*checkIfCategoryExists()*
+    - TODO / who calls it?
+
+*itemEventListener()*
+
+*createNewItemListener()*
+
+*createNewCategoryListener()*
+
+*editItemEventListener()*
+
+
+*setItemElementDetails()*
+
+
+
+*displayNewItemForm()*
+
+*displayNewCategoryForm()* 
+
+*function refreshNewItemForm()*
+
+
+*getFormInfo()*
+
+*getNewCategoryFormInfo()*
+
+*displayEditItem()*
