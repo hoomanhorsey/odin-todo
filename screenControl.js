@@ -1,4 +1,6 @@
 import { projectsObject } from "./projectsObject.js";
+import { eventListenerObject } from "./eventListeners.js";
+import { formsObject } from "./forms.js";
 
 
 const screenControlObject = {
@@ -57,8 +59,83 @@ const screenControlObject = {
         <p> ${ array[i]['items'][j]['dueDate']} </p>
         <button class="editItem"> edit</button>
         <button class="deleteItem">delete</button>`
-        editItemEventListener();
+        eventListenerObject.editItemEventListener();
         },
+
+
+
+         displayEditItem(e) {
+            console.log('hello, editing item')
+        
+            // Getting the item from the Project array, via the dataset index
+            console.log(e.id) 
+            console.log(e.dataset.categoryindex + e.dataset.itemindex);
+        
+            const categoryindex = e.dataset.categoryindex;
+            const itemindex = e.dataset.itemindex;
+            console.log("get Item: " + projectsObject.getItem(e.dataset.categoryindex, e.dataset.itemindex).title);
+            console.log("get Item: " + projectsObject.getItem(e.dataset.categoryindex, e.dataset.itemindex));
+            
+            const item = projectsObject.getItem(e.dataset.categoryindex, e.dataset.itemindex);
+            console.log(item.title, item.description)
+        
+            //remove event listener for Item
+            // var eventListener = switchItemDisplay(e);
+            alert('did you get this far')
+            // Display the data in a form?  
+            let element = document.getElementById(e.id)
+            console.log(element)
+        
+            let newItemForm = document.createElement('div');
+        
+            newItemForm = formsObject.createEditForm(newItemForm, item, categoryindex, itemindex);
+        
+            console.log(newItemForm)
+        
+            element.appendChild(newItemForm);
+        
+            console.log(item.priority);
+            let prioritySelector = document.getElementById(`priority${categoryindex+itemindex}`)
+        
+            for (var i = 0; i < prioritySelector.options.length; i++) {
+                if (prioritySelector.options[i].value === item.priority) {
+                    prioritySelector.selectedIndex = i;
+                    break;
+                }
+            }
+            // - get the elment by ID
+            // replace javascript with a form
+            // prefill the form with the data from the array
+            // save the form by updating the
+        
+        },
+        displayNewItemForm() {
+
+            let newItem = document.querySelector('.newItem')
+            let newItemForm = document.createElement('div');
+            newItemForm.classList.add('newItemFormDiv');
+        
+            newItemForm = formsObject.createNewForm(newItemForm);
+            newItem.appendChild(newItemForm);
+        
+                const buttonInFunction = document.querySelector('.newBookBtn')
+                console.log(buttonInFunction)
+            
+            const selectCategory = document.getElementById('category');
+        
+            for (let i = 0; i < projectsObject.projectsArray.length; i++) {
+                
+                const optionElement = document.createElement('option');
+                optionElement.value = projectsObject.projectsArray[i]['category'];
+        
+                optionElement.textContent = projectsObject.projectsArray[i]['category'];
+                selectCategory.appendChild(optionElement);
+                }  
+            }
+
+
+
+
         
     } //end of screenControlObject
 

@@ -117,4 +117,4 @@ function checkIfCategoryExists(categoryName){
 // projectsObject.addItem('Leisure', new Todo("Third Item", "This is the third item", "20 April 2025", "Low", "Third"));
 
 
-export {projectsObject} ;
+export {projectsObject, Todo} ;

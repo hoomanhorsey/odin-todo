@@ -1,7 +1,14 @@
 // 
 // function createNewForm(newItemForm) 
 
-const createNewForm = (newItemForm) => 
+import { projectsObject } from "./projectsObject.js";
+import { screenControlObject } from "./screenControl.js";
+import { eventListenerObject } from "./eventListeners.js";
+import { Todo } from "./class.js";
+
+const formsObject = {
+
+createNewForm (newItemForm)  
 // function createNewForm(newItemForm) 
 {
     newItemForm.innerHTML = ` <form action="https://httpbin.org/post" method="post" class="newItemForm" autocomplete="off">
@@ -53,12 +60,12 @@ const createNewForm = (newItemForm) =>
 </form>`
 
 return newItemForm;
-};
+}, 
 
 
 
 
-const createEditForm = (newItemForm, item, categoryindex, itemindex) => {
+createEditForm (newItemForm, item, categoryindex, itemindex) {
 
     console.log(item.description)
     console.log(item.title)
@@ -111,12 +118,12 @@ const createEditForm = (newItemForm, item, categoryindex, itemindex) => {
 </form>`
 
 return newItemForm;
-};
+},
 
 
 
 
-const createCategoryForm = (newCategoryForm) => {
+createCategoryForm (newCategoryForm) {
 
 
     newCategoryForm.innerHTML = `<form id="newCategoryForm" action="https://httpbin.org/post" method="post" class="newItemForm" autocomplete="off">
@@ -135,7 +142,56 @@ const createCategoryForm = (newCategoryForm) => {
 console.log('create category form has been called')
 
 return newCategoryForm;
-};
+}, 
+
+refreshNewItemForm() {
+    let newItemFormDiv = document.querySelector('.newItemFormDiv');
+    newItemFormDiv.remove()
+},
+
+getFormInfo() {
+    console.log('getFormInto is actually called')
+    const newItemFormData = document.querySelector('.newBookBtn')
+    console.log(newItemFormData);
+
+    newItemFormData.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        let category = document.querySelector('.select-category').value;
+        let title = document.querySelector('.input-title').value;
+        let description = document.querySelector('.input-description').value;
+        let dueDate = document.querySelector('.input-dueDate').value;
+
+        let status = document.querySelector('.select-status').value;
+        let priority = document.querySelector('.select-priority').value;
+        console.log(category + title + description + dueDate + priority + status);
+        const newItem = new Todo(title, description, dueDate, priority);
+
+    projectsObject.addItem(category, newItem);
+
+    screenControlObject.displayList();
+    formsObject.refreshNewItemForm();
+    let createNewItemButton = document.querySelector('.createNewItem');
+
+    createNewItemButton.disabled = false;
+
+    eventListenerObject.itemEventListener();
+    })
+    },
+
+     displayNewCategoryForm() {
+
+        let newCategory = document.querySelector('.newCategory')
+        let newCategoryForm = document.createElement('div');
+    
+        newCategoryForm = createCategoryForm(newCategoryForm);
+        newCategory.appendChild(newCategoryForm);
+    },
+    
+    
 
 
-export {createNewForm, createEditForm, createCategoryForm} ;
+
+
+}
+export { formsObject } ;
