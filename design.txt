@@ -30,6 +30,8 @@
     - addItem()
     - deleteItem()
     - getItem()
+- loose function
+    - checkIfCategoryExists()
 
 // end of projectsObject description
 
@@ -37,40 +39,50 @@
 
 - properties
 - methods
-    - *displayList()*
-    - *itemDisplaySummary()*
-    - *itemDisplayFull()*
+    - displayList()
+    - setItemElementDetails()
+    - itemDisplaySummary()
+    - itemDisplayFull()
+    - displayEditItem()
+    - displayNewItemForm()
+    - displayNewCategoryForm()
+
+*formsObject*
+
+- methods
+    - createNewItemForm()
+    - createEditForm()
+    - createNewCategoryForm()
+
+    - refreshNewItemForm()
+
+    - getFormInfo()
+    - getNewCategoryFormInfo()
+
+*eventListeners*
+
+- methods
+    - itemToggleListener()
+
+    - createNewItemListener()
+    - createNewCategoryListener()
+    
+    - itemEditListener()
 
 
 
 
 ///FUNCTIONS///
 
-*checkIfCategoryExists()*
-    - TODO / who calls it?
-
-*itemEventListener()*
-
-*createNewItemListener()*
-
-*createNewCategoryListener()*
-
-*editItemEventListener()*
 
 
-*setItemElementDetails()*
-
-
-
-*displayNewItemForm()*
-
-*displayNewCategoryForm()* 
 
 *function refreshNewItemForm()*
 
 
-*getFormInfo()*
 
-*getNewCategoryFormInfo()*
 
-*displayEditItem()*
+TODO
+Tasks 
+- After you submit an item, the item toggle doesn't work so you need to call the event listener again.
+- EditItem - this needs a function to get info from the form

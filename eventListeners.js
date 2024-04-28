@@ -6,7 +6,7 @@ import { formsObject } from "./forms.js";
 
 const eventListenerObject ={
     
-    itemEventListener() {
+    itemToggleListener() {
         var items = document.querySelectorAll('.item');
     
         items.forEach((e) => {
@@ -30,7 +30,7 @@ const eventListenerObject ={
                 createNewItemButton.disabled = true;
                 screenControlObject.displayNewItemForm();
                 console.log('create new item')
-                formsObject.getFormInfo();
+                formsObject.getNewItemFormInfo();
                 console.log('call getFormInfo, listener to extract form data')
                 }
             )
@@ -40,19 +40,19 @@ const eventListenerObject ={
             let createNewCategoryButton = document.querySelector('.createNewCategory');
             createNewCategoryButton.addEventListener('click', () => {
                 createNewCategoryButton.disabled = true;
-                displayNewCategoryForm();
-                getNewCategoryFormInfo();
+                screenControlObject.displayNewCategoryForm();
+                formsObject.getNewCategoryFormInfo();
                 }
             )
           },
 
-    editItemEventListener(){
+    itemEditListener(){
             let editButtons = document.querySelectorAll('.editItem');
             editButtons.forEach((e) => {
                 e.addEventListener('click', (pointerEvent) => {
                     console.log('edit an item, now add the functionality. ie. the contents of the item preformatted into a form')
                     pointerEvent.stopPropagation();
-                    screenControlObject.displayEditItem(e.parentElement);
+                    screenControlObject.displayEditItemForm(e.parentElement);
         
                     console.log('e' +e.parentElement.dataset.categoryindex+e.parentElement.dataset.itemindex)
                     document.getElementById(`form${e.parentElement.dataset.categoryindex}${e.parentElement.dataset.itemindex}`).addEventListener('click', function(event) {

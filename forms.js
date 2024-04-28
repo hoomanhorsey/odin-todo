@@ -1,6 +1,4 @@
 // 
-// function createNewForm(newItemForm) 
-
 import { projectsObject } from "./projectsObject.js";
 import { screenControlObject } from "./screenControl.js";
 import { eventListenerObject } from "./eventListeners.js";
@@ -8,8 +6,8 @@ import { Todo } from "./class.js";
 
 const formsObject = {
 
-createNewForm (newItemForm)  
-// function createNewForm(newItemForm) 
+createNewItemForm (newItemForm)  
+
 {
     newItemForm.innerHTML = ` <form action="https://httpbin.org/post" method="post" class="newItemForm" autocomplete="off">
     
@@ -120,26 +118,22 @@ createEditForm (newItemForm, item, categoryindex, itemindex) {
 return newItemForm;
 },
 
-
-
-
-createCategoryForm (newCategoryForm) {
-
+createNewCategoryForm (newCategoryForm) {
 
     newCategoryForm.innerHTML = `<form id="newCategoryForm" action="https://httpbin.org/post" method="post" class="newItemForm" autocomplete="off">
     
-<div class="formDiv" >
+    <div class="formDiv" >
 
-<label for="newCategory" class="label-newCategory">New Category</label>
-<input type="text" id="newCategory" name="newCategory" class="input-newCategory" value="Insert new Category Name">
+    <label for="newCategory" class="label-newCategory">New Category</label>
+    <input type="text" id="newCategory" name="newCategory" class="input-newCategory" value="Insert new Category Name">
 
-<button>cancel</button>     
+    <button>cancel</button>     
 
-<button type="submit" class="newCategoryBtn">Submit</button>
+    <button type="submit" class="newCategoryBtn">Submit</button>
 
-</div>`
+    </div>`
 
-console.log('create category form has been called')
+    console.log('create category form has been called')
 
 return newCategoryForm;
 }, 
@@ -149,7 +143,7 @@ refreshNewItemForm() {
     newItemFormDiv.remove()
 },
 
-getFormInfo() {
+getNewItemFormInfo() {
     console.log('getFormInto is actually called')
     const newItemFormData = document.querySelector('.newBookBtn')
     console.log(newItemFormData);
@@ -169,7 +163,7 @@ getFormInfo() {
 
     projectsObject.addItem(category, newItem);
 
-    screenControlObject.displayList();
+    screenControlObject.displayFullList();
     formsObject.refreshNewItemForm();
     let createNewItemButton = document.querySelector('.createNewItem');
 
@@ -179,19 +173,17 @@ getFormInfo() {
     })
     },
 
-     displayNewCategoryForm() {
-
-        let newCategory = document.querySelector('.newCategory')
-        let newCategoryForm = document.createElement('div');
-    
-        newCategoryForm = createCategoryForm(newCategoryForm);
-        newCategory.appendChild(newCategoryForm);
-    },
-    
-    
-
-
-
-
+getNewCategoryFormInfo() {
+        const newCategoryBtn = document.querySelector('.newCategoryBtn');
+        
+        newCategoryBtn.addEventListener('click',  (e) => {
+            console.log('called new Category')  
+            e.preventDefault();
+            let newCategoryName = document.querySelector('.input-newCategory').value;
+            projectsObject.addCategoryToProjectsArray(newCategoryName);
+            screenControlObject.displayList(projectsObject.projectsArray);
+            }
+        );
+    }        
 }
 export { formsObject } ;

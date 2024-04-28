@@ -1,13 +1,15 @@
 
+import { Todo } from "./class.js";
+
 // projectsObject, including a 'projectsArray'
-class Todo {
-    constructor(title, description, dueDate, priority) {
-        this.title = title;
-        this.description = description;
-        this.dueDate = dueDate;
-        this.priority = priority;
-    }
-}
+// class Todo {
+//     constructor(title, description, dueDate, priority) {
+//         this.title = title;
+//         this.description = description;
+//         this.dueDate = dueDate;
+//         this.priority = priority;
+//     }
+// }
 
 // Instantiating 'Todo Items
 const firstItem = new Todo('See a man about a dog', 'This is the first item', '2024-12-12', 'High');
@@ -37,7 +39,6 @@ const projectsObject = {
     getProjectsArray(){
         return this.projectsArray;
     },
-
 
     addCategoryToProjectsArray(newCategory) {
         // checklist:         // - checks if category already exists - DONE        // - converts category to upper case, or lowercase - TODO 
