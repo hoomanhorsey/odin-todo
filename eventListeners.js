@@ -26,15 +26,31 @@ const eventListenerObject ={
     
     createNewItemListener() {
             let createNewItemButton = document.querySelector('.createNewItem');
-            createNewItemButton.addEventListener('click', () => {
+                createNewItemButton.addEventListener('click', () => {
                 createNewItemButton.disabled = true;
                 screenControlObject.displayNewItemForm();
                 console.log('create new item')
+
+                this.newItemCancel(createNewItemButton);
+
                 formsObject.getNewItemFormInfo();
                 console.log('call getFormInfo, listener to extract form data')
                 }
             )
           },
+
+    newItemCancel(createNewItemButton) {
+        alert('new item cancel called')
+        let newItemCancelBtn = document.querySelector('.newItemCancelBtn');
+
+        newItemCancelBtn.addEventListener('click', (e) => {
+            alert(e)
+            e.preventDefault();
+            alert('press') 
+            formsObject.refreshNewItemForm();
+            createNewItemButton.disabled = false;
+            
+    })},
     
     createNewCategoryListener() {
             let createNewCategoryButton = document.querySelector('.createNewCategory');

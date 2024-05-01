@@ -51,7 +51,7 @@ createNewItemForm (newItemForm)
     </select>
     </div>
 
-    <button>cancel</button>     
+    <button class="newItemCancelBtn"  >cancel</button>     
 
     
     <button type="submit" class="newBookBtn">Submit</button>
@@ -169,7 +169,7 @@ getNewItemFormInfo() {
 
     createNewItemButton.disabled = false;
 
-    eventListenerObject.itemEventListener();
+    eventListenerObject.itemToggleListener();
     })
     },
 
@@ -181,7 +181,7 @@ getNewCategoryFormInfo() {
             e.preventDefault();
             let newCategoryName = document.querySelector('.input-newCategory').value;
             projectsObject.addCategoryToProjectsArray(newCategoryName);
-            screenControlObject.displayList(projectsObject.projectsArray);
+            screenControlObject.displayFullList(projectsObject.projectsArray);
             }
         );
     }        

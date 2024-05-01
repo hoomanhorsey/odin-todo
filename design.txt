@@ -84,5 +84,10 @@
 
 TODO
 Tasks 
-- After you submit an item, the item toggle doesn't work so you need to call the event listener again.
+- EditItem - the way the form is displayed needs to be made consistent with the item display info.
 - EditItem - this needs a function to get info from the form
+
+
+Done
+- After you submit an item, the item toggle doesn't work so you need to call the event listener again.//
+    - It was b/c the event listener had been renamed but the named hadn't been changed when it was called.
