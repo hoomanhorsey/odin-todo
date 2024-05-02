@@ -29,66 +29,41 @@ const eventListenerObject ={
             createNewItemButton.addEventListener('click', () => {
             createNewItemButton.disabled = true;
             screenControlObject.displayNewItemForm();
-            console.log('create new item')
-
             this.newItemCancel(createNewItemButton);
-
             formsObject.getNewItemFormInfo();
-            console.log('call getFormInfo, listener to extract form data')
-            
-            }
-        )
+            }   
+            )
           },
 
     addChecklistItemListener() {
         let addChecklistItemBtn = document.getElementById('addchecklistItem');
         console.log(addChecklistItemBtn)
         addChecklistItemBtn.addEventListener('click', (e) => {
-            alert('add new item')
             e.preventDefault();  
 
             const newChecklistItem = document.createElement('p');
-            
 
             var firstItem = document.getElementById('checklist0');
-            alert(firstItem)
+            // alert(firstItem)
             var parentNode = firstItem.parentNode;
             var siblings = parentNode.children;
-            alert(siblings.length)
-
-
+            // alert(siblings.length)
             
             newChecklistItem.classList.add('checklistItem');
             newChecklistItem.innerHTML = `<input type="text" id="checklist${(siblings.length -1) + 1}" name="title" class="input-checklist">
                     `
             const parentDiv = document.getElementById('checklistSubDiv');
-
-
-
             parentDiv.appendChild(newChecklistItem);
-
-            
-            // var parentNode = newChecklistItem.parentNode;
-            // var siblings = parentNode.children;
-            // alert(siblings.length);
-
-
-
-          
-
         })
     },
 
     newItemCancel(createNewItemButton) {
         let newItemCancelBtn = document.querySelector('.newItemCancelBtn');
-
         newItemCancelBtn.addEventListener('click', (e) => {
             alert(e);
             e.preventDefault();
-            alert('press');
             formsObject.refreshNewItemForm();
-            createNewItemButton.disabled = false;
-            
+            createNewItemButton.disabled = false;       
     })},
     
     createNewCategoryListener() {

@@ -35,13 +35,15 @@ const screenControlObject = {
             itemElement.dataset.itemindex = j;
             itemElement.dataset.item = array[i]['items'][j]['title'];      
             itemElement.classList.remove('full');
-            itemElement.classList.add('item', 'summary', `${array[i]['items'][j]['priority']}`, );
+            itemElement.classList.add('item', 'summary', `${array[i]['items'][j]['priority']}` );
             itemElement.id = `ref${i}${j}`;
         return itemElement;
     },
 
     itemDisplaySummary(itemElement, array, i, j) {
-        //todo
+
+        console.log(array[i]['items'][j]['dueDate'])
+
         itemElement.classList.add('summary');
         itemElement.classList.remove('full');
         itemElement.innerHTML = `<div class="itemSummary" 
@@ -50,21 +52,25 @@ const screenControlObject = {
                             <p class="itemTitle" > ${array[i]['items'][j]['title']} </p> 
                             <p> Priority: ${ array[i]['items'][j]['priority']} </p> </div>
                             <p> Due date: ${ array[i]['items'][j]['dueDate']} </p> </div>`
-
-        // const itemSummary = document.querySelector('.itemSummary')
-        // itemSummary.dataset.categoryindex = i;
-        // itemSummary.dataset.categoryindex = i;
-        // itemSummary.dataset.category = array[i]['category'];
-        // itemSummary.dataset.itemindex = j;
-        // itemSummary.dataset.item = array[i]['items'][j]['title'];   
-        // console.log(itemSummary);
-
         },
 
     itemDisplayFull(itemElement, array, i, j) {
+
+        // items in the checklist array.
+        alert(array[i]['items'][j]['checklist'].length)
+        var checkItemsNumber = (array[i]['items'][j]['checklist'].length)
+
+        for (let k= 0; k < checkItemsNumber; k++) {
+           alert(array[i]['items'][j]['checklist'][k]['checkItem']);
+           // TODO
+           // generat a string to add into the bigger string below.....
+
+        }
+
         console.log('Full called')
         itemElement.classList.add('full');
         itemElement.classList.remove('summary');
+
         itemElement.innerHTML = `<div class="itemFull"
                                 data-categoryindex="${i}" 
                                 data-itemindex = "${j}"
@@ -74,8 +80,14 @@ const screenControlObject = {
         <p class="item-description" > ${array[i]['items'][j]['description']} </p>
         <p> ${ array[i]['items'][j]['dueDate']} </p>
 
-        <p> ${ array[i]['items'][j]['checklist'][0]['name']} ${ array[i]['items'][j]['checklist'][0]['checked']}</p>
-        <p> ${ array[i]['items'][j]['checklist'][1]['name']} ${ array[i]['items'][j]['checklist'][0]['checked']}</p>
+        <p> ${ array[i]['items'][j]['checklist'][0]['checkItem']} </p>
+
+        <p> ${ array[i]['items'][j]['checklist'][0]['checked']} </p>
+
+
+
+
+
 
         <button class="editItem"> edit</button>
         <button class="deleteItem">delete</button> </div>`

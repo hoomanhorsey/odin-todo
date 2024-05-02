@@ -171,8 +171,26 @@ getNewItemFormInfo() {
 
         let status = document.querySelector('.select-status').value;
         let priority = document.querySelector('.select-priority').value;
-        console.log(category + title + description + dueDate + priority + status);
-        const newItem = new Todo(title, description, dueDate, priority);
+        // getting checklist items
+        var firstItem = document.getElementById('checklist0');
+        // alert(firstItem)
+        var parentNode = firstItem.parentNode;
+        var siblings = parentNode.children;
+        // alert(siblings.length)
+
+        const checklist = [];
+        for (let i = 0; i < (siblings.length); i++) {
+            const checklistItem = document.getElementById(`checklist${i}`).value;
+            const tempObject = {checkItem: `${checklistItem}`, checked: false};
+            checklist.push(tempObject);
+        }
+        alert(checklist)
+
+        const newItem = new Todo(title, description, checklist, dueDate, priority, status);
+
+
+        console.log(newItem)
+
 
     projectsObject.addItem(category, newItem);
 
