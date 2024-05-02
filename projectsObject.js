@@ -1,22 +1,12 @@
 
 import { Todo } from "./class.js";
 
-// projectsObject, including a 'projectsArray'
-// class Todo {
-//     constructor(title, description, dueDate, priority) {
-//         this.title = title;
-//         this.description = description;
-//         this.dueDate = dueDate;
-//         this.priority = priority;
-//     }
-// }
-
 // Instantiating 'Todo Items
-const firstItem = new Todo('See a man about a dog', 'This is the first item', '2024-12-12', 'High');
-const secondItem = new Todo('Fix a hole', 'This is the second item', '2024-10-06', 'Low')
-const thirdItem = new Todo('Do SWAT', 'This is the third item', '2024-09-22', 'Medium',)
-const fourthItem = new Todo('Live Life, give it time', 'This is the fourth item', '2024-05-03', 'High')
-const fifthItem = new Todo('Fifth Item', 'This is the fifth item', '2024-11-10', 'Low')
+const firstItem = new Todo('See a man about a dog', 'This is the first item', '2024-12-12', 'High', 'incomplete');
+const secondItem = new Todo('Fix a hole', 'This is the second item', '2024-10-06', 'Low', 'incomplete')
+const thirdItem = new Todo('Do SWAT', 'This is the third item', '2024-09-22', 'Medium', 'incomplete')
+const fourthItem = new Todo('Live Life, give it time', 'This is the fourth item', '2024-05-03', 'High', 'incomplete')
+const fifthItem = new Todo('Fifth Item', 'This is the fifth item', '2024-11-10', 'Low', 'incomplete')
 
 
 const projectsObject = {   

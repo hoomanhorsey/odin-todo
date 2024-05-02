@@ -53,17 +53,21 @@ padding: 20px;
 .categories {
     font-size: 1rem;
     display: flex;
+    min-width: 1000px;
+    grid-column: 1/4;
 
 }
 
 
 .category {
+    display: grid;
     font-size: 3rem;
     border-style: solid;
     border-radius: 5px;
     padding: 10px;
     margin: 10px;
     flex-wrap: wrap;
+    min-width: 250px;
 
 
 
@@ -87,35 +91,54 @@ padding: 20px;
  }
 
 .itemTitle {
-    font-weight: 500;
+    font-weight: 550;
     font-style: italic;
     
 }
 
 .item-description {
-    background-color: lightgrey;
-    padding: 20px 5px;
+    padding: 20px 20px;
+    border-radius: 5px;
+    border-width: .1px;
+    border-style: solid;
+
 }
 
-.itemTitle {
-
-    font-family: 'Courier New', Courier, monospace;
-    font-weight: 300;
-}
 
 .Low {
-background-color: rgb(228, 233, 255);
+background-color: rgb(220, 220, 250);
 }
 
 .Medium {
-background-color: rgb(231, 255, 231)
+background-color: rgb(140, 121, 245);
 }
 
 .High {
-background-color: rgb(255, 224, 224)    ;
+background-color: rgb(70, 85, 223)    ;
 }
 
 
-.formDiv {
-    padding: 20px;
+
+
+
+/* edit form */
+
+.formDiv{
+    margin: 5px 0px;
+    padding: 5px 0px;
+}
+
+.input-title {
+    margin: 0px;
+    padding: 0px;
+}
+
+.input-description {
+    margin: 0px;
+    padding: 0px;
+}
+
+.input-dueDate {
+    margin: 0px;
+    padding: 0px;
 }

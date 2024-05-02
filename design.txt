@@ -83,9 +83,18 @@
 
 
 TODO
+
 Tasks 
-- EditItem - the way the form is displayed needs to be made consistent with the item display info.
-- EditItem - this needs a function to get info from the form
+
+- General - (maybe insert a 'refresh display button' that refreshes the display)
+
+- EditItem - the summary/full version is now removed, and only shows the form // Done
+- EditItem - the way the form is displayed needs to be made consistent with the item display info. // working on this
+- EditItem - this needs a function to get info from the form, once submitted
+- EditItem - investiage changing category as well....need to populate the category too.
+- EditItem - this needs the array to be updated.
+- EditItem - then after, it needs to refresht the display.
+
 
 
 Done

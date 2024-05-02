@@ -25,12 +25,11 @@ const screenControlObject = {
         for (let j = 0; j < array[i]['items'].length; j++) {      
             let itemElement = categoryElement.appendChild(screenControlObject.setItemElementDetails(array, i, j));
             screenControlObject.itemDisplaySummary(itemElement, array, i, j);
-            }}},
+            }}
+        eventListenerObject.itemToggleListener();},
 
     setItemElementDetails(array, i, j) {
-        console.log(array)
-        console.log('setItemElementDetails called')
-        const itemElement = document.createElement('p');
+        const itemElement = document.createElement('div');
             itemElement.dataset.categoryindex = i;
             itemElement.dataset.category = array[i]['category'];
             itemElement.dataset.itemindex = j;
@@ -43,22 +42,43 @@ const screenControlObject = {
 
     itemDisplaySummary(itemElement, array, i, j) {
         //todo
-        console.log('Summary called')
         itemElement.classList.add('summary');
         itemElement.classList.remove('full');
-        itemElement.innerHTML = `<p class="itemTitle" > ${array[i]['items'][j]['title']} </p> 
-        <p> ${ array[i]['items'][j]['dueDate']} </p>`
+        itemElement.innerHTML = `<div class="itemSummary" 
+                                data-categoryindex="${i}" 
+                                data-itemindex = "${j}">
+                            <p class="itemTitle" > ${array[i]['items'][j]['title']} </p> 
+                            <p> Priority: ${ array[i]['items'][j]['priority']} </p> </div>
+                            <p> Due date: ${ array[i]['items'][j]['dueDate']} </p> </div>`
+
+        // const itemSummary = document.querySelector('.itemSummary')
+        // itemSummary.dataset.categoryindex = i;
+        // itemSummary.dataset.categoryindex = i;
+        // itemSummary.dataset.category = array[i]['category'];
+        // itemSummary.dataset.itemindex = j;
+        // itemSummary.dataset.item = array[i]['items'][j]['title'];   
+        // console.log(itemSummary);
+
         },
 
     itemDisplayFull(itemElement, array, i, j) {
         console.log('Full called')
         itemElement.classList.add('full');
         itemElement.classList.remove('summary');
-        itemElement.innerHTML = `<p class="itemTitle" > ${array[i]['items'][j]['title']} </p> 
+        itemElement.innerHTML = `<div class="itemFull"
+                                data-categoryindex="${i}" 
+                                data-itemindex = "${j}"
+                                id = "subref${i}${j}"> 
+        
+        <p class="itemTitle" > ${array[i]['items'][j]['title']} </p> 
         <p class="item-description" > ${array[i]['items'][j]['description']} </p>
         <p> ${ array[i]['items'][j]['dueDate']} </p>
+
+        <p> ${ array[i]['items'][j]['checklist'][0]['name']} ${ array[i]['items'][j]['checklist'][0]['checked']}</p>
+        <p> ${ array[i]['items'][j]['checklist'][1]['name']} ${ array[i]['items'][j]['checklist'][0]['checked']}</p>
+
         <button class="editItem"> edit</button>
-        <button class="deleteItem">delete</button>`
+        <button class="deleteItem">delete</button> </div>`
         eventListenerObject.itemEditListener();
         },
 
@@ -67,6 +87,7 @@ const screenControlObject = {
     
         // Getting the item from the Project array, via the dataset index
         console.log(e.id) 
+        console.log(e.parentNode.id)
         console.log(e.dataset.categoryindex + e.dataset.itemindex);
     
         const categoryindex = e.dataset.categoryindex;
@@ -81,17 +102,22 @@ const screenControlObject = {
         // var eventListener = switchItemDisplay(e);
         alert('did you get this far')
         // Display the data in a form?  
-        let element = document.getElementById(e.id)
-        console.log(element)
-    
-        let newItemForm = document.createElement('div');
-    
-        newItemForm = formsObject.createEditForm(newItemForm, item, categoryindex, itemindex);
-    
-        console.log(newItemForm)
-    
-        element.appendChild(newItemForm);
-    
+
+        // get the parent element, add a form as a new child, delete previous summary child element
+        let element = document.getElementById(e.parentNode.id)
+            console.log(element)
+        
+            let newItemForm = document.createElement('div');
+        
+            newItemForm = formsObject.createEditForm(newItemForm, item, categoryindex, itemindex);
+        
+            console.log(newItemForm)
+        
+            element.appendChild(newItemForm);
+
+            document.getElementById(e.id).remove();
+            
+        
         console.log(item.priority);
         let prioritySelector = document.getElementById(`priority${categoryindex+itemindex}`)
     
@@ -101,6 +127,12 @@ const screenControlObject = {
                 break;
             }
         }
+
+        let statusSelector = document.getElementById(`status${categoryindex + itemindex}`)
+        statusSelector.value = item.status;
+        alert(item.status);
+
+
         // - get the elment by ID
         // replace javascript with a form
         // prefill the form with the data from the array
@@ -120,7 +152,7 @@ const screenControlObject = {
             console.log(buttonInFunction)
         
         const selectCategory = document.getElementById('category');
-
+        
         for (let i = 0; i < projectsObject.projectsArray.length; i++) {
             
             const optionElement = document.createElement('option');
@@ -129,6 +161,9 @@ const screenControlObject = {
             optionElement.textContent = projectsObject.projectsArray[i]['category'];
             selectCategory.appendChild(optionElement);
             }  
+
+        eventListenerObject.addChecklistItemListener();
+
         },
 
     displayNewCategoryForm() {
@@ -139,18 +174,6 @@ const screenControlObject = {
         newCategoryForm = formsObject.createNewCategoryForm(newCategoryForm);
         newCategory.appendChild(newCategoryForm);
     },
-
-        // displayNewCategoryForm() {
-
-        //         let newCategory = document.querySelector('.newCategory')
-        //         let newCategoryForm = document.createElement('div');
-            
-        //     // function createEditForm(newItemForm, item, categoryindex, itemindex) {
-        //         newCategoryForm = createCategoryForm(newCategoryForm);
-        //         newCategory.appendChild(newCategoryForm);
-        //     }
-
-
         
     } //end of screenControlObject
 

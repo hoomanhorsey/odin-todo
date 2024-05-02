@@ -8,7 +8,6 @@ addEventListener("DOMContentLoaded", () => {
 
 
     setTimeout( () => {
-        eventListenerObject.itemToggleListener();
         eventListenerObject.createNewItemListener(); 
         eventListenerObject.createNewCategoryListener();
      }, 1000)
