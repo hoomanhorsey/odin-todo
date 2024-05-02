@@ -33,8 +33,7 @@ createNewItemForm (newItemForm)
         <button id="addchecklistItem"> + another item</button>
         <div id="checklistSubDiv">
                      <input type="text" id="checklist${refNumber}" name="title" class="input-checklist" data-ref="ref${refNumber}">
-            
-        </div>
+            </div>
         </div>
 
     <div class="formDiv">
