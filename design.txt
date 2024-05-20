@@ -95,6 +95,11 @@ Tasks
 - EditItem - this needs the array to be updated.
 - EditItem - then after, it needs to refresht the display.
 
+- newItem - insert a checklist?
+- need to insert provision for a checklist in the class....
+    - a new array called checklist.
+
+
 
 
 Done
