@@ -42,7 +42,7 @@ const screenControlObject = {
 
     itemDisplaySummary(itemElement, array, i, j) {
 
-        console.log(array[i]['items'][j]['dueDate'])
+        // console.log(array[i]['items'][j]['dueDate'])
 
         itemElement.classList.add('summary');
         itemElement.classList.remove('full');
@@ -56,18 +56,51 @@ const screenControlObject = {
 
     itemDisplayFull(itemElement, array, i, j) {
 
-        // items in the checklist array.
-        alert(array[i]['items'][j]['checklist'].length)
-        var checkItemsNumber = (array[i]['items'][j]['checklist'].length)
+        console.log(array[i]['items'][j]['checklist']);
 
-        for (let k= 0; k < checkItemsNumber; k++) {
-           alert(array[i]['items'][j]['checklist'][k]['checkItem']);
-           // TODO
-           // generat a string to add into the bigger string below.....
+        //test for checklist
+        let checklistHTML = '';
 
-        }
+            // items in the checklist array.
+            alert('this alert is the length of the checklist items, not sure why I did this but here it is: ' + array[i]['items'][j]['checklist'].length)
+            var checkItemsNumber = (array[i]['items'][j]['checklist'].length)
 
-        console.log('Full called')
+
+            const tempArray = [];
+
+            for (let k= 0; k < checkItemsNumber; k++) {
+            console.log('console logging each item of the array. Item: ' + k + ' ' + array[i]['items'][j]['checklist'][k]['checkItem']);
+
+            // Creates HTML based on items in checklist array - if none, then there is no HTML created.
+
+            // Need to change 'false' to a checkbox.
+
+            if (array[i]['items'][j]['checklist'][k]['checked']) {
+                checklistHTML += `<p>${array[i]['items'][j]['checklist'][k] ['checkItem']}
+                <input type="checkbox" checked></input> </p>`
+            } else {
+                checklistHTML += `<p>${array[i]['items'][j]['checklist'][k] ['checkItem']}
+                <input type="checkbox" ></input> </p>`
+            }
+
+
+            // checklistHTML += `<p>${array[i]['items'][j]['checklist'][k] ['checkItem']}
+            //  ${ array[i]['items'][j]['checklist'][0]['checked']} </p>`;
+
+             // leave array here as you might need to use it to create checkboxes, but probably not as you're creating an array out of an array
+            tempArray.push(array[i]['items'][j]['checklist'][k]['checkItem']);
+            // TODO
+            // generat a string to add into the bigger string below.....
+            }
+            console.log('checklistHTML' + checklistHTML)
+            console.log('An array of the check list items: ' + tempArray);
+            
+
+    console.log(checklistHTML)
+    // TODO so you may need separate printouts based on if there is a checklist or not.....like if checklist.length === 0, then this....else then the full checklist items...
+
+        if (array[i]['items'][j]['checklist'].length !== 0) {
+        console.log('Full called, with checklist')
         itemElement.classList.add('full');
         itemElement.classList.remove('summary');
 
@@ -80,17 +113,31 @@ const screenControlObject = {
         <p class="item-description" > ${array[i]['items'][j]['description']} </p>
         <p> ${ array[i]['items'][j]['dueDate']} </p>
 
-        <p> ${ array[i]['items'][j]['checklist'][0]['checkItem']} </p>
-
-        <p> ${ array[i]['items'][j]['checklist'][0]['checked']} </p>
-
-
-
-
-
+        <div>
+        <strong>Checklist</strong>
+         ${ checklistHTML} 
+         </div>
 
         <button class="editItem"> edit</button>
         <button class="deleteItem">delete</button> </div>`
+
+        } else {
+            console.log('Full called, no checklist')
+            itemElement.classList.add('full');
+            itemElement.classList.remove('summary');
+    
+            itemElement.innerHTML = `<div class="itemFull"
+                                    data-categoryindex="${i}" 
+                                    data-itemindex = "${j}"
+                                    id = "subref${i}${j}"> 
+            
+            <p class="itemTitle" > ${array[i]['items'][j]['title']} </p> 
+            <p class="item-description" > ${array[i]['items'][j]['description']} </p>
+            <p> ${ array[i]['items'][j]['dueDate']} </p>
+    
+            <button class="editItem"> edit</button>
+            <button class="deleteItem">delete</button> </div>`
+        }
         eventListenerObject.itemEditListener();
         },
 

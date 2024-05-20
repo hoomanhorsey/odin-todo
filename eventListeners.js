@@ -11,7 +11,7 @@ const eventListenerObject ={
     
         items.forEach((e) => {
             e.addEventListener('click', () => {
-                console.log(e)
+                // console.log(e)
                 const itemElement = document.getElementById(`ref${e.dataset.categoryindex}${e.dataset.itemindex}`)
                 
                 if (itemElement.classList.contains('full')) {

@@ -1,12 +1,15 @@
 
 import { Todo } from "./class.js";
 
+const checklist = [{checkItem: "No body knows me", checked: false}, {checkItem: "Everybody knows this is knowhere", checked: true}];
+const emptyChecklist = [];
+
 // Instantiating 'Todo Items
-const firstItem = new Todo('See a man about a dog', 'This is the first item', [{checkItem: "No body knows me", checked: false}, {checkItem: "Everybody knows this is knowhere", checked: false}], '2024-12-12', 'High', 'incomplete');
-const secondItem = new Todo('Fix a hole', 'This is the second item', 'checklilst', '2024-10-06', 'Low', 'incomplet  e')
-const thirdItem = new Todo('Do SWAT', 'This is the third item', 'checklilst', '2024-09-22', 'Medium', 'incomplete')
-const fourthItem = new Todo('Live Life, give it time',  'This is the fourth item', 'checklist', '2024-05-03', 'High', 'incomplete')
-const fifthItem = new Todo('Fifth Item', 'This is the fifth item', 'checklilst', '2024-11-10', 'Low', 'incomplete')
+const firstItem = new Todo('See a man about a dog', 'This is the first item', checklist, '2024-12-12', 'High', 'incomplete');
+const secondItem = new Todo('Fix a hole', 'This is the second item', checklist, '2024-10-06', 'Low', 'incomplet  e')
+const thirdItem = new Todo('Do SWAT', 'This is the third item', checklist, '2024-09-22', 'Medium', 'incomplete')
+const fourthItem = new Todo('Live Life, give it time',  'This is the fourth item', checklist, '2024-05-03', 'High', 'incomplete')
+const fifthItem = new Todo('Fifth Item', 'This is the fifth item', emptyChecklist, '2024-11-10', 'Low', 'incomplete')
 
 
 const projectsObject = {   
