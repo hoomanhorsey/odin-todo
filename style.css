@@ -90,6 +90,11 @@ padding: 20px;
     border-style: solid;
  }
 
+
+.item-expand, .item-collapse {
+    text-align: end;
+}
+ 
 .itemTitle {
     font-weight: 550;
     font-style: italic;

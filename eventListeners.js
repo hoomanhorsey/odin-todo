@@ -10,10 +10,12 @@ const eventListenerObject ={
         var items = document.querySelectorAll('.item');
     
         items.forEach((e) => {
-            e.addEventListener('click', () => {
+            e.addEventListener('click', (event) => {
                 console.log(e)
                 const itemElement = document.getElementById(`ref${e.dataset.categoryindex}${e.dataset.itemindex}`)
-                
+                event.stopPropagation();
+
+
                 if (itemElement.classList.contains('full')) {
                     console.log(itemElement.classList)
                     screenControlObject.itemDisplaySummary(itemElement, projectsObject.projectsArray, e.dataset.categoryindex, e.dataset.itemindex)
@@ -23,6 +25,36 @@ const eventListenerObject ={
             })
         })
         },
+
+
+    itemListenerExpand() {
+            var items = document.querySelectorAll('.item-expand');
+        
+            items.forEach((e) => {
+                e.addEventListener('click', () => {
+                    const parent = e.parentNode;
+                    const itemElement = document.getElementById(parent.id)
+                    screenControlObject.itemDisplayFull(itemElement, projectsObject.projectsArray, parent.dataset.categoryindex, parent.dataset.itemindex);
+
+
+                })
+            })
+            },
+
+        itemListenerCollapse() {
+                var items = document.querySelectorAll('.item-collapse');
+            
+                items.forEach((e) => {
+                    e.addEventListener('click', (event) => {
+                        const parent = e.parentNode;
+    
+                        const itemElement = document.getElementById(parent.id)
+                        screenControlObject.itemDisplaySummary(itemElement, projectsObject.projectsArray, parent.dataset.categoryindex, parent.dataset.itemindex);
+    
+                           
+                    })
+                })
+                },
     
     createNewItemListener() {
         let createNewItemButton = document.querySelector('.createNewItem');

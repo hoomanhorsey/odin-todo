@@ -26,7 +26,9 @@ const screenControlObject = {
             let itemElement = categoryElement.appendChild(screenControlObject.setItemElementDetails(array, i, j));
             screenControlObject.itemDisplaySummary(itemElement, array, i, j);
             }}
-        eventListenerObject.itemToggleListener();},
+        // eventListenerObject.itemToggleListener();
+        eventListenerObject.itemListenerExpand() 
+    },
 
     setItemElementDetails(array, i, j) {
         const itemElement = document.createElement('div');
@@ -44,25 +46,34 @@ const screenControlObject = {
 
         // console.log(array[i]['items'][j]['dueDate'])
 
-        itemElement.classList.add('summary');
-        itemElement.classList.remove('full');
-        itemElement.innerHTML = `<div class="itemSummary" 
-                                data-categoryindex="${i}" 
-                                data-itemindex = "${j}">
+        // itemElement.classList.add('summary');
+        // itemElement.classList.remove('full');
+
+    //     itemElement.innerHTML = `<div class="itemSummary" 
+    //     data-categoryindex="${i}" 
+    //     data-itemindex = "${j}">
+    //     <p class="item-expand"> [+] </p>
+    // <p class="itemTitle" > ${array[i]['items'][j]['title']} </p> 
+    // <p> Priority: ${ array[i]['items'][j]['priority']} </p> </div>
+    // <p> Due date: ${ array[i]['items'][j]['dueDate']} </p> </div>`
+
+        itemElement.innerHTML = `<p class="item-expand"> [+] </p>
                             <p class="itemTitle" > ${array[i]['items'][j]['title']} </p> 
-                            <p> Priority: ${ array[i]['items'][j]['priority']} </p> </div>
-                            <p> Due date: ${ array[i]['items'][j]['dueDate']} </p> </div>`
-        },
+                            <p> Priority: ${ array[i]['items'][j]['priority']} </p> 
+                            <p> Due date: ${ array[i]['items'][j]['dueDate']} </p> `
+        eventListenerObject.itemListenerExpand();
+                        }
+        ,
 
     itemDisplayFull(itemElement, array, i, j) {
-
+        console.log('i: ' + i + ' j: ' + j)
         console.log(array[i]['items'][j]['checklist']);
 
         //test for checklist
         let checklistHTML = '';
 
             // items in the checklist array.
-            alert('this alert is the length of the checklist items, not sure why I did this but here it is: ' + array[i]['items'][j]['checklist'].length)
+            // alert('this alert is the length of the checklist items, not sure why I did this but here it is: ' + array[i]['items'][j]['checklist'].length)
             var checkItemsNumber = (array[i]['items'][j]['checklist'].length)
 
 
@@ -101,15 +112,13 @@ const screenControlObject = {
 
         if (array[i]['items'][j]['checklist'].length !== 0) {
         console.log('Full called, with checklist')
-        itemElement.classList.add('full');
-        itemElement.classList.remove('summary');
+        // itemElement.classList.add('full');
+        // itemElement.classList.remove('summary');
 
-        itemElement.innerHTML = `<div class="itemFull"
-                                data-categoryindex="${i}" 
-                                data-itemindex = "${j}"
-                                id = "subref${i}${j}"> 
+        itemElement.innerHTML = `
         
-        <p class="itemTitle" > ${array[i]['items'][j]['title']} </p> 
+                                <p class="item-collapse"> [-] </p>
+                                <p class="itemTitle" > ${array[i]['items'][j]['title']} </p> 
         <p class="item-description" > ${array[i]['items'][j]['description']} </p>
         <p> ${ array[i]['items'][j]['dueDate']} </p>
 
@@ -119,7 +128,26 @@ const screenControlObject = {
          </div>
 
         <button class="editItem"> edit</button>
-        <button class="deleteItem">delete</button> </div>`
+        <button class="deleteItem">delete</button> `
+
+
+//         itemElement.innerHTML = `<div class="itemFull"
+//         data-categoryindex="${i}" 
+//         data-itemindex = "${j}"
+//         id = "subref${i}${j}"> 
+
+//         <p class="item-collapse"> [-] </p>
+//         <p class="itemTitle" > ${array[i]['items'][j]['title']} </p> 
+// <p class="item-description" > ${array[i]['items'][j]['description']} </p>
+// <p> ${ array[i]['items'][j]['dueDate']} </p>
+
+// <div>
+// <strong>Checklist</strong>
+// ${ checklistHTML} 
+// </div>
+
+// <button class="editItem"> edit</button>
+// <button class="deleteItem">delete</button> </div>`
 
         } else {
             console.log('Full called, no checklist')
@@ -139,6 +167,7 @@ const screenControlObject = {
             <button class="deleteItem">delete</button> </div>`
         }
         eventListenerObject.itemEditListener();
+        eventListenerObject.itemListenerCollapse();
         },
 
     displayEditItemForm(e) {
