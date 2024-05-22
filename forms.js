@@ -32,7 +32,9 @@ createNewItemForm (newItemForm)
         <label for="checklist" class="label-checklist">Checklist</label> 
         <button id="addchecklistItem"> + another item</button>
         <div id="checklistSubDiv">
-                     <input type="text" id="checklist${refNumber}" name="title" class="input-checklist" data-ref="ref${refNumber}">
+            <ul id="newItemFormChecklist">
+                    <li> <input type="text" id="checklist${refNumber}" name="title" class="input-checklist" data-ref="ref${refNumber}"> </li>
+            </ul>
             </div>
         </div>
 
@@ -60,7 +62,6 @@ createNewItemForm (newItemForm)
     </div>
 
     <button class="newItemCancelBtn"  >cancel</button>     
-
     
     <button type="submit" class="newBookBtn">Submit</button>
 </form>`
@@ -69,9 +70,46 @@ return newItemForm;
 }, 
 
 
-
-
 createEditForm (newItemForm, item, categoryindex, itemindex) {
+
+    //    TODO     Create a for loop to create the checklist html from the array. Then insert that checklist later.
+    let checklistHTML = '';
+
+    let array = projectsObject.projectsArray;
+
+    var checkItemsNumber = (array[categoryindex]['items'][itemindex]['checklist'].length);
+
+            for (let k= 0; k < checkItemsNumber; k++) {
+            console.log('console logging each item of the array. Item: ' + k + ' ' + array[categoryindex]['items'][itemindex]['checklist'][k]['checkItem']);
+
+            // Creates HTML based on items in checklist array - if none, then there is no HTML created.
+
+            // Need to change 'false' to a checkbox.
+
+            if (array[categoryindex]['items'][itemindex]['checklist'][k]['checked']) {
+                checklistHTML += `
+                <label for="checklist" class="label-checklist"></label>
+                <input type="text" id="checklist${categoryindex+itemindex+k} name="checklist" class="input-checklistItem" value="${array[categoryindex]['items'][itemindex]['checklist'][k] ['checkItem']}">
+
+
+                <input type="checkbox" checked></input> </p>`
+            } else {
+                checklistHTML += `
+                <label for="checklist" class="label-checklist"></label>
+                <input type="text" id="checklist${categoryindex+itemindex+k} name="checklist" class="input-checklistItem" value="${array[categoryindex]['items'][itemindex]['checklist'][k] ['checkItem']}">
+
+                <input type="checkbox" ></input> </p>`
+            };
+
+        //     if (array[categoryindex]['items'][itemindex]['checklist'][k]['checked']) {
+        //         checklistHTML += `<p>${array[categoryindex]['items'][itemindex]['checklist'][k] ['checkItem']}
+        //         <input type="checkbox" checked></input> </p>`
+        //     } else {
+        //         checklistHTML += `<p>${array[categoryindex]['items'][itemindex]['checklist'][k] ['checkItem']}
+        //         <input type="checkbox" ></input> </p>`
+        //     }
+        }
+
 
     console.log(item.description)
     console.log(item.title)
@@ -88,9 +126,9 @@ createEditForm (newItemForm, item, categoryindex, itemindex) {
         <label for="title" class="label-title"></label>
         <input type="text" id="title" name="title" class="input-title itemTitle" value="${item.title}">
     </div>
+
     <div class="formDiv">
         <label for="description" class="label-description"></label>
-        
         <textarea id="description" name="description" class="input-description item-description" rows="4" cols="20">${item.description}</textarea>
 
     </div>
@@ -98,6 +136,11 @@ createEditForm (newItemForm, item, categoryindex, itemindex) {
     <div class="formDiv">
         <label for="dueDate" class="label-dueDate"></label>
         <input type="date" id="dueDate" name="dueDate" class="input-dueDate item-description" value="${item.dueDate}">
+    </div>
+    
+    <div>
+    *****Need to turn this into a form*****
+    ${checklistHTML}
     </div>
     
     <div class="formDiv" >
@@ -171,15 +214,14 @@ getNewItemFormInfo() {
 
         let status = document.querySelector('.select-status').value;
         let priority = document.querySelector('.select-priority').value;
+
         // getting checklist items
-        var firstItem = document.getElementById('checklist0');
-        // alert(firstItem)
-        var parentNode = firstItem.parentNode;
-        var siblings = parentNode.children;
-        // alert(siblings.length)
+    
+        const newItemFormChecklist = document.getElementById('newItemFormChecklist');
+        const checklistTally = newItemFormChecklist.children.length;
 
         const checklist = [];
-        for (let i = 0; i < (siblings.length); i++) {
+        for (let i = 0; i < (checklistTally); i++) {
             const checklistItem = document.getElementById(`checklist${i}`).value;
             const tempObject = {checkItem: `${checklistItem}`, checked: false};
             checklist.push(tempObject);
@@ -187,8 +229,6 @@ getNewItemFormInfo() {
         alert(checklist)
 
         const newItem = new Todo(title, description, checklist, dueDate, priority, status);
-
-
         console.log(newItem)
 
 
@@ -216,4 +256,5 @@ getNewCategoryFormInfo() {
         );
     }        
 }
+
 export { formsObject } ;

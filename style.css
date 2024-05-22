@@ -94,6 +94,10 @@ padding: 20px;
 .item-expand, .item-collapse {
     text-align: end;
 }
+
+.item-expand:hover, .item-collapse:hover {
+    font-weight: 900;
+ }
  
 .itemTitle {
     font-weight: 550;
@@ -128,19 +132,35 @@ background-color: rgb(70, 85, 223)    ;
 
 /* edit form */
 
+.newItemForm {
+    font-size: .5rem;
+
+    border-style: dotted;
+    border-radius: 5px;
+
+    margin: 10px;
+    padding: 15px;
+    font-family: 'Courier New', Courier, monospace;
+
+}
+
 .formDiv{
     margin: 5px 0px;
     padding: 5px 0px;
 }
 
 .input-title {
+    font-size: 1rem;
+
     margin: 0px;
-    padding: 0px;
+    padding: 5px;
 }
 
 .input-description {
+    font-size: 1rem;
+
     margin: 0px;
-    padding: 0px;
+    padding: 10px;
 }
 
 .input-dueDate {

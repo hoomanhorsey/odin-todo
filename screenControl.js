@@ -71,11 +71,9 @@ const screenControlObject = {
 
         //test for checklist
         let checklistHTML = '';
-
             // items in the checklist array.
             // alert('this alert is the length of the checklist items, not sure why I did this but here it is: ' + array[i]['items'][j]['checklist'].length)
             var checkItemsNumber = (array[i]['items'][j]['checklist'].length)
-
 
             const tempArray = [];
 
@@ -83,15 +81,13 @@ const screenControlObject = {
             console.log('console logging each item of the array. Item: ' + k + ' ' + array[i]['items'][j]['checklist'][k]['checkItem']);
 
             // Creates HTML based on items in checklist array - if none, then there is no HTML created.
-
             // Need to change 'false' to a checkbox.
-
             if (array[i]['items'][j]['checklist'][k]['checked']) {
-                checklistHTML += `<p>${array[i]['items'][j]['checklist'][k] ['checkItem']}
-                <input type="checkbox" checked></input> </p>`
+                checklistHTML += `<li>${array[i]['items'][j]['checklist'][k] ['checkItem']}
+                <input type="checkbox" checked></input> </li>`
             } else {
-                checklistHTML += `<p>${array[i]['items'][j]['checklist'][k] ['checkItem']}
-                <input type="checkbox" ></input> </p>`
+                checklistHTML += `<li>${array[i]['items'][j]['checklist'][k] ['checkItem']}
+                <input type="checkbox" ></input> </li>`
             }
 
 
@@ -116,49 +112,24 @@ const screenControlObject = {
         // itemElement.classList.remove('summary');
 
         itemElement.innerHTML = `
-        
-                                <p class="item-collapse"> [-] </p>
-                                <p class="itemTitle" > ${array[i]['items'][j]['title']} </p> 
-        <p class="item-description" > ${array[i]['items'][j]['description']} </p>
-        <p> ${ array[i]['items'][j]['dueDate']} </p>
+            <p class="item-collapse"> [-] </p>
+            <p class="itemTitle" > ${array[i]['items'][j]['title']} </p> 
+            <p class="item-description" > ${array[i]['items'][j]['description']} </p>
+            <p> ${ array[i]['items'][j]['dueDate']} </p>
 
-        <div>
-        <strong>Checklist</strong>
-         ${ checklistHTML} 
-         </div>
+            <p><strong>Checklist</strong>
+            <ul> ${ checklistHTML} </ul></p>
 
-        <button class="editItem"> edit</button>
-        <button class="deleteItem">delete</button> `
-
-
-//         itemElement.innerHTML = `<div class="itemFull"
-//         data-categoryindex="${i}" 
-//         data-itemindex = "${j}"
-//         id = "subref${i}${j}"> 
-
-//         <p class="item-collapse"> [-] </p>
-//         <p class="itemTitle" > ${array[i]['items'][j]['title']} </p> 
-// <p class="item-description" > ${array[i]['items'][j]['description']} </p>
-// <p> ${ array[i]['items'][j]['dueDate']} </p>
-
-// <div>
-// <strong>Checklist</strong>
-// ${ checklistHTML} 
-// </div>
-
-// <button class="editItem"> edit</button>
-// <button class="deleteItem">delete</button> </div>`
+            <button class="editItem"> edit</button>
+            <button class="deleteItem">delete</button> `
 
         } else {
+
             console.log('Full called, no checklist')
             itemElement.classList.add('full');
             itemElement.classList.remove('summary');
     
-            itemElement.innerHTML = `<div class="itemFull"
-                                    data-categoryindex="${i}" 
-                                    data-itemindex = "${j}"
-                                    id = "subref${i}${j}"> 
-            
+            itemElement.innerHTML = `
             <p class="itemTitle" > ${array[i]['items'][j]['title']} </p> 
             <p class="item-description" > ${array[i]['items'][j]['description']} </p>
             <p> ${ array[i]['items'][j]['dueDate']} </p>
@@ -174,14 +145,13 @@ const screenControlObject = {
         console.log('hello, editing item')
     
         // Getting the item from the Project array, via the dataset index
-        console.log(e.id) 
-        console.log(e.parentNode.id)
+        console.log(e.id); 
+        console.log(e);
         console.log(e.dataset.categoryindex + e.dataset.itemindex);
     
         const categoryindex = e.dataset.categoryindex;
         const itemindex = e.dataset.itemindex;
         console.log("get Item: " + projectsObject.getItem(e.dataset.categoryindex, e.dataset.itemindex).title);
-        console.log("get Item: " + projectsObject.getItem(e.dataset.categoryindex, e.dataset.itemindex));
         
         const item = projectsObject.getItem(e.dataset.categoryindex, e.dataset.itemindex);
         console.log(item.title, item.description)
@@ -192,19 +162,17 @@ const screenControlObject = {
         // Display the data in a form?  
 
         // get the parent element, add a form as a new child, delete previous summary child element
-        let element = document.getElementById(e.parentNode.id)
+        let element = document.getElementById(e.id)
             console.log(element)
         
             let newItemForm = document.createElement('div');
-        
             newItemForm = formsObject.createEditForm(newItemForm, item, categoryindex, itemindex);
-        
-            console.log(newItemForm)
-        
-            element.appendChild(newItemForm);
+            console.log(newItemForm);
+             
+            element.replaceWith(newItemForm);
 
-            document.getElementById(e.id).remove();
-            
+            // element.appendChild(newItemForm);
+            // document.getElementById(e.id).remove();
         
         console.log(item.priority);
         let prioritySelector = document.getElementById(`priority${categoryindex+itemindex}`)
@@ -231,7 +199,7 @@ const screenControlObject = {
 
         let newItem = document.querySelector('.newItem')
         let newItemForm = document.createElement('div');
-        newItemForm.classList.add('newItemFormDiv');
+            newItemForm.classList.add('newItemFormDiv');
 
         newItemForm = formsObject.createNewItemForm(newItemForm);
         newItem.appendChild(newItemForm);

@@ -6,59 +6,57 @@ import { formsObject } from "./forms.js";
 
 const eventListenerObject ={
     
-    itemToggleListener() {
-        var items = document.querySelectorAll('.item');
+    // TODELETE - No longer needed
+    // itemToggleListener() {
+    //     var items = document.querySelectorAll('.item');
     
-        items.forEach((e) => {
-            e.addEventListener('click', (event) => {
-                console.log(e)
-                const itemElement = document.getElementById(`ref${e.dataset.categoryindex}${e.dataset.itemindex}`)
-                event.stopPropagation();
+    //     items.forEach((e) => {
+    //         e.addEventListener('click', (event) => {
+    //             console.log(e)
+    //             const itemElement = document.getElementById(`ref${e.dataset.categoryindex}${e.dataset.itemindex}`)
+    //             event.stopPropagation();
 
-
-                if (itemElement.classList.contains('full')) {
-                    console.log(itemElement.classList)
-                    screenControlObject.itemDisplaySummary(itemElement, projectsObject.projectsArray, e.dataset.categoryindex, e.dataset.itemindex)
-                } else {
-                    screenControlObject.itemDisplayFull(itemElement, projectsObject.projectsArray, e.dataset.categoryindex, e.dataset.itemindex);
-                }
-            })
-        })
-        },
+    //             if (itemElement.classList.contains('full')) {
+    //                 console.log(itemElement.classList)
+    //                 screenControlObject.itemDisplaySummary(itemElement, projectsObject.projectsArray, e.dataset.categoryindex, e.dataset.itemindex)
+    //             } else {
+    //                 screenControlObject.itemDisplayFull(itemElement, projectsObject.projectsArray, e.dataset.categoryindex, e.dataset.itemindex);
+    //             }
+    //         })
+    //     })
+    //     },
 
 
     itemListenerExpand() {
-            var items = document.querySelectorAll('.item-expand');
+        var items = document.querySelectorAll('.item-expand');
         
-            items.forEach((e) => {
-                e.addEventListener('click', () => {
-                    const parent = e.parentNode;
-                    const itemElement = document.getElementById(parent.id)
-                    screenControlObject.itemDisplayFull(itemElement, projectsObject.projectsArray, parent.dataset.categoryindex, parent.dataset.itemindex);
-
-
+        items.forEach((e) => {
+            e.addEventListener('click', () => {
+                const parent = e.parentNode;
+                const itemElement = document.getElementById(parent.id)
+                screenControlObject.itemDisplayFull(itemElement, projectsObject.projectsArray, parent.dataset.categoryindex, parent.dataset.itemindex);
                 })
             })
             },
 
-        itemListenerCollapse() {
-                var items = document.querySelectorAll('.item-collapse');
-            
-                items.forEach((e) => {
-                    e.addEventListener('click', (event) => {
-                        const parent = e.parentNode;
+    itemListenerCollapse() {
+        var items = document.querySelectorAll('.item-collapse');
     
-                        const itemElement = document.getElementById(parent.id)
-                        screenControlObject.itemDisplaySummary(itemElement, projectsObject.projectsArray, parent.dataset.categoryindex, parent.dataset.itemindex);
-    
-                           
-                    })
-                })
-                },
+        items.forEach((e) => {
+            e.addEventListener('click', (event) => {
+                const parent = e.parentNode;
+
+                const itemElement = document.getElementById(parent.id)
+                screenControlObject.itemDisplaySummary(itemElement, projectsObject.projectsArray, parent.dataset.categoryindex, parent.dataset.itemindex);
+      
+            })
+        })
+        },
     
     createNewItemListener() {
         let createNewItemButton = document.querySelector('.createNewItem');
-            createNewItemButton.addEventListener('click', () => {
+
+        createNewItemButton.addEventListener('click', () => {
             createNewItemButton.disabled = true;
             screenControlObject.displayNewItemForm();
             console.log('create new item')
@@ -66,36 +64,39 @@ const eventListenerObject ={
             this.newItemCancel(createNewItemButton);
 
             formsObject.getNewItemFormInfo();
-            console.log('call getFormInfo, listener to extract form data')
-            
-            }
-        )
-          },
+            console.log('call getFormInfo, listener to extract form data')  
+            })
+    },
 
     addChecklistItemListener() {
         let addChecklistItemBtn = document.getElementById('addchecklistItem');
-        console.log(addChecklistItemBtn)
+
         addChecklistItemBtn.addEventListener('click', (e) => {
-            alert('add new item')
             e.preventDefault();  
 
-            const newChecklistItem = document.createElement('p');
+            const checklistTally = document.getElementById('newItemFormChecklist');
+            alert('checklist Tally: ' + checklistTally.children.length)
+
+            const newChecklistItem = document.createElement('li');
             
+            // var firstItem = document.getElementById('checklist0');
+            // alert(firstItem)
+            // var parentNode = firstItem.parentNode;
+            // var siblings = parentNode.children;
+            // alert(siblings.length)
+   
 
-            var firstItem = document.getElementById('checklist0');
-            alert(firstItem)
-            var parentNode = firstItem.parentNode;
-            var siblings = parentNode.children;
-            alert(siblings.length)
-
-
-            
             newChecklistItem.classList.add('checklistItem');
-            newChecklistItem.innerHTML = `<input type="text" id="checklist${(siblings.length -1) + 1}" name="title" class="input-checklist">
-                    `
-            const parentDiv = document.getElementById('checklistSubDiv');
+            // newChecklistItem.innerHTML = `<input type="text" id="checklist${(siblings.length -1) + 1}" name="title" class="input-checklist">`
+            
+            newChecklistItem.innerHTML = `<input type="text" id="checklist${(checklistTally.children.length) }" name="title" class="input-checklist"> <button> delete </button>`
 
-            parentDiv.appendChild(newChecklistItem);          
+            // TO DELETE - Obsolete as I got fir od the parent sibling structure and put all the <li> in a <ul>
+            // const parentDiv = document.getElementById('checklistSubDiv');
+            // parentDiv.appendChild(newChecklistItem);          
+
+            const parentList = document.getElementById('newItemFormChecklist');
+            parentList.appendChild(newChecklistItem);          
 
         })
     },
@@ -139,8 +140,6 @@ const eventListenerObject ={
             let editButtons = document.querySelectorAll('.editItem');
             editButtons.forEach((e) => {
                 e.addEventListener('click', (pointerEvent) => {
-                    
-                    
                     console.log('edit an item, now add the functionality. ie. the contents of the item preformatted into a form')
                     pointerEvent.stopPropagation();
                     console.log('e' +e.parentElement.dataset.categoryindex+e.parentElement.dataset.itemindex)
