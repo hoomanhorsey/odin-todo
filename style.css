@@ -41,22 +41,21 @@ padding: 20px;
     grid-row: 1/4;
 
 }
-.categories-container {
-    grid-column: 2/4;
-    grid-row: 1/4;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr ; 
-    height: 500px;
-
-}
-
 .categories {
     font-size: 1rem;
+
+    grid-column: 2/4; 
+    grid-row: 1/4;
+    grid-template-columns: 1fr 1fr 1fr; 
+
     display: flex;
+    height: 500px;
     min-width: 1000px;
-    grid-column: 1/4;
+    min-height: 1000px;
 
 }
+
+
 
 
 .category {
