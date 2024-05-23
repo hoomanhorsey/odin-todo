@@ -70,7 +70,7 @@ const screenControlObject = {
             tempArray.push(array[i]['items'][j]['checklist'][k]['checkItem']);
             }
            
-    /       / Create different html based on whether there is a checklist
+            // Create different html based on whether there is a checklist
             if (array[i]['items'][j]['checklist'].length !== 0) {
                 
                 itemElement.innerHTML = `
