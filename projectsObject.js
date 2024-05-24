@@ -85,6 +85,12 @@ const projectsObject = {
     getItem(categoryIndex, itemIndex) {
         return this.projectsArray[categoryIndex]['items'][itemIndex];
     },
+
+    toggleChecklistCheckbox(i, j, k, status) {
+        console.log('this.toggleChecklistCheckbox has been called: ' + status)
+        this.projectsArray[i]['items'][j]['checklist'][k]['checked'] = status;
+
+    }
     
     
 };

@@ -14,9 +14,11 @@ const eventListenerObject ={
                 const parent = e.parentNode;
                 const itemElement = document.getElementById(parent.id)
                 screenControlObject.itemDisplayFull(itemElement, projectsObject.projectsArray, parent.dataset.categoryindex, parent.dataset.itemindex);
+                eventListenerObject.checklistToggleListener(); 
+
                 })
             })
-            },
+    },
 
     itemListenerCollapse() {
         var items = document.querySelectorAll('.item-collapse');
@@ -60,13 +62,11 @@ const eventListenerObject ={
             parentList.appendChild(newChecklistItem);         
 
             eventListenerObject.deleteChecklistItemListener();
-
         })
 
     },
 
     deleteChecklistItemListener() {
-        console.log('called' )
         let deleteChecklistItemBtn = document.querySelectorAll('.checklistDeleteBtn');
 
         deleteChecklistItemBtn.forEach((e) => {        
@@ -80,38 +80,91 @@ const eventListenerObject ={
     newItemCancel(createNewItemButton) {
         let newItemCancelBtn = document.querySelector('.newItemCancelBtn');
 
-        newItemCancelBtn.addEventListener('click', (e) => {
-            
-            alert(e);
+        newItemCancelBtn.addEventListener('click', (e) => {          
             e.preventDefault();
-            alert('press');
             formsObject.refreshNewItemForm();
             createNewItemButton.disabled = false;
-            
     })},
     
     createNewCategoryListener() {
-            let createNewCategoryButton = document.querySelector('.createNewCategory');
-            createNewCategoryButton.addEventListener('click', () => {
-                createNewCategoryButton.disabled = true;
-                screenControlObject.displayNewCategoryForm();
-                this.newCategoryCancel(createNewCategoryButton);
-                formsObject.getNewCategoryFormInfo();
-                }
-            )
-          },
+        let createNewCategoryButton = document.querySelector('.createNewCategory');
+        createNewCategoryButton.addEventListener('click', () => {
+            createNewCategoryButton.disabled = true;
+            screenControlObject.displayNewCategoryForm();
+            this.newCategoryCancel(createNewCategoryButton);
+            formsObject.getNewCategoryFormInfo();
+            }
+        )
+        },
 
     newCategoryCancel(createNewCategoryButton) {
-            alert('new category cancel called')
-            let newCategoryCancelBtn = document.querySelector('.newCategoryCancelBtn');
-                newCategoryCancelBtn.addEventListener('click', (e) => {
-                alert(e);
-                e.preventDefault();
-                alert('press') 
-                formsObject.refreshNewCategoryForm();
-                createNewCategoryButton.disabled = false;
-                
-        })},
+        alert('new category cancel called')
+        let newCategoryCancelBtn = document.querySelector('.newCategoryCancelBtn');
+            newCategoryCancelBtn.addEventListener('click', (e) => {
+            alert(e);
+            e.preventDefault();
+            alert('press') 
+            formsObject.refreshNewCategoryForm();
+            createNewCategoryButton.disabled = false;               
+    })},
+
+    checklistToggleListener() {
+        console.log('called checklistToggleListener()')
+        let checkboxes = document.querySelectorAll('.checkbox');
+        checkboxes.forEach( (e) => {
+            console.log(e)
+            e.addEventListener('change', () => {
+                console.log(e.id)
+
+                let array = projectsObject.getProjectsArray()
+                console.log(array)
+
+                // console.log(array[0]['category']['items'])
+
+                console.log(array[0]['items'][0]['checklist'][0]['checked'])
+
+                // Need to create a function that changes the array in the project object.
+
+                console.log(e.id[8])
+                console.log(e.id[9])
+                console.log(e.id[10])
+
+
+                if (e.checked) {
+                    console.log("and it's checked")
+                    projectsObject.toggleChecklistCheckbox(e.id[8], e.id[9], e.id[10], true )
+
+                } else {
+                               //insert logic to update for non-check
+                    console.log("no, it's not checked")
+                    projectsObject.toggleChecklistCheckbox(e.id[8], e.id[9], e.id[10], false )
+
+                    // array[0]['items'][0]['checklist'][0]['checked'] = false;
+
+                }
+
+            }
+
+            
+                // pass array into function
+                // get referenct to item in array
+                // pass reference to item in array.
+                // update state of checkbox in array....
+
+
+            )
+            })      
+    },
+
+
+    // let deleteChecklistItemBtn = document.querySelectorAll('.checklistDeleteBtn');
+
+    //     deleteChecklistItemBtn.forEach((e) => {        
+    //         e.addEventListener('click', (del) => {             
+    //             del.preventDefault();
+    //             e.parentNode.remove()
+
+
 
     itemEditListener(){
             let editButtons = document.querySelectorAll('.editItem');

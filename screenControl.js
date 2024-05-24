@@ -54,20 +54,15 @@ const screenControlObject = {
             // items in the checklist array.
             var checkItemsNumber = (array[i]['items'][j]['checklist'].length)
 
-            const tempArray = []; // TODO, prob delete don't need
-
             for (let k= 0; k < checkItemsNumber; k++) {
             // Creates HTML based on items in checklist array - if none, then there is no HTML created.  // Need to change 'false' to a checkbox.
                 if (array[i]['items'][j]['checklist'][k]['checked']) {
                     checklistHTML += `<li>${array[i]['items'][j]['checklist'][k] ['checkItem']}
-                                    <input type="checkbox" checked></input> </li>`
+                                    <input class="checkbox" id="checkbox${i + j +k}"  type="checkbox" checked></input> </li>`
                 } else {
                     checklistHTML += `<li>${array[i]['items'][j]['checklist'][k] ['checkItem']}
-                                    <input type="checkbox" ></input> </li>`
-                }
-            // TODO Prob delete
-             // leave array here as you might need to use it to create checkboxes, but probably not as you're creating an array out of an array
-            tempArray.push(array[i]['items'][j]['checklist'][k]['checkItem']);
+                                    <input class="checkbox" id="checkbox${i + j +k}" type="checkbox" ></input> </li>`
+                }       
             }
            
             // Create different html based on whether there is a checklist
