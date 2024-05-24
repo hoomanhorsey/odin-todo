@@ -132,7 +132,7 @@ background-color: rgb(70, 85, 223)    ;
 /* edit form */
 
 .newItemForm {
-    font-size: .5rem;
+    font-size: 1rem;
 
     border-style: dotted;
     border-radius: 5px;

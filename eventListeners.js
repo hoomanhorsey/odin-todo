@@ -6,27 +6,6 @@ import { formsObject } from "./forms.js";
 
 const eventListenerObject ={
     
-    // TODELETE - No longer needed
-    // itemToggleListener() {
-    //     var items = document.querySelectorAll('.item');
-    
-    //     items.forEach((e) => {
-    //         e.addEventListener('click', (event) => {
-    //             console.log(e)
-    //             const itemElement = document.getElementById(`ref${e.dataset.categoryindex}${e.dataset.itemindex}`)
-    //             event.stopPropagation();
-
-    //             if (itemElement.classList.contains('full')) {
-    //                 console.log(itemElement.classList)
-    //                 screenControlObject.itemDisplaySummary(itemElement, projectsObject.projectsArray, e.dataset.categoryindex, e.dataset.itemindex)
-    //             } else {
-    //                 screenControlObject.itemDisplayFull(itemElement, projectsObject.projectsArray, e.dataset.categoryindex, e.dataset.itemindex);
-    //             }
-    //         })
-    //     })
-    //     },
-
-
     itemListenerExpand() {
         var items = document.querySelectorAll('.item-expand');
         
@@ -48,8 +27,7 @@ const eventListenerObject ={
 
                 const itemElement = document.getElementById(parent.id)
                 screenControlObject.itemDisplaySummary(itemElement, projectsObject.projectsArray, parent.dataset.categoryindex, parent.dataset.itemindex);
-      
-            })
+                })
         })
         },
     
@@ -59,7 +37,6 @@ const eventListenerObject ={
         createNewItemButton.addEventListener('click', () => {
             createNewItemButton.disabled = true;
             screenControlObject.displayNewItemForm();
-            console.log('create new item')
 
             this.newItemCancel(createNewItemButton);
 
@@ -75,36 +52,36 @@ const eventListenerObject ={
             e.preventDefault();  
 
             const checklistTally = document.getElementById('newItemFormChecklist');
-            alert('checklist Tally: ' + checklistTally.children.length)
+            const newChecklistItem = document.createElement('li'); 
 
-            const newChecklistItem = document.createElement('li');
-            
-            // var firstItem = document.getElementById('checklist0');
-            // alert(firstItem)
-            // var parentNode = firstItem.parentNode;
-            // var siblings = parentNode.children;
-            // alert(siblings.length)
-   
-
-            newChecklistItem.classList.add('checklistItem');
-            // newChecklistItem.innerHTML = `<input type="text" id="checklist${(siblings.length -1) + 1}" name="title" class="input-checklist">`
-            
-            newChecklistItem.innerHTML = `<input type="text" id="checklist${(checklistTally.children.length) }" name="title" class="input-checklist"> <button> delete </button>`
-
-            // TO DELETE - Obsolete as I got fir od the parent sibling structure and put all the <li> in a <ul>
-            // const parentDiv = document.getElementById('checklistSubDiv');
-            // parentDiv.appendChild(newChecklistItem);          
-
+            newChecklistItem.classList.add('checklistItem');        
+            newChecklistItem.innerHTML = `<input type="text" id="checklist${(checklistTally.children.length) }" name="title" class="input-checklist"> <button class="checklistDeleteBtn"> delete </button>`
             const parentList = document.getElementById('newItemFormChecklist');
-            parentList.appendChild(newChecklistItem);          
+            parentList.appendChild(newChecklistItem);         
+
+            eventListenerObject.deleteChecklistItemListener();
 
         })
+
     },
 
+    deleteChecklistItemListener() {
+        console.log('called' )
+        let deleteChecklistItemBtn = document.querySelectorAll('.checklistDeleteBtn');
+
+        deleteChecklistItemBtn.forEach((e) => {        
+            e.addEventListener('click', (del) => {             
+                del.preventDefault();
+                e.parentNode.remove()
+            })
+        })
+    },
+    
     newItemCancel(createNewItemButton) {
         let newItemCancelBtn = document.querySelector('.newItemCancelBtn');
 
         newItemCancelBtn.addEventListener('click', (e) => {
+            
             alert(e);
             e.preventDefault();
             alert('press');
