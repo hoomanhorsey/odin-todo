@@ -48,7 +48,7 @@ const eventListenerObject ={
     },
 
     addChecklistItemListener() {
-        let addChecklistItemBtn = document.getElementById('addchecklistItem');
+        let addChecklistItemBtn = document.getElementById('addCheckListItem');
 
         addChecklistItemBtn.addEventListener('click', (e) => {
             e.preventDefault();  
@@ -170,9 +170,8 @@ const eventListenerObject ={
             let editButtons = document.querySelectorAll('.editItem');
             editButtons.forEach((e) => {
                 e.addEventListener('click', (pointerEvent) => {
-                    console.log('edit an item, now add the functionality. ie. the contents of the item preformatted into a form')
                     pointerEvent.stopPropagation();
-                    console.log('e' +e.parentElement.dataset.categoryindex+e.parentElement.dataset.itemindex)
+                    console.log('e: ' +e.parentElement.dataset.categoryindex+e.parentElement.dataset.itemindex)
 
                     screenControlObject.displayEditItemForm(e.parentElement);
         

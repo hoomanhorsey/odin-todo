@@ -104,7 +104,6 @@ const screenControlObject = {
         const item = projectsObject.getItem(e.dataset.categoryindex, e.dataset.itemindex);
     
         // get the parent element, add a form as a new child, delete previous summary child element
-    
             let newItemForm = document.createElement('div');
             newItemForm = formsObject.createEditForm(newItemForm, item, categoryindex, itemindex);
              
@@ -118,17 +117,11 @@ const screenControlObject = {
                 break;
             }
         }
-
         let statusSelector = document.getElementById(`status${categoryindex + itemindex}`)
         statusSelector.value = item.status;
-
-
-        // - get the elment by ID
-        // replace javascript with a form
-        // prefill the form with the data from the array
-        // save the form by updating the
     
     },
+
     displayNewItemForm() {
 
         let newItem = document.querySelector('.newItem')

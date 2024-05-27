@@ -30,7 +30,7 @@ createNewItemForm (newItemForm)
 
     <div class="formDiv checklistDiv">  
         <label for="checklist" class="label-checklist">Checklist</label> 
-        <button id="addchecklistItem"> + another item</button>
+        <button id="addCheckListItem"> + another item</button>
         <div id="checklistSubDiv">
             <ul id="newItemFormChecklist">
                     <li> <input type="text" id="checklist${refNumber}" name="title" class="input-checklist" data-ref="ref${refNumber}"> </li>
@@ -75,96 +75,87 @@ createEditForm (newItemForm, item, categoryindex, itemindex) {
     //    TODO     Create a for loop to create the checklist html from the array. Then insert that checklist later.
     let checklistHTML = '';
 
-    let array = projectsObject.projectsArray;
+    let array = projectsObject.getProjectsArray();
 
     var checkItemsNumber = (array[categoryindex]['items'][itemindex]['checklist'].length);
 
-            for (let k= 0; k < checkItemsNumber; k++) {
-            console.log('console logging each item of the array. Item: ' + k + ' ' + array[categoryindex]['items'][itemindex]['checklist'][k]['checkItem']);
+        checklistHTML += `Checklist
+        <button id="editAddChecklistItem"> + another item</button>
+        `
+        ;
+        for (let k= 0; k < checkItemsNumber; k++) {
 
             // Creates HTML based on items in checklist array - if none, then there is no HTML created.
-
             // Need to change 'false' to a checkbox.
 
             if (array[categoryindex]['items'][itemindex]['checklist'][k]['checked']) {
                 checklistHTML += `
-                <label for="checklist" class="label-checklist"></label>
+                <li>
+                <label for="checklist${categoryindex+itemindex+k}" class="label-checklist"></label>
                 <input type="text" id="checklist${categoryindex+itemindex+k} name="checklist" class="input-checklistItem" value="${array[categoryindex]['items'][itemindex]['checklist'][k] ['checkItem']}">
-
-
-                <input type="checkbox" checked></input> </p>`
+                <input type="checkbox" checked></input> 
+                </li>`
             } else {
                 checklistHTML += `
-                <label for="checklist" class="label-checklist"></label>
+                <li>
+                <label for="checklist${categoryindex+itemindex+k}" class="label-checklist"></label>
+
                 <input type="text" id="checklist${categoryindex+itemindex+k} name="checklist" class="input-checklistItem" value="${array[categoryindex]['items'][itemindex]['checklist'][k] ['checkItem']}">
-
-                <input type="checkbox" ></input> </p>`
+                <input type="checkbox" ></input> 
+                </li>`
             };
-
-        //     if (array[categoryindex]['items'][itemindex]['checklist'][k]['checked']) {
-        //         checklistHTML += `<p>${array[categoryindex]['items'][itemindex]['checklist'][k] ['checkItem']}
-        //         <input type="checkbox" checked></input> </p>`
-        //     } else {
-        //         checklistHTML += `<p>${array[categoryindex]['items'][itemindex]['checklist'][k] ['checkItem']}
-        //         <input type="checkbox" ></input> </p>`
-        //     }
         }
 
+    // Creates rest of form html
 
-    console.log(item.description)
-    console.log(item.title)
     newItemForm.innerHTML = `<form id="form${categoryindex}${itemindex}" action="https://httpbin.org/post" method="post" class="newItemForm" autocomplete="off">
     
         <div class="formDiv" >
-        <label for="category" class="label-category"   >Category </label>
-        <select id=category class="select-category">
-        <option></option>
+            <label for="category" class="label-category"   >Category </label>
+            <select id=category class="select-category">
+                <option></option>
+            </select>
+        </div>
+
+        <div class="formDiv">
+            <label for="title" class="label-title"></label>
+            <input type="text" id="title" name="title" class="input-title itemTitle" value="${item.title}">
+        </div>
+
+        <div class="formDiv">
+            <label for="description" class="label-description"></label>
+            <textarea id="description" name="description" class="input-description item-description" rows="4" cols="20">${item.description}</textarea>
+        </div>
+
+        <div class="formDiv">
+            <label for="dueDate" class="label-dueDate"></label>
+            <input type="date" id="dueDate" name="dueDate" class="input-dueDate item-description" value="${item.dueDate}">
+        </div>
+        
+        <div>
+            ${checklistHTML}
+        </div>
+        
+        <div class="formDiv" >
+            <label for="status${categoryindex + itemindex}" class="label-status"></label>
+            <select id=status${categoryindex + itemindex} class="select-status">
+                <option value="completed">Completed</option>   
+                <option value="incomplete">Incomplete</option> 
+            </select>
+        </div>
+
+        <div class="formDiv">
+        <label for="priority${categoryindex + itemindex}" class="label-priority">Priority</label>
+        <select id=priority${categoryindex + itemindex} class="select-priority">
+            <option value="High">High</option>   
+            <option value="Medium">Medium</option>   
+            <option value="Low">Low</option> 
         </select>
-    </div>
+        </div>
 
-    <div class="formDiv">
-        <label for="title" class="label-title"></label>
-        <input type="text" id="title" name="title" class="input-title itemTitle" value="${item.title}">
-    </div>
-
-    <div class="formDiv">
-        <label for="description" class="label-description"></label>
-        <textarea id="description" name="description" class="input-description item-description" rows="4" cols="20">${item.description}</textarea>
-
-    </div>
-
-    <div class="formDiv">
-        <label for="dueDate" class="label-dueDate"></label>
-        <input type="date" id="dueDate" name="dueDate" class="input-dueDate item-description" value="${item.dueDate}">
-    </div>
-    
-    <div>
-    *****Need to turn this into a form*****
-    ${checklistHTML}
-    </div>
-    
-    <div class="formDiv" >
-        <label for="status${categoryindex + itemindex}" class="label-status"></label>
-        <select id=status${categoryindex + itemindex} class="select-status">
-            <option value="completed">Completed</option>   
-            <option value="incomplete">Incomplete</option> 
-        </select>
-    </div>
-
-    <div class="formDiv">
-    <label for="priority${categoryindex + itemindex}" class="label-priority">Priority</label>
-    <select id=priority${categoryindex + itemindex} class="select-priority">
-        <option value="High">High</option>   
-        <option value="Medium">Medium</option>   
-        <option value="Low">Low</option> 
-    </select>
-    </div>
-
-    <button>cancel</button>     
-
-    
-    <button type="submit" class="newBookBtn">Submit</button>
-</form>`
+        <button>cancel</button>     
+        <button type="submit" class="newBookBtn">Submit</button>
+    </form>`
 
 return newItemForm;
 },
