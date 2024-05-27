@@ -111,7 +111,17 @@ Tasks
 - need to insert provision for a checklist in the class....
     - a new array called checklist.
 
-
+- EditItem - when editing an item do you disable all other items from being edited?
+            - the reason why you might want this is because at the moment only one 'add checklist item'
+            button is operational. If you have more edit items opened then only the first 'add checklist item' 
+            button will be triggered.
+                You could create a documentquerySelectorAll + 'forEach' to listen for all 'add checklist item' buttons
+                That is triggered as soon as you press edit, so taht they are all encapsulated...
+                    This would allow multiple items to be edited at the same time....which wouldn't necessarily be a bad thing
+                    And if you save the changes to the form they would all be tied back to the item.
+                    In some respects this would be simpler than actively silencing all other edit buttons....
+    
+    
 
 
 Done

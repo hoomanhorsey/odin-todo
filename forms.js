@@ -108,7 +108,16 @@ createEditForm (newItemForm, item, categoryindex, itemindex) {
 
     // Creates rest of form html
 
-    newItemForm.innerHTML = `<form id="form${categoryindex}${itemindex}" action="https://httpbin.org/post" method="post" class="newItemForm" autocomplete="off">
+    newItemForm.id = `form${categoryindex}${itemindex}`
+    newItemForm.action="https://httpbin.org/post" 
+    newItemForm.method = "post" 
+    newItemForm.classList.add('newItemForm', 'item'); 
+    newItemForm.autocomplete="off"
+
+    // <form id="form${categoryindex}${itemindex}" 
+
+    newItemForm.innerHTML = `
+    
     
         <div class="formDiv" >
             <label for="category" class="label-category"   >Category </label>
@@ -135,8 +144,8 @@ createEditForm (newItemForm, item, categoryindex, itemindex) {
         <div class="formDiv checklistDiv">
             <div id="editChecklistSubDiv">
                 Checklist      
-                <button id="editAddChecklistItem"> + another item</button>
-                <ul id="editNewItemFormChecklist">
+                <button class="editAddChecklistItem"> + another item</button>
+                <ul id="newItemFormChecklist${categoryindex + itemindex}">
                     ${checklistHTML}
                 </ul>
             </div>

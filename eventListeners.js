@@ -46,7 +46,7 @@ const eventListenerObject ={
             })
     },
 
-    addChecklistItemListener() {
+    addChecklistItemListener() {       
         let addChecklistItemBtn = document.getElementById('addCheckListItem');
 
         addChecklistItemBtn.addEventListener('click', (e) => {
@@ -59,7 +59,7 @@ const eventListenerObject ={
             newChecklistItem.innerHTML = 
                 `<input type="text" id="checklist${(checklistTally.children.length) }" 
                 name="title" class="input-checklist"> 
-                <button class="checklistDeleteBtn"> del </button>`
+                <button class="checklistDeleteBtn"> - </button>`
             const parentList = document.getElementById('newItemFormChecklist');
             parentList.appendChild(newChecklistItem);         
 
@@ -70,25 +70,61 @@ const eventListenerObject ={
 
     addEditChecklistItemListener(){
 
-        let addChecklistItemBtn = document.getElementById('editAddChecklistItem');
+        const addChecklistItemBtns = document.querySelectorAll('.editAddChecklistItem');
 
-        addChecklistItemBtn.addEventListener('click', (e) => {
-            e.preventDefault();  
+        // addChecklistItemBtns.addEventListener('click', (e) => {
 
-            const checklistTally = document.getElementById('editNewItemFormChecklist');
-            const newChecklistItem = document.createElement('li'); 
 
-            newChecklistItem.classList.add('checklistItem');        
-            newChecklistItem.innerHTML = 
-                `<input type="text" id="checklist${(checklistTally.children.length) }" 
-                name="title" class="input-checklist"> 
+            addChecklistItemBtns.forEach( (button) => {
+                button.addEventListener('click', (pointerEvent) => {
+                    pointerEvent.preventDefault(); 
 
-                <input type="checkbox" ></input> 
-                <button class="checklistDeleteBtn"> - </button>`
-            const parentList = document.getElementById('editNewItemFormChecklist');
-            parentList.appendChild(newChecklistItem);         
+                    let bParent = button.parentNode;
+                    let bGrandparent = bParent.parentNode;
+                    let bGreatGrandparent = bGrandparent.parentNode
+                    console.log(bGreatGrandparent.id)
+                    let formId = bGreatGrandparent.id
 
-            eventListenerObject.deleteChecklistItemListener();
+                    console.log(formId[4]+ formId[5])
+
+                    console.log(`newItemFormChecklist${formId[4]+formId[5]}`)
+                    
+                    const checklistTally = document.getElementById(`newItemFormChecklist${formId[4]+formId[5]}`);
+
+                        console.log(checklistTally.children.length)
+
+                    const newChecklistItem = document.createElement('li'); 
+
+                    newChecklistItem.classList.add('checklistItem');        
+                    newChecklistItem.innerHTML = 
+                        `<input type="text" id="checklist${(checklistTally.children.length) }" 
+                        name="title" class="input-checklist"> 
+        
+                        <input type="checkbox" ></input> 
+                        <button class="checklistDeleteBtn"> - </button>`
+                    const parentList = document.getElementById('editNewItemFormChecklist');
+                    checklistTally.appendChild(newChecklistItem);         
+        
+                    eventListenerObject.deleteChecklistItemListener();
+                     }
+                    )
+                })
+
+
+            // const checklistTally = document.getElementById('editNewItemFormChecklist');
+            // const newChecklistItem = document.createElement('li'); 
+
+            // newChecklistItem.classList.add('checklistItem');        
+            // newChecklistItem.innerHTML = 
+            //     `<input type="text" id="checklist${(checklistTally.children.length) }" 
+            //     name="title" class="input-checklist"> 
+
+            //     <input type="checkbox" ></input> 
+            //     <button class="checklistDeleteBtn"> - </button>`
+            // const parentList = document.getElementById('editNewItemFormChecklist');
+            // parentList.appendChild(newChecklistItem);         
+
+            // eventListenerObject.deleteChecklistItemListener();
 
         // let editChecklistItem = document.getElementById('editAddChecklistItem');
 
@@ -96,7 +132,7 @@ const eventListenerObject ={
         //     e.preventDefault();
 
         //     alert('added edit add item event listener - but you need to make it a document selector query all....')
-        })
+        
         
     },
 
@@ -214,6 +250,7 @@ const eventListenerObject ={
                     document.getElementById(`form${e.parentElement.dataset.categoryindex}${e.parentElement.dataset.itemindex}`).addEventListener('click', function(event) {
                         console.log('Form clicked');
                         event.stopPropagation(); // Prevent event from propagating to the parent div
+
                 })        
                 })
             } )
