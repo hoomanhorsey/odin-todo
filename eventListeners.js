@@ -66,6 +66,19 @@ const eventListenerObject ={
 
     },
 
+    addEditChecklistItemListener(){
+
+        let editChecklistItem = document.getElementById('editAddChecklistItem');
+
+        editChecklistItem.addEventListener('click', (e) => {
+            e.preventDefault();
+
+            alert('added edit add item event listener - but you need to make it a document selector query all....')
+        })
+        
+    },
+
+
     deleteChecklistItemListener() {
         let deleteChecklistItemBtn = document.querySelectorAll('.checklistDeleteBtn');
 
