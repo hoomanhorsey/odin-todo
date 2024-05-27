@@ -38,7 +38,7 @@ const screenControlObject = {
 
     itemDisplaySummary(itemElement, array, i, j) {
         itemElement.classList.add('displaySummary');
-        itemElement.classList.remove('displayFull' );
+        itemElement.classList.remove('displayFull', 'zIndexHigh' );
 
         
 
@@ -54,7 +54,7 @@ const screenControlObject = {
         console.log('i: ' + i + ' j: ' + j)
         console.log(array[i]['items'][j]['checklist']);
 
-        itemElement.classList.add('displayFull', 'zIndex');
+        itemElement.classList.add('displayFull', 'zIndexHigh');
         itemElement.classList.remove('displaySummary');
 
 

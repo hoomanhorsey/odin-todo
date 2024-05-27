@@ -119,9 +119,10 @@ padding: 20px;
     font-family: 'Courier New', Courier, monospace;
 }
 
-.zIndex {
+.zIndexHigh {
     z-index: 3;
 }
+
 .itemTitle {
     font-weight: 550;
     font-style: italic;
