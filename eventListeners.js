@@ -72,9 +72,6 @@ const eventListenerObject ={
 
         const addChecklistItemBtns = document.querySelectorAll('.editAddChecklistItem');
 
-        // addChecklistItemBtns.addEventListener('click', (e) => {
-
-
             addChecklistItemBtns.forEach( (button) => {
                 button.addEventListener('click', (pointerEvent) => {
                     pointerEvent.preventDefault(); 
@@ -87,6 +84,9 @@ const eventListenerObject ={
 
                     console.log(formId[4]+ formId[5])
 
+                    let categoryindex = formId[4] 
+                    let itemindex = formId[5]
+
                     console.log(`newItemFormChecklist${formId[4]+formId[5]}`)
                     
                     const checklistTally = document.getElementById(`newItemFormChecklist${formId[4]+formId[5]}`);
@@ -95,10 +95,24 @@ const eventListenerObject ={
 
                     const newChecklistItem = document.createElement('li'); 
 
+                    // Creating an object to store dynamically generated variables.
+                    // May be useful in ensuring event listener is triggered for specific items, and keeps tallies.
+                    var dynamicCheckId = {};
+                    let variableRef = `ref${formId[4]+formId[5]}`;
+                    console.log('variable ref: ' + variableRef);
+                    var propertyName =  variableRef;
+                    console.log('property name: '+ propertyName)
+                    dynamicCheckId[propertyName] = `ref${formId[4]+formId[5]}`;
+
+                    console.log(dynamicCheckId[variableRef]);
+                    console.table(dynamicCheckId)
+
                     newChecklistItem.classList.add('checklistItem');        
                     newChecklistItem.innerHTML = 
-                        `<input type="text" id="checklist${(checklistTally.children.length) }" 
-                        name="title" class="input-checklist"> 
+
+                        ` <label for="checklist${categoryindex+itemindex+checklistTally.children.length}" class="label-checklist"></label>
+                        <input type="text" id="checklist${(categoryindex+itemindex+checklistTally.children.length)}" 
+                        name="checklist" class="input-checklistItem">
         
                         <input type="checkbox" ></input> 
                         <button class="checklistDeleteBtn"> - </button>`
