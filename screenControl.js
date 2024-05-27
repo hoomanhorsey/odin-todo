@@ -37,8 +37,13 @@ const screenControlObject = {
     },
 
     itemDisplaySummary(itemElement, array, i, j) {
-        itemElement.innerHTML = 
-            `<p class="item-expand"> [+] </p>
+        itemElement.classList.add('displaySummary');
+        itemElement.classList.remove('displayFull' );
+
+        
+
+        itemElement.innerHTML = `
+            <p class="item-expand"> [+] </p>
             <p class="itemTitle" > ${array[i]['items'][j]['title']} </p> 
             <p> Priority: ${ array[i]['items'][j]['priority']} </p> 
             <p> Due date: ${ array[i]['items'][j]['dueDate']} </p> `
@@ -48,6 +53,10 @@ const screenControlObject = {
     itemDisplayFull(itemElement, array, i, j) {
         console.log('i: ' + i + ' j: ' + j)
         console.log(array[i]['items'][j]['checklist']);
+
+        itemElement.classList.add('displayFull', 'zIndex');
+        itemElement.classList.remove('displaySummary');
+
 
         //test for checklist
         let checklistHTML = '';
