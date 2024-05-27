@@ -31,12 +31,12 @@ createNewItemForm (newItemForm)
     <div class="formDiv checklistDiv">  
         <label for="checklist" class="label-checklist">Checklist</label> 
         <button id="addCheckListItem"> + another item</button>
-        <div id="checklistSubDiv">
-            <ul id="newItemFormChecklist">
-                    <li> <input type="text" id="checklist${refNumber}" name="title" class="input-checklist" data-ref="ref${refNumber}"> </li>
-            </ul>
+            <div id="checklistSubDiv">
+                <ul id="newItemFormChecklist">
+                        <li> <input type="text" id="checklist${refNumber}" name="title" class="input-checklist" data-ref="ref${refNumber}"> </li>
+                </ul>
             </div>
-        </div>
+    </div>
 
     <div class="formDiv">
         <label for="dueDate" class="label-dueDate">Due Date</label>
@@ -79,10 +79,8 @@ createEditForm (newItemForm, item, categoryindex, itemindex) {
 
     var checkItemsNumber = (array[categoryindex]['items'][itemindex]['checklist'].length);
 
-        checklistHTML += `Checklist
-        <button id="editAddChecklistItem"> + another item</button>
-        `
-        ;
+        checklistHTML += '';
+
         for (let k= 0; k < checkItemsNumber; k++) {
 
             // Creates HTML based on items in checklist array - if none, then there is no HTML created.
@@ -94,6 +92,7 @@ createEditForm (newItemForm, item, categoryindex, itemindex) {
                 <label for="checklist${categoryindex+itemindex+k}" class="label-checklist"></label>
                 <input type="text" id="checklist${categoryindex+itemindex+k} name="checklist" class="input-checklistItem" value="${array[categoryindex]['items'][itemindex]['checklist'][k] ['checkItem']}">
                 <input type="checkbox" checked></input> 
+                <button class="checklistDeleteBtn"> - </button>
                 </li>`
             } else {
                 checklistHTML += `
@@ -102,6 +101,7 @@ createEditForm (newItemForm, item, categoryindex, itemindex) {
 
                 <input type="text" id="checklist${categoryindex+itemindex+k} name="checklist" class="input-checklistItem" value="${array[categoryindex]['items'][itemindex]['checklist'][k] ['checkItem']}">
                 <input type="checkbox" ></input> 
+                <button class="checklistDeleteBtn"> - </button>
                 </li>`
             };
         }
@@ -131,10 +131,16 @@ createEditForm (newItemForm, item, categoryindex, itemindex) {
             <label for="dueDate" class="label-dueDate"></label>
             <input type="date" id="dueDate" name="dueDate" class="input-dueDate item-description" value="${item.dueDate}">
         </div>
-        
-        <div>
-            ${checklistHTML}
-        </div>
+
+        <div class="formDiv checklistDiv">
+            <div id="editChecklistSubDiv">
+                Checklist      
+                <button id="editAddChecklistItem"> + another item</button>
+                <ul id="editNewItemFormChecklist">
+                    ${checklistHTML}
+                </ul>
+            </div>
+        </div>       
         
         <div class="formDiv" >
             <label for="status${categoryindex + itemindex}" class="label-status"></label>

@@ -86,6 +86,16 @@ TODO
 
 Tasks 
 
+
+
+- Deleting checklist items
+    - having an empty checklist still creates a check list.  
+      Need to include a check so that if the checklist is empty then the array is empty
+      This will also need to be reflected in the edit form
+
+- 
+
+
 - General - (maybe insert a 'refresh display button' that refreshes the display)
 
 - EditItem - the summary/full version is now removed, and only shows the form // Done
@@ -94,6 +104,8 @@ Tasks
 - EditItem - investiage changing category as well....need to populate the category too.
 - EditItem - this needs the array to be updated.
 - EditItem - then after, it needs to refresht the display.
+
+- EditItem - need to activate addition of new checklist item when you press add new checklist item
 
 - newItem - insert a checklist?
 - need to insert provision for a checklist in the class....

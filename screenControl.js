@@ -120,7 +120,9 @@ const screenControlObject = {
         let statusSelector = document.getElementById(`status${categoryindex + itemindex}`)
         statusSelector.value = item.status;
 
+        
         eventListenerObject.addEditChecklistItemListener();
+        eventListenerObject.deleteChecklistItemListener()
     
     },
 

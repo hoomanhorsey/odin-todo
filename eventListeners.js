@@ -15,7 +15,6 @@ const eventListenerObject ={
                 const itemElement = document.getElementById(parent.id)
                 screenControlObject.itemDisplayFull(itemElement, projectsObject.projectsArray, parent.dataset.categoryindex, parent.dataset.itemindex);
                 eventListenerObject.checklistToggleListener(); 
-
                 })
             })
     },
@@ -57,7 +56,10 @@ const eventListenerObject ={
             const newChecklistItem = document.createElement('li'); 
 
             newChecklistItem.classList.add('checklistItem');        
-            newChecklistItem.innerHTML = `<input type="text" id="checklist${(checklistTally.children.length) }" name="title" class="input-checklist"> <button class="checklistDeleteBtn"> delete </button>`
+            newChecklistItem.innerHTML = 
+                `<input type="text" id="checklist${(checklistTally.children.length) }" 
+                name="title" class="input-checklist"> 
+                <button class="checklistDeleteBtn"> del </button>`
             const parentList = document.getElementById('newItemFormChecklist');
             parentList.appendChild(newChecklistItem);         
 
@@ -68,22 +70,43 @@ const eventListenerObject ={
 
     addEditChecklistItemListener(){
 
-        let editChecklistItem = document.getElementById('editAddChecklistItem');
+        let addChecklistItemBtn = document.getElementById('editAddChecklistItem');
 
-        editChecklistItem.addEventListener('click', (e) => {
-            e.preventDefault();
+        addChecklistItemBtn.addEventListener('click', (e) => {
+            e.preventDefault();  
 
-            alert('added edit add item event listener - but you need to make it a document selector query all....')
+            const checklistTally = document.getElementById('editNewItemFormChecklist');
+            const newChecklistItem = document.createElement('li'); 
+
+            newChecklistItem.classList.add('checklistItem');        
+            newChecklistItem.innerHTML = 
+                `<input type="text" id="checklist${(checklistTally.children.length) }" 
+                name="title" class="input-checklist"> 
+
+                <input type="checkbox" ></input> 
+                <button class="checklistDeleteBtn"> - </button>`
+            const parentList = document.getElementById('editNewItemFormChecklist');
+            parentList.appendChild(newChecklistItem);         
+
+            eventListenerObject.deleteChecklistItemListener();
+
+        // let editChecklistItem = document.getElementById('editAddChecklistItem');
+
+        // editChecklistItem.addEventListener('click', (e) => {
+        //     e.preventDefault();
+
+        //     alert('added edit add item event listener - but you need to make it a document selector query all....')
         })
         
     },
-
 
     deleteChecklistItemListener() {
         let deleteChecklistItemBtn = document.querySelectorAll('.checklistDeleteBtn');
 
         deleteChecklistItemBtn.forEach((e) => {        
-            e.addEventListener('click', (del) => {             
+            e.addEventListener('click', (del) => {      
+                
+                // alert('press del')
                 del.preventDefault();
                 e.parentNode.remove()
             })
