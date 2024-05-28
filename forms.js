@@ -168,10 +168,9 @@ createEditForm (newItemForm, item, categoryindex, itemindex) {
         </select>
         </div>
 
-        <button>cancel</button>     
+        <button class="cancelEditBtn" >cancel</button>     
         <button type="submit" class="newBookBtn">Submit</button>
     </form>`
-
 return newItemForm;
 },
 

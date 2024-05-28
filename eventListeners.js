@@ -163,6 +163,13 @@ const eventListenerObject ={
         })
     },
     
+    editItemCancelListener() {
+        let cancelEditBtn = document.querySelector('.cancelEditBtn');
+        cancelEditBtn.addEventListener('click', (e) => {
+            screenControlObject.displayFullList();
+        })
+    },
+
     newItemCancel(createNewItemButton) {
         let newItemCancelBtn = document.querySelector('.newItemCancelBtn');
 
@@ -265,7 +272,9 @@ const eventListenerObject ={
                         console.log('Form clicked');
                         event.stopPropagation(); // Prevent event from propagating to the parent div
 
-                })        
+                })    
+                eventListenerObject.editItemCancelListener();
+    
                 })
             } )
             }

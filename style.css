@@ -98,14 +98,25 @@ padding: 20px;
     font-weight: 900;
  }
 
-.displayFull {
+.displayFull, .newItemForm {
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Centers the child element */
+    width: 80%; /* Adjust width to take most of the screen */
+    height: 80%; /* Adjust height to take most of the screen */
+    background-color: rgba(0, 0, 0, 0.5); /* Example background color with transparency */
+    color: white; /* Example text color */
+    padding: 20px; /* Example padding */
+    
     font-size: 1.5rem;
     border-style: dotted;
     border-radius: 5px;
 
-    margin: 10px;
+    /* margin: 10px;
     padding: 15px;
-    min-width: 500px;
+    min-width: 500px; */
 }
 
 
