@@ -30,26 +30,26 @@ padding: 20px;
 .container {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
 }
 
 
 .sidebar {
     display: grid;
 
-    grid-column: 1/2;
-    grid-row: 1/4;
+    grid-column: 0/4;
+    grid-row: 0/1;
 
 }
 .categories {
     font-size: 1rem;
 
-    grid-column: 2/4; 
-    grid-row: 1/4;
-    grid-template-columns: 1fr 1fr 1fr; 
+    grid-column: 1/4; 
+    grid-row: 2/10;
+    grid-template-columns: 1fr 1fr 1fr 1fr; 
 
     display: flex;
-    height: 500px;
+    height: 500px;  
     min-width: 1000px;
     min-height: 1000px;
 
@@ -118,7 +118,12 @@ padding: 20px;
     padding: 15px;
     min-width: 500px; */
 }
+.newItemForm {
+    background-color: lightgray;
+    opacity: 0.95;
 
+
+}
 
 .displaySummary {
     font-size: 1rem;
@@ -185,14 +190,14 @@ background-color: rgb(70, 85, 223)    ;
 }
 
 .input-title {
-    font-size: 1rem;
+    font-size: 1.5rem;
 
     margin: 0px;
     padding: 5px;
 }
 
 .input-description {
-    font-size: 1rem;
+    font-size: 1.5rem;
 
     margin: 0px;
     padding: 10px;
