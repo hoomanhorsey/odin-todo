@@ -101,11 +101,11 @@ padding: 20px;
 .displayFull, .newItemForm, .newCategoryForm {
 
     position: absolute;
-    top: 50%;
+    top: 70%;
     left: 50%;
     transform: translate(-50%, -50%); /* Centers the child element */
     width: 80%; /* Adjust width to take most of the screen */
-    height: 80%; /* Adjust height to take most of the screen */
+    height: 75%; /* Adjust height to take most of the screen */
     background-color: rgba(0, 0, 0, 0.5); /* Example background color with transparency */
     color: white; /* Example text color */
     padding: 20px; /* Example padding */
