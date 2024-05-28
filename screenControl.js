@@ -137,7 +137,7 @@ const screenControlObject = {
 
     displayNewItemForm() {
 
-        let newItem = document.querySelector('.newItem')
+        let newItem = document.querySelector('.categories')
         let newItemForm = document.createElement('div');
             newItemForm.classList.add('newItemFormDiv');
 
@@ -164,7 +164,7 @@ const screenControlObject = {
 
     displayNewCategoryForm() {
 
-        let newCategory = document.querySelector('.newCategory')
+        let newCategory = document.querySelector('.categories')
         let newCategoryForm = document.createElement('div');
     
         newCategoryForm = formsObject.createNewCategoryForm(newCategoryForm);

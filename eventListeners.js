@@ -6,18 +6,64 @@ import { formsObject } from "./forms.js";
 
 const eventListenerObject ={
     
+    itemExpand() {
+      
+            alert(this.parentNode)
+            const parent = this.parentNode;
+            const itemElement = document.getElementById(parent.id)
+
+            alert(parent.id)
+
+            screenControlObject.itemDisplayFull(itemElement, projectsObject.projectsArray, parent.dataset.categoryindex, parent.dataset.itemindex);
+            eventListenerObject.checklistToggleListener(); 
+
+            var items = document.querySelectorAll('.item-expand');
+            items.forEach((e) => {
+                e.removeEventListener('click', eventListenerObject.itemExpand)
+            })
+
+    },
+
+    itemTest() {
+        alert('yoohoo')
+    },
+      
     itemListenerExpand() {
         var items = document.querySelectorAll('.item-expand');
         
         items.forEach((e) => {
-            e.addEventListener('click', () => {
-                const parent = e.parentNode;
-                const itemElement = document.getElementById(parent.id)
-                screenControlObject.itemDisplayFull(itemElement, projectsObject.projectsArray, parent.dataset.categoryindex, parent.dataset.itemindex);
-                eventListenerObject.checklistToggleListener(); 
+            e.addEventListener('click', eventListenerObject.itemExpand)                    
+
+
                 })
-            })
+            
     },
+
+    // itemListenerExpand() {
+    //     var items = document.querySelectorAll('.item-expand');
+        
+    //     items.forEach((e) => {
+    //         e.addEventListener('click', () => {
+    //             const parent = e.parentNode;
+    //             const itemElement = document.getElementById(parent.id)
+
+    //             alert(parent.id)
+
+    //             screenControlObject.itemDisplayFull(itemElement, projectsObject.projectsArray, parent.dataset.categoryindex, parent.dataset.itemindex);
+    //             eventListenerObject.checklistToggleListener(); 
+
+    //             let itemExpandersForDisabling = document.querySelectorAll('item-expand');
+    //             itemExpandersForDisabling.forEach((event) => {
+    //                 event.addEventListener('click', () => {
+    //                 alert('turn these off')
+    //             })
+    //             })
+
+
+
+    //             })
+    //         })
+    // },
 
     itemListenerCollapse() {
         var items = document.querySelectorAll('.item-collapse');

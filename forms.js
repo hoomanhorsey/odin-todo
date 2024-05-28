@@ -117,8 +117,7 @@ createEditForm (newItemForm, item, categoryindex, itemindex) {
     // <form id="form${categoryindex}${itemindex}" 
 
     newItemForm.innerHTML = `
-    
-    
+        
         <div class="formDiv" >
             <label for="category" class="label-category"   >Category </label>
             <select id=category class="select-category">
@@ -128,12 +127,12 @@ createEditForm (newItemForm, item, categoryindex, itemindex) {
 
         <div class="formDiv">
             <label for="title" class="label-title"></label>
-            <input type="text" id="title" name="title" class="input-title itemTitle" value="${item.title}">
+            <input type="text" id="title" name="title" class="input-title itemTitle" size="50" value="${item.title}">
         </div>
 
         <div class="formDiv">
             <label for="description" class="label-description"></label>
-            <textarea id="description" name="description" class="input-description item-description" rows="4" cols="20">${item.description}</textarea>
+            <textarea id="description" name="description" class="input-description item-description" rows="4" cols="50">${item.description}</textarea>
         </div>
 
         <div class="formDiv">
