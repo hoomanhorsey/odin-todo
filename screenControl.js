@@ -1,6 +1,6 @@
 import { projectsObject } from "./projectsObject.js";
 import { eventListenerObject } from "./eventListeners.js";
-import { formsObject } from "./forms.js";
+import { formsCreateObject } from "./formsCreateObject.js";
 
 const screenControlObject = {
 
@@ -24,7 +24,7 @@ const screenControlObject = {
             let itemElement = categoryElement.appendChild(screenControlObject.setItemElementDetails(array, i, j));
             screenControlObject.itemDisplaySummary(itemElement, array, i, j);
             }}
-        eventListenerObject.itemListenerExpand() 
+        // eventListenerObject.itemListenerExpand() 
     },
 
     setItemElementDetails(array, i, j) {
@@ -114,7 +114,7 @@ const screenControlObject = {
     
         // get the parent element, add a form as a new child, delete previous summary child element
             let newItemForm = document.createElement('form');
-            newItemForm = formsObject.createEditForm(newItemForm, item, categoryindex, itemindex);
+            newItemForm = formsCreateObject.createEditForm(newItemForm, item, categoryindex, itemindex);
              
             e.replaceWith(newItemForm);
         
@@ -141,7 +141,7 @@ const screenControlObject = {
         let newItemForm = document.createElement('div');
             newItemForm.classList.add('newItemFormDiv');
 
-        newItemForm = formsObject.createNewItemForm(newItemForm);
+        newItemForm = formsCreateObject.createNewItemForm(newItemForm);
         newItem.appendChild(newItemForm);
 
             const buttonInFunction = document.querySelector('.newBookBtn')
@@ -167,7 +167,7 @@ const screenControlObject = {
         let newCategory = document.querySelector('.categories')
         let newCategoryForm = document.createElement('div');
     
-        newCategoryForm = formsObject.createNewCategoryForm(newCategoryForm);
+        newCategoryForm = formsCreateObject.createNewCategoryForm(newCategoryForm);
         newCategory.appendChild(newCategoryForm);
     },
         

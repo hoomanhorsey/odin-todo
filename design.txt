@@ -88,6 +88,7 @@ Tasks
 
 
 
+
 - Deleting checklist items
     - having an empty checklist still creates a check list.  
       Need to include a check so that if the checklist is empty then the array is empty
@@ -121,9 +122,23 @@ Tasks
                     And if you save the changes to the form they would all be tied back to the item.
                     In some respects this would be simpler than actively silencing all other edit buttons....
     
-    
+- Checklist
+    - The checklist seems to be the same for each items instead of unique to each item.
+    - This was revealed when you update an item, it updates the checklist the same way for all items.
+
+- New Category New Item
+    - Creating a new category does not disable the creation of a new item and vice versa.
+    - You can easily cancel out of this so not sure that it matters that much
+
 
 
 Done
 - After you submit an item, the item toggle doesn't work so you need to call the event listener again.//
-    - It was b/c the event listener had been renamed but the named hadn't been changed when it was called.
+    - **It was b/c the event listener had been renamed but the named hadn't been changed when it was called.
+
+
+
+- Create New Item 
+    - After  you create a new Item, you need to relaunch the event listener to create another item.
+    - It turns the event listener off while you are filling in an item but it should turn on again after it is submitted
+    - **I'm not sure how I fixed this, but it may have been when I split the Form object into 'create' and 'retrieve', and got rid of another function call.

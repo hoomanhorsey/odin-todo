@@ -1,69 +1,54 @@
 import { screenControlObject } from "./screenControl.js";
 import { projectsObject } from "./projectsObject.js";
-import { formsObject } from "./forms.js";
+import { formsCreateObject } from "./formsCreateObject.js";
+import { formsRetrieveObject } from "./formsRetrieveObject.js";
+
 
 // item Event listener
 
 const eventListenerObject ={
     
-    itemExpand() {
-      
-            alert(this.parentNode)
-            const parent = this.parentNode;
+    itemExpand() {   
+        const parent = this.parentNode;
+        const itemElement = document.getElementById(parent.id)
+        screenControlObject.itemDisplayFull(
+            itemElement, projectsObject.projectsArray, 
+            parent.dataset.categoryindex,parent.dataset.itemindex);
+        eventListenerObject.checklistToggleListener(); 
+
+        var items = document.querySelectorAll('.item-expand');
+        items.forEach((e) => {
+            e.removeEventListener('click', eventListenerObject.itemExpand)
+        })
+    },
+     
+    itemListenerExpand() {
+        var items = document.querySelectorAll('.item-expand');
+        items.forEach((e) => {
+            e.addEventListener('click', () => {
+            
+            const parent = e.parentNode;
+            // console.log(e)
+            // console.log(e.parentNode)
             const itemElement = document.getElementById(parent.id)
-
-            alert(parent.id)
-
-            screenControlObject.itemDisplayFull(itemElement, projectsObject.projectsArray, parent.dataset.categoryindex, parent.dataset.itemindex);
+            console.log(itemElement)
+            screenControlObject.itemDisplayFull(
+                itemElement, projectsObject.projectsArray, 
+                parent.dataset.categoryindex,parent.dataset.itemindex);
             eventListenerObject.checklistToggleListener(); 
 
             var items = document.querySelectorAll('.item-expand');
             items.forEach((e) => {
                 e.removeEventListener('click', eventListenerObject.itemExpand)
             })
-
-    },
-
-    itemTest() {
-        alert('yoohoo')
-    },
-      
-    itemListenerExpand() {
-        var items = document.querySelectorAll('.item-expand');
-        
-        items.forEach((e) => {
-            e.addEventListener('click', eventListenerObject.itemExpand)                    
+            }
+            )
 
 
+            // eventListenerObject.itemExpand)                    
                 })
             
     },
-
-    // itemListenerExpand() {
-    //     var items = document.querySelectorAll('.item-expand');
-        
-    //     items.forEach((e) => {
-    //         e.addEventListener('click', () => {
-    //             const parent = e.parentNode;
-    //             const itemElement = document.getElementById(parent.id)
-
-    //             alert(parent.id)
-
-    //             screenControlObject.itemDisplayFull(itemElement, projectsObject.projectsArray, parent.dataset.categoryindex, parent.dataset.itemindex);
-    //             eventListenerObject.checklistToggleListener(); 
-
-    //             let itemExpandersForDisabling = document.querySelectorAll('item-expand');
-    //             itemExpandersForDisabling.forEach((event) => {
-    //                 event.addEventListener('click', () => {
-    //                 alert('turn these off')
-    //             })
-    //             })
-
-
-
-    //             })
-    //         })
-    // },
 
     itemListenerCollapse() {
         var items = document.querySelectorAll('.item-collapse');
@@ -87,7 +72,7 @@ const eventListenerObject ={
 
             this.newItemCancel(createNewItemButton);
 
-            formsObject.getNewItemFormInfo();
+            formsRetrieveObject.getNewItemFormInfo();
             console.log('call getFormInfo, listener to extract form data')  
             })
     },
@@ -168,32 +153,7 @@ const eventListenerObject ={
                     eventListenerObject.deleteChecklistItemListener();
                      }
                     )
-                })
-
-
-            // const checklistTally = document.getElementById('editNewItemFormChecklist');
-            // const newChecklistItem = document.createElement('li'); 
-
-            // newChecklistItem.classList.add('checklistItem');        
-            // newChecklistItem.innerHTML = 
-            //     `<input type="text" id="checklist${(checklistTally.children.length) }" 
-            //     name="title" class="input-checklist"> 
-
-            //     <input type="checkbox" ></input> 
-            //     <button class="checklistDeleteBtn"> - </button>`
-            // const parentList = document.getElementById('editNewItemFormChecklist');
-            // parentList.appendChild(newChecklistItem);         
-
-            // eventListenerObject.deleteChecklistItemListener();
-
-        // let editChecklistItem = document.getElementById('editAddChecklistItem');
-
-        // editChecklistItem.addEventListener('click', (e) => {
-        //     e.preventDefault();
-
-        //     alert('added edit add item event listener - but you need to make it a document selector query all....')
-        
-        
+                })       
     },
 
     deleteChecklistItemListener() {
@@ -221,7 +181,7 @@ const eventListenerObject ={
 
         newItemCancelBtn.addEventListener('click', (e) => {          
             e.preventDefault();
-            formsObject.refreshNewItemForm();
+            formsCreateObject.refreshNewItemForm();
             createNewItemButton.disabled = false;
     })},
     
@@ -231,7 +191,7 @@ const eventListenerObject ={
             createNewCategoryButton.disabled = true;
             screenControlObject.displayNewCategoryForm();
             this.newCategoryCancel(createNewCategoryButton);
-            formsObject.getNewCategoryFormInfo();
+            formsRetrieveObject.getNewCategoryFormInfo();
             }
         )
         },
@@ -243,7 +203,7 @@ const eventListenerObject ={
             alert(e);
             e.preventDefault();
             alert('press') 
-            formsObject.refreshNewCategoryForm();
+            formsCreateObject.refreshNewCategoryForm();
             createNewCategoryButton.disabled = false;               
     })},
 

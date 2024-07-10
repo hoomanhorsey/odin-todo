@@ -1,15 +1,14 @@
 // 
 import { projectsObject } from "./projectsObject.js";
 import { screenControlObject } from "./screenControl.js";
-import { eventListenerObject } from "./eventListeners.js";
 import { Todo } from "./class.js";
 
-const formsObject = {
+const formsCreateObject = {
 
 createNewItemForm (newItemForm)  
 {
     var refNumber = 0;
-    newItemForm.innerHTML = ` <form action="https://httpbin.org/post" method="post" class="newItemForm" autocomplete="off">
+    newItemForm.innerHTML = `<form action="https://httpbin.org/post" method="post" class="newItemForm" autocomplete="off">
     
     <div class="formDiv" >
         <label for="category" class="label-category"   >Category </label>
@@ -192,73 +191,19 @@ createNewCategoryForm (newCategoryForm) {
 
 return newCategoryForm;
 }, 
-
+//TODO
+///I"m not sure I need this refresh new item form thing....
 refreshNewItemForm() {
     let newItemFormDiv = document.querySelector('.newItemFormDiv');
     newItemFormDiv.remove()
 },
-
+//TODO
+///I"m not sure I need this refresh new category form thing....
 refreshNewCategoryForm() {
     let newCategoryFormDiv = document.querySelector('.newCategoryForm');
     newCategoryFormDiv.remove();
 },
 
-getNewItemFormInfo() {
-    console.log('getFormInto is actually called')
-    const newItemFormData = document.querySelector('.newBookBtn')
-    console.log(newItemFormData);
-
-    newItemFormData.addEventListener('click', (e) => {
-        e.preventDefault();
-
-        let category = document.querySelector('.select-category').value;
-        let title = document.querySelector('.input-title').value;
-        let description = document.querySelector('.input-description').value;
-        let dueDate = document.querySelector('.input-dueDate').value;
-
-        let status = document.querySelector('.select-status').value;
-        let priority = document.querySelector('.select-priority').value;
-
-        // getting checklist items
-    
-        const newItemFormChecklist = document.getElementById('newItemFormChecklist');
-        const checklistTally = newItemFormChecklist.children.length;
-
-        const checklist = [];
-        for (let i = 0; i < (checklistTally); i++) {
-            const checklistItem = document.getElementById(`checklist${i}`).value;
-            const tempObject = {checkItem: `${checklistItem}`, checked: false};
-            checklist.push(tempObject);
-        }
-        alert(checklist)
-
-        const newItem = new Todo(title, description, checklist, dueDate, priority, status);
-        console.log(newItem)
-
-
-    projectsObject.addItem(category, newItem);
-
-    screenControlObject.displayFullList();
-    formsObject.refreshNewItemForm();
-    let createNewItemButton = document.querySelector('.createNewItem');
-
-    createNewItemButton.disabled = false;
-
-    })
-    },
-
-getNewCategoryFormInfo() {
-        const newCategoryBtn = document.querySelector('.newCategoryBtn');
-        
-        newCategoryBtn.addEventListener('click',  (e) => {
-            console.log('called new Category')  
-            e.preventDefault();
-            let newCategoryName = document.querySelector('.input-newCategory').value;
-            projectsObject.addCategoryToProjectsArray(newCategoryName);
-            screenControlObject.displayFullList(projectsObject.projectsArray);
-            }
-        );
-    }        
 }
 
-export { formsObject } ;
+export { formsCreateObject } ;
