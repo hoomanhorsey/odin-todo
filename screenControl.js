@@ -38,9 +38,8 @@ const screenControlObject = {
 
     itemDisplaySummary(itemElement, array, i, j) {
         itemElement.classList.add('displaySummary');
-        itemElement.classList.remove('displayFull', 'zIndexHigh' );
-
-        
+        itemElement.classList.remove('displayFull', 'zIndexHigh' );   
+            // zIndexHigh positions the display of the element in front of other items       
 
         itemElement.innerHTML = `
             <p class="item-expand"> [+] </p>
@@ -51,36 +50,40 @@ const screenControlObject = {
     },
 
     itemDisplayFull(itemElement, array, i, j) {
-        console.log('i: ' + i + ' j: ' + j)
-        console.log(array[i]['items'][j]['checklist']);
+        // console.log('i: ' + i + ' j: ' + j)
+        // console.log(array[i]['items'][j]['checklist']);
 
         itemElement.classList.add('displayFull', 'zIndexHigh');
         itemElement.classList.remove('displaySummary');
-
 
         //test for checklist
         let checklistHTML = '';
             // items in the checklist array.
             var checkItemsNumber = (array[i]['items'][j]['checklist'].length)
 
+            // Creates checklist HTML <li> items based on checklist array
+            // if none, then there is no HTML created.  // Need to change 'false' to a checkbox.
             for (let k= 0; k < checkItemsNumber; k++) {
-            // Creates HTML based on items in checklist array - if none, then there is no HTML created.  // Need to change 'false' to a checkbox.
                 if (array[i]['items'][j]['checklist'][k]['checked']) {
-                    checklistHTML += `<li>${array[i]['items'][j]['checklist'][k] ['checkItem']}
-                                    <input class="checkbox" id="checkbox${i + j +k}"  type="checkbox" checked></input> </li>`
+                    checklistHTML += 
+                        `<li>${array[i]['items'][j]['checklist'][k] ['checkItem']}
+                        <input class="checkbox" id="checkbox${i + j +k}"  
+                        type="checkbox" checked></input> </li>`
                 } else {
-                    checklistHTML += `<li>${array[i]['items'][j]['checklist'][k] ['checkItem']}
-                                    <input class="checkbox" id="checkbox${i + j +k}" type="checkbox" ></input> </li>`
+                    checklistHTML += 
+                        `<li>${array[i]['items'][j]['checklist'][k] ['checkItem']}
+                        <input class="checkbox" id="checkbox${i + j +k}" 
+                        type="checkbox" ></input> </li>`
                 }       
-            }
+            };
            
-            // Create different html based on whether there is a checklist
+            // Create html based on whether there is a checklist.
             if (array[i]['items'][j]['checklist'].length !== 0) {
                 
                 itemElement.innerHTML = `
                     <p class="item-collapse"> [-] </p>
                     <p class="itemTitle" > ${array[i]['items'][j]['title']} </p> 
-                    <p class="item-description" > ${array[i]['items'][j]['description']} </p>
+                    <p class="item-description"> ${array[i]['items'][j]['description']} </p>
                     <p> ${ array[i]['items'][j]['dueDate']} </p>
 
                     <p><strong>Checklist</strong>
@@ -99,9 +102,9 @@ const screenControlObject = {
                     <button class="editItem"> edit</button>
                     <button class="deleteItem">delete</button> </div>`
             }
-
-        eventListenerObject.itemEditListener();
-        eventListenerObject.itemListenerCollapse();
+        
+            eventListenerObject.itemEditListener();
+            eventListenerObject.itemListenerCollapse();
         },
 
     displayEditItemForm(e) {    

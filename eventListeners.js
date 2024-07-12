@@ -4,52 +4,36 @@ import { formsCreateObject } from "./formsCreateObject.js";
 import { formsRetrieveObject } from "./formsRetrieveObject.js";
 
 
-// item Event listener
 
 const eventListenerObject ={
-    
-    itemExpand() {   
-        const parent = this.parentNode;
-        const itemElement = document.getElementById(parent.id)
-        screenControlObject.itemDisplayFull(
-            itemElement, projectsObject.projectsArray, 
-            parent.dataset.categoryindex,parent.dataset.itemindex);
-        eventListenerObject.checklistToggleListener(); 
 
-        var items = document.querySelectorAll('.item-expand');
-        items.forEach((e) => {
-            e.removeEventListener('click', eventListenerObject.itemExpand)
-        })
-    },
-     
+    // item Event listener
+
+    // Sets listener for items expansion
     itemListenerExpand() {
         var items = document.querySelectorAll('.item-expand');
         items.forEach((e) => {
-            e.addEventListener('click', () => {
-            
-            const parent = e.parentNode;
-            // console.log(e)
-            // console.log(e.parentNode)
+            e.addEventListener('click', eventListenerObject.itemExpand)                    
+        })
+    },
+        // Function for expansion of item. 
+        // Set up as a standalone function to allow for disabling of '+' button'
+        itemExpand() {   
+            const parent = this.parentNode;
             const itemElement = document.getElementById(parent.id)
-            console.log(itemElement)
             screenControlObject.itemDisplayFull(
                 itemElement, projectsObject.projectsArray, 
                 parent.dataset.categoryindex,parent.dataset.itemindex);
+            
             eventListenerObject.checklistToggleListener(); 
 
             var items = document.querySelectorAll('.item-expand');
             items.forEach((e) => {
                 e.removeEventListener('click', eventListenerObject.itemExpand)
-            })
-            }
-            )
-
-
-            // eventListenerObject.itemExpand)                    
+                eventListenerObject.disableNewItemCategoryButtons();
                 })
-            
-    },
-
+        },
+    
     itemListenerCollapse() {
         var items = document.querySelectorAll('.item-collapse');
     
@@ -58,22 +42,33 @@ const eventListenerObject ={
                 const parent = e.parentNode;
 
                 const itemElement = document.getElementById(parent.id)
-                screenControlObject.itemDisplaySummary(itemElement, projectsObject.projectsArray, parent.dataset.categoryindex, parent.dataset.itemindex);
+                screenControlObject.itemDisplaySummary(
+                    itemElement, projectsObject.projectsArray, 
+                    parent.dataset.categoryindex, parent.dataset.itemindex);
+                
+                eventListenerObject.enableNewItemCategoryButtons();
                 })
         })
+        eventListenerObject.enableNewItemCategoryButtons();
         },
     
     createNewItemListener() {
         let createNewItemButton = document.querySelector('.createNewItem');
 
         createNewItemButton.addEventListener('click', () => {
-            createNewItemButton.disabled = true;
+            // createNewItemButton.disabled = true;
             screenControlObject.displayNewItemForm();
 
             this.newItemCancel(createNewItemButton);
 
             formsRetrieveObject.getNewItemFormInfo();
-            console.log('call getFormInfo, listener to extract form data')  
+            console.log('call getFormInfo, listener to extract form data')
+            
+            eventListenerObject.disableNewItemCategoryButtons();
+
+
+
+
             })
     },
 
@@ -182,7 +177,9 @@ const eventListenerObject ={
         newItemCancelBtn.addEventListener('click', (e) => {          
             e.preventDefault();
             formsCreateObject.refreshNewItemForm();
-            createNewItemButton.disabled = false;
+            // createNewItemButton.disabled = false;
+            eventListenerObject.enableNewItemCategoryButtons();
+
     })},
     
     createNewCategoryListener() {
@@ -192,6 +189,9 @@ const eventListenerObject ={
             screenControlObject.displayNewCategoryForm();
             this.newCategoryCancel(createNewCategoryButton);
             formsRetrieveObject.getNewCategoryFormInfo();
+            eventListenerObject.disableNewItemCategoryButtons();
+
+
             }
         )
         },
@@ -204,16 +204,17 @@ const eventListenerObject ={
             e.preventDefault();
             alert('press') 
             formsCreateObject.refreshNewCategoryForm();
-            createNewCategoryButton.disabled = false;               
+            eventListenerObject.enableNewItemCategoryButtons();
+
     })},
 
     checklistToggleListener() {
-        console.log('called checklistToggleListener()')
+        // console.log('called checklistToggleListener()')
         let checkboxes = document.querySelectorAll('.checkbox');
         checkboxes.forEach( (e) => {
-            console.log(e)
+            // console.log(e)
             e.addEventListener('change', () => {
-                console.log(e.id)
+                // console.log(e.id)
 
                 let array = projectsObject.getProjectsArray()
                 console.log(array)
@@ -277,13 +278,26 @@ const eventListenerObject ={
                     document.getElementById(`form${e.parentElement.dataset.categoryindex}${e.parentElement.dataset.itemindex}`).addEventListener('click', function(event) {
                         console.log('Form clicked');
                         event.stopPropagation(); // Prevent event from propagating to the parent div
-
                 })    
-                eventListenerObject.editItemCancelListener();
-    
+                eventListenerObject.editItemCancelListener(); 
                 })
             } )
-            }
+            },
+
+// Utilities - enabling and disabling new item/category buttons, upon selection of new item/category
+    disableNewItemCategoryButtons(){
+        let createNewCategoryButton = document.querySelector('.createNewCategory');
+            createNewCategoryButton.disabled = true;
+        let createNewItemButton = document.querySelector('.createNewItem');
+            createNewItemButton.disabled = true;
+    },
+
+    enableNewItemCategoryButtons(){
+        let createNewCategoryButton = document.querySelector('.createNewCategory');
+            createNewCategoryButton.disabled = false;
+        let createNewItemButton = document.querySelector('.createNewItem');
+            createNewItemButton.disabled = false;
+    },
 }
 
 export {eventListenerObject }

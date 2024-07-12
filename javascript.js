@@ -4,18 +4,10 @@ import { eventListenerObject } from "./eventListeners.js";
 
 addEventListener("DOMContentLoaded", () => {
 
-
-
-
     setTimeout( () => {
         eventListenerObject.createNewItemListener(); 
         eventListenerObject.createNewCategoryListener();
      }, 1000)
-
-
-
-
-
 
 screenControlObject.displayFullList()
 
