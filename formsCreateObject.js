@@ -32,11 +32,11 @@ createNewItemForm (newItemForm)
         <button id="addCheckListItem"> + another item</button>
             <div id="checklistSubDiv">
                 <ul id="newItemFormChecklist">
-                        <li> <input type="text" id="checklist${refNumber}" name="title" class="input-checklist" data-ref="ref${refNumber}"> </li>
+                        <li> <input type="text" id="checklist${refNumber}" name="title" class="input-checklist" data-ref="ref${refNumber}"> <button class="checklistDeleteBtn"> - </button></li>
                 </ul>
             </div>
     </div>
-
+                
     <div class="formDiv">
         <label for="dueDate" class="label-dueDate">Due Date</label>
         <input type="date" id="dueDate" name="dueDate" class="input-dueDate">
@@ -187,22 +187,9 @@ createNewCategoryForm (newCategoryForm) {
 
     </div>`
 
-    console.log('create category form has been called')
-
 return newCategoryForm;
 }, 
-//TODO
-///I"m not sure I need this refresh new item form thing....
-refreshNewItemForm() {
-    let newItemFormDiv = document.querySelector('.newItemFormDiv');
-    newItemFormDiv.remove()
-},
-//TODO
-///I"m not sure I need this refresh new category form thing....
-refreshNewCategoryForm() {
-    let newCategoryFormDiv = document.querySelector('.newCategoryForm');
-    newCategoryFormDiv.remove();
-},
+
 
 }
 

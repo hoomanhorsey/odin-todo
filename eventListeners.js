@@ -3,25 +3,24 @@ import { projectsObject } from "./projectsObject.js";
 import { formsCreateObject } from "./formsCreateObject.js";
 import { formsRetrieveObject } from "./formsRetrieveObject.js";
 
-
-
 const eventListenerObject ={
 
-    // item Event listener
+    // ****item Event listener****
 
     // Sets listener for items expansion
     itemListenerExpand() {
         var items = document.querySelectorAll('.item-expand');
         items.forEach((e) => {
             e.addEventListener('click', eventListenerObject.itemExpand)                    
-        })
-    },
+            })
+        },
+
         // Function for expansion of item. 
         // Set up as a standalone function to allow for disabling of '+' button'
         itemExpand() {   
             const parent = this.parentNode;
             const itemElement = document.getElementById(parent.id)
-            screenControlObject.itemDisplayFull(
+                screenControlObject.itemDisplayFull(
                 itemElement, projectsObject.projectsArray, 
                 parent.dataset.categoryindex,parent.dataset.itemindex);
             
@@ -30,47 +29,89 @@ const eventListenerObject ={
             var items = document.querySelectorAll('.item-expand');
             items.forEach((e) => {
                 e.removeEventListener('click', eventListenerObject.itemExpand)
-                eventListenerObject.disableNewItemCategoryButtons();
                 })
-        },
+
+            eventListenerObject.disableNewItemCategoryButtons();
+            },
     
     itemListenerCollapse() {
         var items = document.querySelectorAll('.item-collapse');
     
         items.forEach((e) => {
-            e.addEventListener('click', (event) => {
+            e.addEventListener('click', () => {
                 const parent = e.parentNode;
 
                 const itemElement = document.getElementById(parent.id)
-                screenControlObject.itemDisplaySummary(
+                    screenControlObject.itemDisplaySummary(
                     itemElement, projectsObject.projectsArray, 
                     parent.dataset.categoryindex, parent.dataset.itemindex);
                 
                 eventListenerObject.enableNewItemCategoryButtons();
-                })
-        })
-        eventListenerObject.enableNewItemCategoryButtons();
+                });
+            });
         },
+
+
+    /// **** New Items & New Categories ****
     
     createNewItemListener() {
         let createNewItemButton = document.querySelector('.createNewItem');
 
         createNewItemButton.addEventListener('click', () => {
-            // createNewItemButton.disabled = true;
             screenControlObject.displayNewItemForm();
 
-            this.newItemCancel(createNewItemButton);
+            this.newItemCancelBtnListener();
 
             formsRetrieveObject.getNewItemFormInfo();
-            console.log('call getFormInfo, listener to extract form data')
             
-            eventListenerObject.disableNewItemCategoryButtons();
-
-
-
-
+            this.disableNewItemCategoryButtons();
             })
-    },
+        },
+
+        // New Item Cancel Btn Listener
+        newItemCancelBtnListener() {
+            let newItemCancelBtn = document.querySelector('.newItemCancelBtn');
+
+            newItemCancelBtn.addEventListener('click', (e) => {          
+                e.preventDefault();
+
+                // removes the form from display
+                let newItemFormDiv = document.querySelector('.newItemFormDiv');
+                    newItemFormDiv.remove()
+
+                this.enableNewItemCategoryButtons();
+                }
+            )},
+
+    createNewCategoryListener() {
+        let createNewCategoryButton = document.querySelector('.createNewCategory');
+        createNewCategoryButton.addEventListener('click', () => {
+
+            screenControlObject.displayNewCategoryForm();
+            this.newCategoryCancelBtnListener();
+
+            formsRetrieveObject.getNewCategoryFormInfo();
+
+            this.disableNewItemCategoryButtons();
+            })
+        },
+
+        newCategoryCancelBtnListener() {
+            let newCategoryCancelBtn = document.querySelector('.newCategoryCancelBtn');
+
+                newCategoryCancelBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+
+                // removes form from display
+                let newCategoryFormDiv = document.querySelector('.newCategoryForm');
+                    newCategoryFormDiv.remove();
+
+                eventListenerObject.enableNewItemCategoryButtons();
+        })},
+
+    /// ****Checklist Manipulation****
+
+    // New Item - Add checklist items 
 
     addChecklistItemListener() {       
         let addChecklistItemBtn = document.getElementById('addCheckListItem');
@@ -83,7 +124,7 @@ const eventListenerObject ={
 
             newChecklistItem.classList.add('checklistItem');        
             newChecklistItem.innerHTML = 
-                `<input type="text" id="checklist${(checklistTally.children.length) }" 
+                `<input type="text" id="checklist${ (checklistTally.children.length) }" 
                 name="title" class="input-checklist"> 
                 <button class="checklistDeleteBtn"> - </button>`
             const parentList = document.getElementById('newItemFormChecklist');
@@ -91,9 +132,10 @@ const eventListenerObject ={
 
             eventListenerObject.deleteChecklistItemListener();
         })
-
+///TODO - Need to add IDs to checklist via a for loop, upon submit button. Not as you create them. Because otherwise as they jumble in and out of order, they will go in and out of order.
     },
 
+    // Edit Item - Add checklist Item
     addEditChecklistItemListener(){
 
         const addChecklistItemBtns = document.querySelectorAll('.editAddChecklistItem');
@@ -171,42 +213,8 @@ const eventListenerObject ={
         })
     },
 
-    newItemCancel(createNewItemButton) {
-        let newItemCancelBtn = document.querySelector('.newItemCancelBtn');
-
-        newItemCancelBtn.addEventListener('click', (e) => {          
-            e.preventDefault();
-            formsCreateObject.refreshNewItemForm();
-            // createNewItemButton.disabled = false;
-            eventListenerObject.enableNewItemCategoryButtons();
-
-    })},
-    
-    createNewCategoryListener() {
-        let createNewCategoryButton = document.querySelector('.createNewCategory');
-        createNewCategoryButton.addEventListener('click', () => {
-            createNewCategoryButton.disabled = true;
-            screenControlObject.displayNewCategoryForm();
-            this.newCategoryCancel(createNewCategoryButton);
-            formsRetrieveObject.getNewCategoryFormInfo();
-            eventListenerObject.disableNewItemCategoryButtons();
-
-
-            }
-        )
-        },
-
-    newCategoryCancel(createNewCategoryButton) {
-        alert('new category cancel called')
-        let newCategoryCancelBtn = document.querySelector('.newCategoryCancelBtn');
-            newCategoryCancelBtn.addEventListener('click', (e) => {
-            alert(e);
-            e.preventDefault();
-            alert('press') 
-            formsCreateObject.refreshNewCategoryForm();
-            eventListenerObject.enableNewItemCategoryButtons();
-
-    })},
+   
+   
 
     checklistToggleListener() {
         // console.log('called checklistToggleListener()')

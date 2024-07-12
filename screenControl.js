@@ -148,7 +148,6 @@ const screenControlObject = {
         newItem.appendChild(newItemForm);
 
             const buttonInFunction = document.querySelector('.newBookBtn')
-            console.log(buttonInFunction)
         
         const selectCategory = document.getElementById('category');
         
@@ -162,6 +161,7 @@ const screenControlObject = {
             }  
 
         eventListenerObject.addChecklistItemListener();
+        eventListenerObject.deleteChecklistItemListener() 
 
         },
 
