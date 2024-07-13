@@ -1,15 +1,19 @@
 
 import { Todo } from "./class.js";
 
-const checklist = [{checkItem: "No body knows me", checked: false}, {checkItem: "Everybody knows this is knowhere", checked: true}];
-const emptyChecklist = [];
+const checklist1 = [{checkItem: "No body knows me", checked: false}, {checkItem: "Everybody knows this is knowhere", checked: true}];
+const checklist2 = [{checkItem: "No body knows me", checked: false}, {checkItem: "Everybody knows this is knowhere", checked: true}];
+const checklist3 = [{checkItem: "No body knows me", checked: false}, {checkItem: "Everybody knows this is knowhere", checked: true}];
+const checklist4 = [{checkItem: "No body knows me", checked: false}, {checkItem: "Everybody knows this is knowhere", checked: true}];
+const checklist5 = [{checkItem: "No body knows me", checked: false}, {checkItem: "Everybody knows this is knowhere", checked: true}];
+
 
 // Instantiating 'Todo Items
-const firstItem = new Todo('See a man about a dog', 'This is the first item', checklist, '2024-12-12', 'High', 'incomplete');
-const secondItem = new Todo('Fix a hole', 'This is the second item', checklist, '2024-10-06', 'Low', 'incomplet  e')
-const thirdItem = new Todo('Do SWAT', 'This is the third item', checklist, '2024-09-22', 'Medium', 'incomplete')
-const fourthItem = new Todo('Live Life, give it time',  'This is the fourth item', checklist, '2024-05-03', 'High', 'incomplete')
-const fifthItem = new Todo('Fifth Item', 'This is the fifth item', emptyChecklist, '2024-11-10', 'Low', 'incomplete')
+const firstItem = new Todo('See a man about a dog', 'This is the first item', checklist1, '2024-12-12', 'High', 'incomplete');
+const secondItem = new Todo('Fix a hole', 'This is the second item', checklist2, '2024-10-06', 'Low', 'incomplet  e')
+const thirdItem = new Todo('Do SWAT', 'This is the third item', checklist3, '2024-09-22', 'Medium', 'incomplete')
+const fourthItem = new Todo('Live Life, give it time',  'This is the fourth item', checklist4, '2024-05-03', 'High', 'incomplete')
+const fifthItem = new Todo('Fifth Item', 'This is the fifth item', checklist5, '2024-11-10', 'Low', 'incomplete')
 
 
 const projectsObject = {   
@@ -89,7 +93,6 @@ const projectsObject = {
     toggleChecklistCheckbox(i, j, k, status) {
         console.log('this.toggleChecklistCheckbox has been called: ' + status)
         this.projectsArray[i]['items'][j]['checklist'][k]['checked'] = status;
-
     }
     
     
@@ -98,23 +101,5 @@ const projectsObject = {
 function checkIfCategoryExists(categoryName){
     return projectsObject.projectsArray.findIndex(obj => obj['category'].toLowerCase() === categoryName.toLowerCase());
 }
-
-
-// // Sample array manipulations
-// projectsObject.addCategoryToProjectsArray('Poo Catcher');
-// projectsObject.addCategoryToProjectsArray('Zucchni');
-// projectsObject.addCategoryToProjectsArray('sport');
-// projectsObject.addCategoryToProjectsArray('SpecialOps');
-// console.table(projectsObject.projectsArray);
-
-// projectsObject.deleteCategoryFromProjectArray('Sport');
-// projectsObject.deleteCategoryFromProjectArray('Poo Catcher');
-// projectsObject.deleteCategoryFromProjectArray('Smeg Catcher');
-// projectsObject.deleteCategoryFromProjectArray("Doesn't exist and so can't be deleted");
-
-// projectsObject.addItem('Zucchni', new Todo("Third Item", "This is the third item", "20 April 2025", "Low", "Third"));
-// projectsObject.addItem('SpecialOps', new Todo("Special Ops Item", "This is the special ops item", "23 April 2025", "High", "Special"));
-// projectsObject.addItem('Leisure', new Todo("Third Item", "This is the third item", "20 April 2025", "Low", "Third"));
-
 
 export {projectsObject, Todo} ;
