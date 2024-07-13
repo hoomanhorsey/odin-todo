@@ -147,7 +147,7 @@ const screenControlObject = {
         newItemForm = formsCreateObject.createNewItemForm(newItemForm);
         newItem.appendChild(newItemForm);
 
-            const buttonInFunction = document.querySelector('.newBookBtn')
+            const buttonInFunction = document.querySelector('.newItemBtn')
         
         const selectCategory = document.getElementById('category');
         

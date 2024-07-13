@@ -124,7 +124,7 @@ const eventListenerObject ={
 
             newChecklistItem.classList.add('checklistItem');        
             newChecklistItem.innerHTML = 
-                `<input type="text" id="checklist${ (checklistTally.children.length) }" 
+                `<input type="text"  
                 name="title" class="input-checklist"> 
                 <button class="checklistDeleteBtn"> - </button>`
             const parentList = document.getElementById('newItemFormChecklist');
@@ -132,6 +132,11 @@ const eventListenerObject ={
 
             eventListenerObject.deleteChecklistItemListener();
         })
+
+        // `<input type="text" id="checklist${ (checklistTally.children.length) }" 
+        // name="title" class="input-checklist"> 
+        // <button class="checklistDeleteBtn"> - </button>`
+
 ///TODO - Need to add IDs to checklist via a for loop, upon submit button. Not as you create them. Because otherwise as they jumble in and out of order, they will go in and out of order.
     },
 
