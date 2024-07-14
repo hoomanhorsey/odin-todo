@@ -211,14 +211,6 @@ const eventListenerObject ={
         })
     },
     
-    editItemCancelListener() {
-        let cancelEditBtn = document.querySelector('.cancelEditBtn');
-        cancelEditBtn.addEventListener('click', (e) => {
-            screenControlObject.displayFullList();
-        })
-    },
-
-   
    
 
     checklistToggleListener() {
@@ -285,17 +277,30 @@ const eventListenerObject ={
                 e.addEventListener('click', (pointerEvent) => {
                     pointerEvent.stopPropagation();
                     console.log('e: ' +e.parentElement.dataset.categoryindex+e.parentElement.dataset.itemindex)
+                    
+                     screenControlObject.displayNewItemForm();
+                     screenControlObject.populateEditItemFormWithData(e.parentElement.dataset.categoryindex, e.parentElement.dataset.itemindex);
 
-                    screenControlObject.displayEditItemForm(e.parentElement);
-        
-                    document.getElementById(`form${e.parentElement.dataset.categoryindex}${e.parentElement.dataset.itemindex}`).addEventListener('click', function(event) {
-                        console.log('Form clicked');
-                        event.stopPropagation(); // Prevent event from propagating to the parent div
-                })    
-                eventListenerObject.editItemCancelListener(); 
+                //     screenControlObject.displayEditItemForm(e.parentElement);
+                //     document.getElementById(`form${e.parentElement.dataset.categoryindex}${e.parentElement.dataset.itemindex}`).addEventListener('click', function(event) {
+                //         event.stopPropagation(); // Prevent event from propagating to the parent div
+                // })    
+                // eventListenerObject.editItemCancelListener(); 
                 })
             } )
             },
+
+
+        editItemCancelListener() {
+            let cancelEditBtn = document.querySelector('.cancelEditBtn');
+            cancelEditBtn.addEventListener('click', (e) => {
+                screenControlObject.displayFullList();
+
+                this.enableNewItemCategoryButtons();
+            })
+        },
+
+   
 
 // Utilities - enabling and disabling new item/category buttons, upon selection of new item/category
     disableNewItemCategoryButtons(){
