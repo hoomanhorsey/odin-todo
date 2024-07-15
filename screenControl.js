@@ -232,17 +232,6 @@ const screenControlObject = {
             }       
         };
 
-        /// Create html based on whether there is a checklist.
-        if (array[i]['items'][j]['checklist'].length !== 0) {
-            
-            itemElement.innerHTML = `
-               
-                <ul> ${ checklistHTML} </ul></p>`
-
-        } else {
-
-        }
-
     },
 
     displayNewCategoryForm() {

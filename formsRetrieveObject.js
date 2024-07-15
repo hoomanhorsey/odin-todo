@@ -104,6 +104,8 @@ getEditFormInfo(categoryindex, itemindex) {
 
         const updatedItem = new Todo(title, description, checklist, dueDate, priority, status);   
 
+        console.log(updatedItem)
+
         projectsObject.updateItem(categoryindex, itemindex, updatedItem);
 
 })
