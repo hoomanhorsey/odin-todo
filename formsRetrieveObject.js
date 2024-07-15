@@ -48,6 +48,69 @@ getNewItemFormInfo() {
         })
     },
 
+getEditFormInfo(categoryindex, itemindex) {
+
+    let savedItem = projectsObject.getItem(categoryindex, itemindex);
+    console.log('saved item ' + savedItem['title'])
+
+    const editFormData = document.querySelector('.newItemBtn')
+    editFormData.addEventListener('click', (e) => {
+        e.preventDefault();
+        alert('submit pressed')
+        // let title = document.querySelector('.input-title').value;
+        // console.log(title)
+
+        console.log(projectsObject.projectsArray[categoryindex]['items'][itemindex]['title']);
+        console.log(projectsObject.projectsArray[categoryindex]['items'][itemindex]['description']);
+
+
+        // if (savedItem.title === title) {
+        //     console.log('Matched, no need to change')
+        // } else {
+        //     console.log('Need to update')
+            
+
+        //     projectsObject.projectsArray[categoryindex]['items'][itemindex]['title'] = title;
+
+        //     console.log(projectsObject.projectsArray[categoryindex]['items'][itemindex]['title']);
+
+        // }
+
+        let category = document.querySelector('.select-category').value;
+        let title = document.querySelector('.input-title').value;
+        let description = document.querySelector('.input-description').value;
+        let dueDate = document.querySelector('.input-dueDate').value;
+
+        let status = document.querySelector('.select-status').value;
+        let priority = document.querySelector('.select-priority').value;
+
+        const newItemFormChecklist = document.getElementById('newItemFormChecklist');
+
+
+        const checklistTally = newItemFormChecklist.children.length;
+       
+        // iterating through checklist to add 'id'
+        for (let i = 0; i < (checklistTally); i++) {
+            const children = newItemFormChecklist.children;
+            children[i].firstElementChild.id = `checklist${i}`;
+        }
+
+        const checklist = [];
+        for (let j = 0 ; j < (checklistTally); j++) {
+            const checklistItem = document.getElementById(`checklist${j}`).value;
+            const tempObject = {checkItem: `${checklistItem}`, checked: false};
+            checklist.push(tempObject);
+        }
+
+        const updatedItem = new Todo(title, description, checklist, dueDate, priority, status);   
+
+        projectsObject.updateItem(categoryindex, itemindex, updatedItem);
+
+})
+
+
+},
+
 getNewCategoryFormInfo() {
     const newCategoryBtn = document.querySelector('.newCategoryBtn');
     

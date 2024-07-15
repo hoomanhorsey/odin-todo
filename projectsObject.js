@@ -93,6 +93,11 @@ const projectsObject = {
     toggleChecklistCheckbox(i, j, k, status) {
         console.log('this.toggleChecklistCheckbox has been called: ' + status)
         this.projectsArray[i]['items'][j]['checklist'][k]['checked'] = status;
+    },
+
+    updateItem(categoryIndex, itemIndex, updatedItem) {
+
+        ///placholder - in case I want to create a function to update the array from EditItems
     }
     
     

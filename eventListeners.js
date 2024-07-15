@@ -276,11 +276,30 @@ const eventListenerObject ={
             editButtons.forEach((e) => {
                 e.addEventListener('click', (pointerEvent) => {
                     pointerEvent.stopPropagation();
-                    console.log('e: ' +e.parentElement.dataset.categoryindex+e.parentElement.dataset.itemindex)
-                    
-                     screenControlObject.displayNewItemForm();
-                     screenControlObject.populateEditItemFormWithData(e.parentElement.dataset.categoryindex, e.parentElement.dataset.itemindex);
+              
+                    const parent = e.parentNode;
 
+                    let focuscategoryindex = parent.dataset.categoryindex;
+                    let focusitemindex = parent.dataset.itemindex;
+
+                    // redisplay of summary of item
+                      
+                        const itemElement = document.getElementById(parent.id)
+                        screenControlObject.itemDisplaySummary(
+                        itemElement, projectsObject.projectsArray, 
+                        parent.dataset.categoryindex, parent.dataset.itemindex);
+
+                    screenControlObject.displayNewItemForm();
+                    // screenControlObject.populateEditItemFormWithData(e.parentElement.dataset.categoryindex, e.parentElement.dataset.itemindex);
+                            let x = 1;
+                    screenControlObject.populateEditItemFormWithData(focuscategoryindex, focusitemindex, x);
+
+                    this.newItemCancelBtnListener();
+
+                    formsRetrieveObject.getEditFormInfo(focuscategoryindex, focusitemindex);
+
+
+                    
                 //     screenControlObject.displayEditItemForm(e.parentElement);
                 //     document.getElementById(`form${e.parentElement.dataset.categoryindex}${e.parentElement.dataset.itemindex}`).addEventListener('click', function(event) {
                 //         event.stopPropagation(); // Prevent event from propagating to the parent div
