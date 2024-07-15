@@ -33,7 +33,9 @@ createNewItemForm (newItemForm)
         <button id="addCheckListItem"> + another item</button>
             <div id="checklistSubDiv">
                 <ul id="newItemFormChecklist">
-                        <li class="checklistItem"> <input type="text" name="title" class="input-checklist" data-ref="ref${refNumber}"> <button class="checklistDeleteBtn"> - </button></li>
+                        <li class="checklistItem"> 
+                            <input type="text" name="title" class="input-checklist" data-ref="ref${refNumber}"> 
+                            <button class="checklistDeleteBtn"> - </button></li>
                 </ul>
             </div>
     </div>
@@ -69,17 +71,6 @@ createNewItemForm (newItemForm)
 return newItemForm;
 }, 
 
-
-// <div class="formDiv checklistDiv">  
-//     <label for="checklist" class="label-checklist">Checklist</label> 
-//     <button id="addCheckListItem"> + another item</button>
-//         <div id="checklistSubDiv">
-//             <ul id="newItemFormChecklist">
-//                     <li> <input type="text" id="checklist${refNumber}" name="title" class="input-checklist" data-ref="ref${refNumber}"> <button class="checklistDeleteBtn"> - </button></li>
-//             </ul>
-//         </div>
-//     </div>
-    
 createEditForm (newItemForm, item, categoryindex, itemindex) {
 
     //    TODO     Create a for loop to create the checklist html from the array. Then insert that checklist later.
