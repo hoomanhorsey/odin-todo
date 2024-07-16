@@ -65,114 +65,114 @@ createNewItemForm (newItemForm)
 
     <button class="newItemCancelBtn"  >cancel</button>     
     
-    <button type="submit" class="newItemBtn">Submit</button>
+    <button type="submit" class="submitItemFormBtn">Submit</button>
 </form>`
 
 return newItemForm;
 }, 
 
-createEditForm (newItemForm, item, categoryindex, itemindex) {
+// createEditForm (newItemForm, item, categoryindex, itemindex) {
 
-    //    TODO     Create a for loop to create the checklist html from the array. Then insert that checklist later.
-    let checklistHTML = '';
+//     //    TODO     Create a for loop to create the checklist html from the array. Then insert that checklist later.
+//     let checklistHTML = '';
 
-    let array = projectsObject.getProjectsArray();
+//     let array = projectsObject.getProjectsArray();
 
-    var checkItemsNumber = (array[categoryindex]['items'][itemindex]['checklist'].length);
+//     var checkItemsNumber = (array[categoryindex]['items'][itemindex]['checklist'].length);
 
-        checklistHTML += '';
+//         checklistHTML += '';
 
-        for (let k= 0; k < checkItemsNumber; k++) {
+//         for (let k= 0; k < checkItemsNumber; k++) {
 
-            // Creates HTML based on items in checklist array - if none, then there is no HTML created.
-            // Need to change 'false' to a checkbox.
+//             // Creates HTML based on items in checklist array - if none, then there is no HTML created.
+//             // Need to change 'false' to a checkbox.
 
-            if (array[categoryindex]['items'][itemindex]['checklist'][k]['checked']) {
-                checklistHTML += `
-                <li>
-                <label for="checklist${categoryindex+itemindex+k}" class="label-checklist"></label>
-                <input type="text" id="checklist${categoryindex+itemindex+k} name="checklist" class="input-checklistItem" value="${array[categoryindex]['items'][itemindex]['checklist'][k] ['checkItem']}">
-                <input type="checkbox" checked></input> 
-                <button class="checklistDeleteBtn"> - </button>
-                </li>`
-            } else {
-                checklistHTML += `
-                <li>
-                <label for="checklist${categoryindex+itemindex+k}" class="label-checklist"></label>
+//             if (array[categoryindex]['items'][itemindex]['checklist'][k]['checked']) {
+//                 checklistHTML += `
+//                 <li>
+//                 <label for="checklist${categoryindex+itemindex+k}" class="label-checklist"></label>
+//                 <input type="text" id="checklist${categoryindex+itemindex+k} name="checklist" class="input-checklistItem" value="${array[categoryindex]['items'][itemindex]['checklist'][k] ['checkItem']}">
+//                 <input type="checkbox" checked></input> 
+//                 <button class="checklistDeleteBtn"> - </button>
+//                 </li>`
+//             } else {
+//                 checklistHTML += `
+//                 <li>
+//                 <label for="checklist${categoryindex+itemindex+k}" class="label-checklist"></label>
 
-                <input type="text" id="checklist${categoryindex+itemindex+k} name="checklist" class="input-checklistItem" value="${array[categoryindex]['items'][itemindex]['checklist'][k] ['checkItem']}">
-                <input type="checkbox" ></input> 
-                <button class="checklistDeleteBtn"> - </button>
-                </li>`
-            };
-        }
+//                 <input type="text" id="checklist${categoryindex+itemindex+k} name="checklist" class="input-checklistItem" value="${array[categoryindex]['items'][itemindex]['checklist'][k] ['checkItem']}">
+//                 <input type="checkbox" ></input> 
+//                 <button class="checklistDeleteBtn"> - </button>
+//                 </li>`
+//             };
+//         }
 
-    // Creates rest of form html
+//     // Creates rest of form html
 
-    newItemForm.id = `form${categoryindex}${itemindex}`
-    newItemForm.action="https://httpbin.org/post" 
-    newItemForm.method = "post" 
-    newItemForm.classList.add('newItemForm', 'item'); 
-    newItemForm.autocomplete="off"
+//     newItemForm.id = `form${categoryindex}${itemindex}`
+//     newItemForm.action="https://httpbin.org/post" 
+//     newItemForm.method = "post" 
+//     newItemForm.classList.add('newItemForm', 'item'); 
+//     newItemForm.autocomplete="off"
 
-    // <form id="form${categoryindex}${itemindex}" 
+//     // <form id="form${categoryindex}${itemindex}" 
 
-    newItemForm.innerHTML = `
+//     newItemForm.innerHTML = `
         
-        <div class="formDiv" >
-            <label for="category" class="label-category"   >Category </label>
-            <select id=category class="select-category">
-                <option></option>
-            </select>
-        </div>
+//         <div class="formDiv" >
+//             <label for="category" class="label-category"   >Category </label>
+//             <select id=category class="select-category">
+//                 <option></option>
+//             </select>
+//         </div>
 
-        <div class="formDiv">
-            <label for="title" class="label-title"></label>
-            <input type="text" id="title" name="title" class="input-title itemTitle" size="50" value="${item.title}">
-        </div>
+//         <div class="formDiv">
+//             <label for="title" class="label-title"></label>
+//             <input type="text" id="title" name="title" class="input-title itemTitle" size="50" value="${item.title}">
+//         </div>
 
-        <div class="formDiv">
-            <label for="description" class="label-description"></label>
-            <textarea id="description" name="description" class="input-description item-description" rows="4" cols="50">${item.description}</textarea>
-        </div>
+//         <div class="formDiv">
+//             <label for="description" class="label-description"></label>
+//             <textarea id="description" name="description" class="input-description item-description" rows="4" cols="50">${item.description}</textarea>
+//         </div>
 
-        <div class="formDiv">
-            <label for="dueDate" class="label-dueDate"></label>
-            <input type="date" id="dueDate" name="dueDate" class="input-dueDate item-description" value="${item.dueDate}">
-        </div>
+//         <div class="formDiv">
+//             <label for="dueDate" class="label-dueDate"></label>
+//             <input type="date" id="dueDate" name="dueDate" class="input-dueDate item-description" value="${item.dueDate}">
+//         </div>
 
-        <div class="formDiv checklistDiv">
-            <div id="editChecklistSubDiv">
-                Checklist      
-                <button class="editAddChecklistItem"> + another item</button>
-                <ul id="newItemFormChecklist${categoryindex + itemindex}">
-                    ${checklistHTML}
-                </ul>
-            </div>
-        </div>       
+//         <div class="formDiv checklistDiv">
+//             <div id="editChecklistSubDiv">
+//                 Checklist      
+//                 <button class="editAddChecklistItem"> + another item</button>
+//                 <ul id="newItemFormChecklist${categoryindex + itemindex}">
+//                     ${checklistHTML}
+//                 </ul>
+//             </div>
+//         </div>       
         
-        <div class="formDiv" >
-            <label for="status${categoryindex + itemindex}" class="label-status"></label>
-            <select id=status${categoryindex + itemindex} class="select-status">
-                <option value="completed">Completed</option>   
-                <option value="incomplete">Incomplete</option> 
-            </select>
-        </div>
+//         <div class="formDiv" >
+//             <label for="status${categoryindex + itemindex}" class="label-status"></label>
+//             <select id=status${categoryindex + itemindex} class="select-status">
+//                 <option value="completed">Completed</option>   
+//                 <option value="incomplete">Incomplete</option> 
+//             </select>
+//         </div>
 
-        <div class="formDiv">
-        <label for="priority${categoryindex + itemindex}" class="label-priority">Priority</label>
-        <select id=priority${categoryindex + itemindex} class="select-priority">
-            <option value="High">High</option>   
-            <option value="Medium">Medium</option>   
-            <option value="Low">Low</option> 
-        </select>
-        </div>
+//         <div class="formDiv">
+//         <label for="priority${categoryindex + itemindex}" class="label-priority">Priority</label>
+//         <select id=priority${categoryindex + itemindex} class="select-priority">
+//             <option value="High">High</option>   
+//             <option value="Medium">Medium</option>   
+//             <option value="Low">Low</option> 
+//         </select>
+//         </div>
 
-        <button class="cancelEditBtn" >cancel</button>     
-        <button type="submit" class="newItemBtn">Submit</button>
-    </form>`
-return newItemForm;
-},
+//         <button class="cancelEditBtn" >cancel</button>     
+//         <button type="submit" class="submitItemFormBtn">Submit</button>
+//     </form>`
+// return newItemForm;
+// },
 
 createNewCategoryForm (newCategoryForm) {
 

@@ -98,6 +98,16 @@ const projectsObject = {
     updateItem(categoryIndex, itemIndex, updatedItem) {
 
         console.log('updatedItem in projectsObject has been called. Now just need to insert it into the array, using the category index and item index numbers. Though note if you change category you have to delete the old entry',  categoryIndex + itemIndex + updatedItem.title);
+        console.table(this.projectsArray)
+
+
+        console.log(this.projectsArray[categoryIndex]['items'][itemIndex]['title'])
+
+        console.log(updatedItem)
+        console.log(this.projectsArray[categoryIndex]['items'][itemIndex])
+
+        this.projectsArray[categoryIndex]['items'][itemIndex] = updatedItem;
+        console.log(this.projectsArray[categoryIndex]['items'][itemIndex])
 
         ///placholder - in case I want to create a function to update the array from EditItems
     }

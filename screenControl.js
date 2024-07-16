@@ -103,8 +103,13 @@ const screenControlObject = {
                     <button class="deleteItem">delete</button> </div>`
             }
         
+
+            alert('item has displayed in full, item edit listener has been called')
+
             eventListenerObject.itemEditListener();
             eventListenerObject.itemListenerCollapse();
+
+
         },
 
     // displayEditItemForm(e) {    
@@ -186,8 +191,9 @@ const screenControlObject = {
         var checkItemsNumber = (array[categoryindex]['items'][itemindex]['checklist'].length);
         console.log(checkItemsNumber)
 
-        let checklistElement = document.getElementById('newItemFormChecklist')
-        newItemFormChecklist.value = this.checklistCreation(categoryindex, itemindex, checklistElement);
+
+            let checklistElement = document.getElementById('newItemFormChecklist')
+            newItemFormChecklist.value = this.checklistCreation(categoryindex, itemindex, checklistElement);
 
         // inserting dueDate
         let dueDate = document.getElementById('dueDate');
@@ -221,17 +227,27 @@ const screenControlObject = {
         for (let k= 0; k < checkItemsNumber; k++) {
             if (array[i]['items'][j]['checklist'][k]['checked']) {
                 checklistHTML += 
-                    `<li>${array[i]['items'][j]['checklist'][k] ['checkItem']}
-                    <input class="checkbox" id="checkbox${i + j +k}"  
-                    type="checkbox" checked></input> </li>`
+                    `<li>
+
+                    <input type="text" name="title" class="input-checklist" value="${array[i]['items'][j]['checklist'][k] ['checkItem']}" >
+                        
+                        <input class="checkbox" id="checkbox${i + j + k}"  
+                        type="checkbox" checked></input> 
+                        <button class="checklistDeleteBtn"> - </button> 
+                    </li>`
             } else {
                 checklistHTML += 
-                    `<li>${array[i]['items'][j]['checklist'][k] ['checkItem']}
-                    <input class="checkbox" id="checkbox${i + j +k}" 
-                    type="checkbox" ></input> </li>`
+                    `<li>
+                    <input type="text" name="title" class="input-checklist" value="${array[i]['items'][j]['checklist'][k] ['checkItem']}" >
+                        <input class="checkbox" id="checkbox${i + j + k}" 
+                        type="checkbox" ></input> 
+                        <button class="checklistDeleteBtn"> - </button>
+                    </li>`
             }       
-        };
 
+
+        };
+        itemElement.innerHTML = checklistHTML;
     },
 
     displayNewCategoryForm() {

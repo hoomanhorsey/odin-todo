@@ -193,7 +193,7 @@ const eventListenerObject ={
                     checklistTally.appendChild(newChecklistItem);         
         
                     eventListenerObject.deleteChecklistItemListener();
-                     }
+                    }
                     )
                 })       
     },
@@ -293,12 +293,12 @@ const eventListenerObject ={
                     // screenControlObject.populateEditItemFormWithData(e.parentElement.dataset.categoryindex, e.parentElement.dataset.itemindex);
                             let x = 1;
                     screenControlObject.populateEditItemFormWithData(focuscategoryindex, focusitemindex, x);
-
+                            alert('populateEditItems has been called, focuscategory, index category' + focuscategoryindex + ' ' + focusitemindex)
                     this.newItemCancelBtnListener();
 
                     formsRetrieveObject.getEditFormInfo(focuscategoryindex, focusitemindex);
 
-
+                    this.deleteChecklistItemListener();
                     
                 //     screenControlObject.displayEditItemForm(e.parentElement);
                 //     document.getElementById(`form${e.parentElement.dataset.categoryindex}${e.parentElement.dataset.itemindex}`).addEventListener('click', function(event) {

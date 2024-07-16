@@ -8,7 +8,7 @@ const formsRetrieveObject = {
 
 /// Isn't getNewItemFormInfo essentially an event listener? Shouldn't it live with the event listeners or at least, 'form event listeners?'
 getNewItemFormInfo() {
-    const newItemFormData = document.querySelector('.newItemBtn')
+    const newItemFormData = document.querySelector('.submitItemFormBtn')
 
     newItemFormData.addEventListener('click', (e) => {
         e.preventDefault();
@@ -53,8 +53,8 @@ getEditFormInfo(categoryindex, itemindex) {
     let savedItem = projectsObject.getItem(categoryindex, itemindex);
     console.log('saved item ' + savedItem['title'])
 
-    const editFormData = document.querySelector('.newItemBtn')
-    editFormData.addEventListener('click', (e) => {
+    const submitEditFormData = document.querySelector('.submitItemFormBtn')
+    submitEditFormData.addEventListener('click', (e) => {
         e.preventDefault();
         alert('submit pressed')
         // let title = document.querySelector('.input-title').value;
@@ -92,21 +92,37 @@ getEditFormInfo(categoryindex, itemindex) {
         // iterating through checklist to add 'id'
         for (let i = 0; i < (checklistTally); i++) {
             const children = newItemFormChecklist.children;
-            children[i].firstElementChild.id = `checklist${i}`;
+            
+             children[i].firstElementChild.id = `checklist${i}`;
+            // children[i].id = `checklist${i}`;
+            console.log(children[i])
         }
 
         const checklist = [];
         for (let j = 0 ; j < (checklistTally); j++) {
             const checklistItem = document.getElementById(`checklist${j}`).value;
+            console.log(checklistItem)
+ 
             const tempObject = {checkItem: `${checklistItem}`, checked: false};
             checklist.push(tempObject);
         }
 
         const updatedItem = new Todo(title, description, checklist, dueDate, priority, status);   
-
+        console.log(checklist)
         console.log(updatedItem)
 
         projectsObject.updateItem(categoryindex, itemindex, updatedItem);
+        // screenControlObject.displayFullList();
+
+        const itemElement = document.getElementById(`ref${categoryindex+itemindex}`)
+
+        console.log(itemElement)
+        screenControlObject.itemDisplayFull(
+            itemElement, projectsObject.projectsArray, 
+            categoryindex, itemindex);
+
+        
+
 
 })
 
