@@ -58,20 +58,19 @@ const screenControlObject = {
 
             // Creates checklist HTML <li> items based on checklist array
             // if none, then there is no HTML created.  
-            // TODO - determine if you need checkbox id
             for (let k = 0; k < checkItemsNumber; k++) {
                 if (array[i]['items'][j]['checklist'][k]['checked']) {
                     checklistHTML += 
                         `<li>
                             ${array[i]['items'][j]['checklist'][k] ['checkItem']}
-                            <input class="checkbox" id="checkbox${i + j + k}"  
+                            <input class="checkbox"   
                             type="checkbox" checked></input> 
                         </li>`
                 } else {
                     checklistHTML += 
                         `<li>
                             ${array[i]['items'][j]['checklist'][k] ['checkItem']}
-                            <input class="checkbox" id="checkbox${i + j + k}" 
+                            <input class="checkbox"  
                             type="checkbox" ></input> 
                         </li>`
                 }       
@@ -223,14 +222,14 @@ const screenControlObject = {
         var checkItemsNumber = (array[i]['items'][j]['checklist'].length)
 
         // Creates checklist HTML <li> items based on checklist array
-        // if none, then there is no HTML created.  // Need to change 'false' to a checkbox.
+        // if none, then there is no HTML created.  
         for (let k= 0; k < checkItemsNumber; k++) {
             if (array[i]['items'][j]['checklist'][k]['checked']) {
                 checklistHTML += 
                     `<li>
                         <input type="text" name="title" class="input-checklist" 
                             value="${array[i]['items'][j]['checklist'][k] ['checkItem']}"></input> 
-                        <input class="checkbox" id="checkbox${i + j + k}" type="checkbox" checked></input> 
+                        <input class="checkbox" type="checkbox" checked></input> 
                         <button class="checklistDeleteBtn"> - </button> 
                     </li>`
             } else {
@@ -238,7 +237,7 @@ const screenControlObject = {
                     `<li>
                         <input type="text" name="title" class="input-checklist" 
                             value="${array[i]['items'][j]['checklist'][k] ['checkItem']}"></input> 
-                        <input class="checkbox" id="checkbox${i + j + k}" type="checkbox" ></input> 
+                        <input class="checkbox" type="checkbox" ></input> 
                         <button class="checklistDeleteBtn"> - </button>
                     </li>`
             }       
