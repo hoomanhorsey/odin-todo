@@ -6,74 +6,74 @@ const screenControlObject = {
 
     displayFullList() {
 
-    const array = projectsObject.getProjectsArray();
-    const categories = document.querySelector('.categories');
+        const array = projectsObject.getProjectsArray();
+        const categories = document.querySelector('.categories');
+        
+        categories.innerHTML = '';
+        
+        // Creating 'Category' element
+        for (let i = 0; i < array.length; i++ ) {
+            const categoryElement = document.createElement('div');
+            categoryElement.innerHTML = array[i]['category'];
+            categoryElement.classList.add('category'); 
+            categories.appendChild(categoryElement);
 
-    
-    categories.innerHTML = '';
-    for (let i = 0; i < array.length; i++ ) {
-        const categoryElement = document.createElement('div');
-
-        categoryElement.innerHTML = array[i]['category'];
-        categoryElement.classList.add('category' ); 
-
-        // const categories = document.querySelector('.categories-container');
-        categories.appendChild(categoryElement);
-        // add 'p' elements for each item
-        for (let j = 0; j < array[i]['items'].length; j++) {      
-            let itemElement = categoryElement.appendChild(screenControlObject.setItemElementDetails(array, i, j));
-            screenControlObject.itemDisplaySummary(itemElement, array, i, j);
-            }}
-        // eventListenerObject.itemListenerExpand() 
+            // Create 'item' elements of each item in category
+            for (let j = 0; j < array[i]['items'].length; j++) {
+                // set details of item element....      
+                let itemElement = categoryElement.appendChild(this.setItemElementDetails(array, i, j));
+                this.itemDisplaySummary(itemElement, array, i, j);
+                }}
     },
 
-    setItemElementDetails(array, i, j) {
-        const itemElement = document.createElement('div');
-            itemElement.dataset.categoryindex = i;
-            itemElement.dataset.itemindex = j;
-            itemElement.classList.add('item', `${array[i]['items'][j]['priority']}` );
-            itemElement.id = `ref${i}${j}`;
-        return itemElement;
-    },
+        setItemElementDetails(array, i, j) {
+            const itemElement = document.createElement('div');
+                itemElement.dataset.categoryindex = i;
+                itemElement.dataset.itemindex = j;
+                itemElement.classList.add('item', `${array[i]['items'][j]['priority']}` );
+                itemElement.id = `ref${i}${j}`;
+            return itemElement;
+        },
 
     itemDisplaySummary(itemElement, array, i, j) {
         itemElement.classList.add('displaySummary');
-        itemElement.classList.remove('displayFull', 'zIndexHigh' );   
-            // zIndexHigh positions the display of the element in front of other items       
+        itemElement.classList.remove('displayFull', 'zIndexHigh' ); // zIndexHigh positions the display of the element in front of other items       
 
         itemElement.innerHTML = `
             <p class="item-expand"> [+] </p>
             <p class="itemTitle" > ${array[i]['items'][j]['title']} </p> 
-            <p> Priority: ${ array[i]['items'][j]['priority']} </p> 
-            <p> Due date: ${ array[i]['items'][j]['dueDate']} </p> `
+            <p> Priority: ${array[i]['items'][j]['priority']} </p> 
+            <p> Due date: ${array[i]['items'][j]['dueDate']} </p> `
+
         eventListenerObject.itemListenerExpand();
     },
 
     itemDisplayFull(itemElement, array, i, j) {
-        // console.log('i: ' + i + ' j: ' + j)
-        // console.log(array[i]['items'][j]['checklist']);
-
         itemElement.classList.add('displayFull', 'zIndexHigh');
         itemElement.classList.remove('displaySummary');
 
-        //test for checklist
         let checklistHTML = '';
-            // items in the checklist array.
+            // check number of items in the checklist array.
             var checkItemsNumber = (array[i]['items'][j]['checklist'].length)
 
             // Creates checklist HTML <li> items based on checklist array
-            // if none, then there is no HTML created.  // Need to change 'false' to a checkbox.
-            for (let k= 0; k < checkItemsNumber; k++) {
+            // if none, then there is no HTML created.  
+            // TODO - determine if you need checkbox id
+            for (let k = 0; k < checkItemsNumber; k++) {
                 if (array[i]['items'][j]['checklist'][k]['checked']) {
                     checklistHTML += 
-                        `<li>${array[i]['items'][j]['checklist'][k] ['checkItem']}
-                        <input class="checkbox" id="checkbox${i + j +k}"  
-                        type="checkbox" checked></input> </li>`
+                        `<li>
+                            ${array[i]['items'][j]['checklist'][k] ['checkItem']}
+                            <input class="checkbox" id="checkbox${i + j + k}"  
+                            type="checkbox" checked></input> 
+                        </li>`
                 } else {
                     checklistHTML += 
-                        `<li>${array[i]['items'][j]['checklist'][k] ['checkItem']}
-                        <input class="checkbox" id="checkbox${i + j +k}" 
-                        type="checkbox" ></input> </li>`
+                        `<li>
+                            ${array[i]['items'][j]['checklist'][k] ['checkItem']}
+                            <input class="checkbox" id="checkbox${i + j + k}" 
+                            type="checkbox" ></input> 
+                        </li>`
                 }       
             };
            
@@ -228,24 +228,20 @@ const screenControlObject = {
             if (array[i]['items'][j]['checklist'][k]['checked']) {
                 checklistHTML += 
                     `<li>
-
-                    <input type="text" name="title" class="input-checklist" value="${array[i]['items'][j]['checklist'][k] ['checkItem']}" >
-                        
-                        <input class="checkbox" id="checkbox${i + j + k}"  
-                        type="checkbox" checked></input> 
+                        <input type="text" name="title" class="input-checklist" 
+                            value="${array[i]['items'][j]['checklist'][k] ['checkItem']}"></input> 
+                        <input class="checkbox" id="checkbox${i + j + k}" type="checkbox" checked></input> 
                         <button class="checklistDeleteBtn"> - </button> 
                     </li>`
             } else {
                 checklistHTML += 
                     `<li>
-                    <input type="text" name="title" class="input-checklist" value="${array[i]['items'][j]['checklist'][k] ['checkItem']}" >
-                        <input class="checkbox" id="checkbox${i + j + k}" 
-                        type="checkbox" ></input> 
+                        <input type="text" name="title" class="input-checklist" 
+                            value="${array[i]['items'][j]['checklist'][k] ['checkItem']}"></input> 
+                        <input class="checkbox" id="checkbox${i + j + k}" type="checkbox" ></input> 
                         <button class="checklistDeleteBtn"> - </button>
                     </li>`
             }       
-
-
         };
         itemElement.innerHTML = checklistHTML;
     },
@@ -257,8 +253,9 @@ const screenControlObject = {
     
         newCategoryForm = formsCreateObject.createNewCategoryForm(newCategoryForm);
         newCategory.appendChild(newCategoryForm);
-    },
+        },
         
-    } //end of screenControlObject
+    } 
+//end of screenControlObject
 
 export { screenControlObject};
