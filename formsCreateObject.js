@@ -71,6 +71,10 @@ createNewItemForm (newItemForm)
 return newItemForm;
 }, 
 
+
+//TODO - A separate function was created for edit forms, but then we chose to use
+// the new form and then just populate the new form.  Edit form can probably be deleted.
+
 // createEditForm (newItemForm, item, categoryindex, itemindex) {
 
 //     //    TODO     Create a for loop to create the checklist html from the array. Then insert that checklist later.
@@ -113,8 +117,7 @@ return newItemForm;
 //     newItemForm.action="https://httpbin.org/post" 
 //     newItemForm.method = "post" 
 //     newItemForm.classList.add('newItemForm', 'item'); 
-//     newItemForm.autocomplete="off"
-
+//     newItemForm.autocomplete="off
 //     // <form id="form${categoryindex}${itemindex}" 
 
 //     newItemForm.innerHTML = `

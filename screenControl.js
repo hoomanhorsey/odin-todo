@@ -14,27 +14,31 @@ const screenControlObject = {
         // Creating 'Category' element
         for (let i = 0; i < array.length; i++ ) {
             const categoryElement = document.createElement('div');
-            categoryElement.innerHTML = array[i]['category'];
-            categoryElement.classList.add('category'); 
-            categories.appendChild(categoryElement);
+                categoryElement.innerHTML = array[i]['category']; // name of category
+                categoryElement.classList.add('category'); // adding 'category' class 
+            categories.appendChild(categoryElement); // append 'category' to 'categories'
 
-            // Create 'item' elements of each item in category
+            // Create 'item' elements for each category
             for (let j = 0; j < array[i]['items'].length; j++) {
-                // set details of item element....      
-                let itemElement = categoryElement.appendChild(this.setItemElementDetails(array, i, j));
+                // create item Element
+                let itemElement = "";
+                    // creates item Element, and then appends it to category
+                    itemElement =  categoryElement.appendChild(this.setItemElementDetails(array, i, j));
+                // display item Summary
                 this.itemDisplaySummary(itemElement, array, i, j);
                 }}
-    },
+            },
 
-        setItemElementDetails(array, i, j) {
-            const itemElement = document.createElement('div');
-                itemElement.dataset.categoryindex = i;
-                itemElement.dataset.itemindex = j;
-                itemElement.classList.add('item', `${array[i]['items'][j]['priority']}` );
-                itemElement.id = `ref${i}${j}`;
-            return itemElement;
-        },
-
+            setItemElementDetails(array, i, j) {
+                const itemElement = document.createElement('div');
+                    itemElement.dataset.categoryindex = i; 
+                    itemElement.dataset.itemindex = j;
+                    //TODO - check if category index and item index are actually used. 
+                    //Because you also have ref id below
+                    itemElement.classList.add('item', `${array[i]['items'][j]['priority']}` );
+                    itemElement.id = `ref${i}${j}`;
+                return itemElement;
+            },
     itemDisplaySummary(itemElement, array, i, j) {
         itemElement.classList.add('displaySummary');
         itemElement.classList.remove('displayFull', 'zIndexHigh' ); // zIndexHigh positions the display of the element in front of other items       
