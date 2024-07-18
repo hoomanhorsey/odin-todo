@@ -11,7 +11,8 @@
       Each object contains key value pair:
         - 'category': 'categoryName'
         - 'items' : [array of objects representing each item]
-      [ 
+
+      projectsArray: [ 
         { 
             'category': 'categoryName' ,
             'items' : 
@@ -19,7 +20,6 @@
                     firstItem, secondItem, thirdItem,
                 ]
         }
-
       ]
 
 - methods
@@ -30,6 +30,9 @@
     - addItem()
     - deleteItem()
     - getItem()
+    - toggleChecklistCheckbox()
+    - updateItem()
+
 - loose function
     - checkIfCategoryExists()
 
@@ -40,34 +43,50 @@
 - properties
 - methods
     - displayList()
-    - setItemElementDetails()
+        - setItemElementDetails()
     - itemDisplaySummary()
     - itemDisplayFull()
-    - displayEditItem()
     - displayNewItemForm()
+    - populateEditItemFormWithData()
+        - checklistCreation()
     - displayNewCategoryForm()
 
-*formsObject*
+*formsCreateObject*
 
 - methods
     - createNewItemForm()
-    - createEditForm()
     - createNewCategoryForm()
 
-    - refreshNewItemForm()
+*formsRetrieveObject*
 
-    - getFormInfo()
+- methods
+    - getNewItemFormInfo()
+    - getEditFormInfo()
     - getNewCategoryFormInfo()
+
 
 *eventListeners*
 
 - methods
-    - itemToggleListener()
+
+    - itemListenerExpand()
+        - itemExpand()
+    - itemListenerCollapse()
 
     - createNewItemListener()
+        - newItemCancelBtnListener()
+
     - createNewCategoryListener()
+        - newCategoryCancelBtnListener()
     
+    - addChecklistItemListener()
+    - addEditChecklistItemListener()
+    - deleteChecklistItemListener()
+
+    - checklistToggleListener()
+
     - itemEditListener()
+        - editItemCancelListener() 
 
 
 

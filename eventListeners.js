@@ -19,10 +19,10 @@ const eventListenerObject ={
         // Set up as a standalone function to allow for disabling of '+' button'
         itemExpand() {   
             const parent = this.parentNode;
+            console.log(parent.id)
             const itemElement = document.getElementById(parent.id)
                 screenControlObject.itemDisplayFull(
-                itemElement, projectsObject.projectsArray, 
-                parent.dataset.categoryindex,parent.dataset.itemindex);
+                itemElement, projectsObject.projectsArray);
             
             eventListenerObject.checklistToggleListener(); 
 
@@ -119,7 +119,6 @@ const eventListenerObject ={
         addChecklistItemBtn.addEventListener('click', (e) => {
             e.preventDefault();  
 
-            const checklistTally = document.getElementById('newItemFormChecklist');
             const newChecklistItem = document.createElement('li'); 
 
             newChecklistItem.classList.add('checklistItem');        
@@ -127,7 +126,7 @@ const eventListenerObject ={
                 `<input type="text"  
                 name="title" class="input-checklist"> 
                 <button class="checklistDeleteBtn"> - </button>`
-            const parentList = document.getElementById('newItemFormChecklist');
+            const parentList = document.getElementById('itemFormChecklistUL');
             parentList.appendChild(newChecklistItem);         
 
             eventListenerObject.deleteChecklistItemListener();
@@ -279,32 +278,27 @@ const eventListenerObject ={
               
                     const parent = e.parentNode;
 
-                    let focuscategoryindex = parent.dataset.categoryindex;
-                    let focusitemindex = parent.dataset.itemindex;
+                    let itemElementId = parent.id;
+                    let i = itemElementId[3]
+                    let j = itemElementId[4]
 
                     // redisplay of summary of item
                       
                         const itemElement = document.getElementById(parent.id)
                         screenControlObject.itemDisplaySummary(
-                        itemElement, projectsObject.projectsArray, 
-                        parent.dataset.categoryindex, parent.dataset.itemindex);
+                        itemElement, projectsObject.projectsArray, i, j 
+                    );
 
                     screenControlObject.displayNewItemForm();
-                    // screenControlObject.populateEditItemFormWithData(e.parentElement.dataset.categoryindex, e.parentElement.dataset.itemindex);
-                            let x = 1;
-                    screenControlObject.populateEditItemFormWithData(focuscategoryindex, focusitemindex, x);
-                            alert('populateEditItems has been called, focuscategory, index category' + focuscategoryindex + ' ' + focusitemindex)
+                    let x = 1;
+                    screenControlObject.populateEditItemFormWithData(i, j, x);
+                            alert('populateEditItems has been called, i and j, index category')
                     this.newItemCancelBtnListener();
 
-                    formsRetrieveObject.getEditFormInfo(focuscategoryindex, focusitemindex);
+                    formsRetrieveObject.getEditFormInfo(i, j);
 
                     this.deleteChecklistItemListener();
-                    
-                //     screenControlObject.displayEditItemForm(e.parentElement);
-                //     document.getElementById(`form${e.parentElement.dataset.categoryindex}${e.parentElement.dataset.itemindex}`).addEventListener('click', function(event) {
-                //         event.stopPropagation(); // Prevent event from propagating to the parent div
-                // })    
-                // eventListenerObject.editItemCancelListener(); 
+      
                 })
             } )
             },

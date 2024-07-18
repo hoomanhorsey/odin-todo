@@ -21,7 +21,7 @@ getNewItemFormInfo() {
         let status = document.querySelector('.select-status').value;
         let priority = document.querySelector('.select-priority').value;
    
-        const newItemFormChecklist = document.getElementById('newItemFormChecklist');
+        const newItemFormChecklist = document.getElementById('itemFormChecklistUL');
         const checklistTally = newItemFormChecklist.children.length;
 
         // iterating through checklist to add 'id'
@@ -84,14 +84,14 @@ getEditFormInfo(categoryindex, itemindex) {
         let status = document.querySelector('.select-status').value;
         let priority = document.querySelector('.select-priority').value;
 
-        const newItemFormChecklist = document.getElementById('newItemFormChecklist');
+        const itemFormChecklist = document.getElementById('itemFormChecklistUL');
 
 
-        const checklistTally = newItemFormChecklist.children.length;
+        const checklistTally = itemFormChecklist.children.length;
        
         // iterating through checklist to add 'id'
         for (let i = 0; i < (checklistTally); i++) {
-            const children = newItemFormChecklist.children;
+            const children = itemFormChecklist.children;
             
              children[i].firstElementChild.id = `checklist${i}`;
             // children[i].id = `checklist${i}`;
@@ -118,8 +118,7 @@ getEditFormInfo(categoryindex, itemindex) {
 
         console.log(itemElement)
         screenControlObject.itemDisplayFull(
-            itemElement, projectsObject.projectsArray, 
-            categoryindex, itemindex);
+            itemElement, projectsObject.projectsArray);
 
         
 
