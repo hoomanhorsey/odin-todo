@@ -8,7 +8,7 @@ const eventListenerObject ={
     // ****item Event listener****
 
     // Sets listener for items expansion
-    itemListenerExpand() {
+    listenerItemExpand() {
         var items = document.querySelectorAll('.item-expand');
         items.forEach((e) => {
             e.addEventListener('click', eventListenerObject.itemExpand)                    
@@ -17,14 +17,15 @@ const eventListenerObject ={
 
         // Function for expansion of item. 
         // Set up as a standalone function to allow for disabling of '+' button'
+        // that is still accessible for other items
         itemExpand() {   
             const parent = this.parentNode;
             console.log(parent.id)
             const itemElement = document.getElementById(parent.id)
-                screenControlObject.itemDisplayFull(
+                screenControlObject.displayItemFull(
                 itemElement, projectsObject.projectsArray);
             
-            eventListenerObject.checklistToggleListener(); 
+            eventListenerObject.listenerChecklistToggle(); 
 
             var items = document.querySelectorAll('.item-expand');
             items.forEach((e) => {
@@ -34,7 +35,7 @@ const eventListenerObject ={
             eventListenerObject.disableNewItemCategoryButtons();
             },
     
-    itemListenerCollapse() {
+    listenerItemCollapse() {
         var items = document.querySelectorAll('.item-collapse');
     
         items.forEach((e) => {
@@ -42,7 +43,7 @@ const eventListenerObject ={
                 const parent = e.parentNode;
 
                 const itemElement = document.getElementById(parent.id)
-                    screenControlObject.itemDisplaySummary(
+                    screenControlObject.displayItemSummary(
                     itemElement, projectsObject.projectsArray, 
                     parent.dataset.categoryindex, parent.dataset.itemindex);
                 
@@ -54,13 +55,13 @@ const eventListenerObject ={
 
     /// **** New Items & New Categories ****
     
-    createNewItemListener() {
+    listenerCreateNewItem() {
         let createNewItemButton = document.querySelector('.createNewItem');
 
         createNewItemButton.addEventListener('click', () => {
             screenControlObject.displayNewItemForm();
 
-            this.newItemCancelBtnListener();
+            this.listenerNewItemCancelBtn();
 
             formsRetrieveObject.getNewItemFormInfo();
             
@@ -69,7 +70,7 @@ const eventListenerObject ={
         },
 
         // New Item Cancel Btn Listener
-        newItemCancelBtnListener() {
+        listenerNewItemCancelBtn() {
             let newItemCancelBtn = document.querySelector('.newItemCancelBtn');
 
             newItemCancelBtn.addEventListener('click', (e) => {          
@@ -83,12 +84,12 @@ const eventListenerObject ={
                 }
             )},
 
-    createNewCategoryListener() {
+    listenerCreateNewCategory() {
         let createNewCategoryButton = document.querySelector('.createNewCategory');
         createNewCategoryButton.addEventListener('click', () => {
 
             screenControlObject.displayNewCategoryForm();
-            this.newCategoryCancelBtnListener();
+            this.listenerNewCategoryCancelBtn();
 
             formsRetrieveObject.getNewCategoryFormInfo();
 
@@ -96,7 +97,7 @@ const eventListenerObject ={
             })
         },
 
-        newCategoryCancelBtnListener() {
+        listenerNewCategoryCancelBtn() {
             let newCategoryCancelBtn = document.querySelector('.newCategoryCancelBtn');
 
                 newCategoryCancelBtn.addEventListener('click', (e) => {
@@ -113,7 +114,7 @@ const eventListenerObject ={
 
     // New Item - Add checklist items 
 
-    addChecklistItemListener() {       
+    listenerAddChecklistItem() {       
         let addChecklistItemBtn = document.getElementById('addCheckListItem');
 
         addChecklistItemBtn.addEventListener('click', (e) => {
@@ -129,7 +130,7 @@ const eventListenerObject ={
             const parentList = document.getElementById('itemFormChecklistUL');
             parentList.appendChild(newChecklistItem);         
 
-            eventListenerObject.deleteChecklistItemListener();
+            eventListenerObject.listenerDeleteChecklistItem();
         })
 
         // `<input type="text" id="checklist${ (checklistTally.children.length) }" 
@@ -139,65 +140,7 @@ const eventListenerObject ={
 ///TODO - Need to add IDs to checklist via a for loop, upon submit button. Not as you create them. Because otherwise as they jumble in and out of order, they will go in and out of order.
     },
 
-    // Edit Item - Add checklist Item
-    addEditChecklistItemListener(){
-
-        const addChecklistItemBtns = document.querySelectorAll('.editAddChecklistItem');
-
-            addChecklistItemBtns.forEach( (button) => {
-                button.addEventListener('click', (pointerEvent) => {
-                    pointerEvent.preventDefault(); 
-
-                    let bParent = button.parentNode;
-                    let bGrandparent = bParent.parentNode;
-                    let bGreatGrandparent = bGrandparent.parentNode
-                    console.log(bGreatGrandparent.id)
-                    let formId = bGreatGrandparent.id
-
-                    console.log(formId[4]+ formId[5])
-
-                    let categoryindex = formId[4] 
-                    let itemindex = formId[5]
-
-                    console.log(`newItemFormChecklist${formId[4]+formId[5]}`)
-                    
-                    const checklistTally = document.getElementById(`newItemFormChecklist${formId[4]+formId[5]}`);
-
-                        console.log(checklistTally.children.length)
-
-                    const newChecklistItem = document.createElement('li'); 
-
-                    // Creating an object to store dynamically generated variables.
-                    // May be useful in ensuring event listener is triggered for specific items, and keeps tallies.
-                    var dynamicCheckId = {};
-                    let variableRef = `ref${formId[4]+formId[5]}`;
-                    console.log('variable ref: ' + variableRef);
-                    var propertyName =  variableRef;
-                    console.log('property name: '+ propertyName)
-                    dynamicCheckId[propertyName] = `ref${formId[4]+formId[5]}`;
-
-                    console.log(dynamicCheckId[variableRef]);
-                    console.table(dynamicCheckId)
-
-                    newChecklistItem.classList.add('checklistItem');        
-                    newChecklistItem.innerHTML = 
-
-                        ` <label for="checklist${categoryindex+itemindex+checklistTally.children.length}" class="label-checklist"></label>
-                        <input type="text" id="checklist${(categoryindex+itemindex+checklistTally.children.length)}" 
-                        name="checklist" class="input-checklistItem">
-        
-                        <input type="checkbox" ></input> 
-                        <button class="checklistDeleteBtn"> - </button>`
-                    const parentList = document.getElementById('editNewItemFormChecklist');
-                    checklistTally.appendChild(newChecklistItem);         
-        
-                    eventListenerObject.deleteChecklistItemListener();
-                    }
-                    )
-                })       
-    },
-
-    deleteChecklistItemListener() {
+    listenerDeleteChecklistItem() {
         let deleteChecklistItemBtn = document.querySelectorAll('.checklistDeleteBtn');
 
         deleteChecklistItemBtn.forEach((e) => {        
@@ -209,16 +152,13 @@ const eventListenerObject ={
             })
         })
     },
-    
-   
-
-    checklistToggleListener() {
-        // console.log('called checklistToggleListener()')
+     
+    listenerChecklistToggle() {
         let checkboxes = document.querySelectorAll('.checkbox');
         checkboxes.forEach( (e) => {
-            // console.log(e)
+            console.log(e)
             e.addEventListener('change', () => {
-                // console.log(e.id)
+                console.log(e.id)
 
                 let array = projectsObject.getProjectsArray()
                 console.log(array)
@@ -228,11 +168,15 @@ const eventListenerObject ={
                 console.log(array[0]['items'][0]['checklist'][0]['checked'])
 
                 // Need to create a function that changes the array in the project object.
-
                 console.log(e.id[8])
                 console.log(e.id[9])
                 console.log(e.id[10])
 
+
+                /// NOTE - The checklist id is in the format 'checkbox###':
+                /// first # = i
+                /// second # = j
+                /// third # = k
 
                 if (e.checked) {
                     console.log("and it's checked")
@@ -270,7 +214,7 @@ const eventListenerObject ={
 
 
 
-    itemEditListener(){
+    listenerItemEdit(){
             let editButtons = document.querySelectorAll('.editItem');
             editButtons.forEach((e) => {
                 e.addEventListener('click', (pointerEvent) => {
@@ -283,51 +227,37 @@ const eventListenerObject ={
                     let j = itemElementId[4]
 
                     // redisplay of summary of item
-                      
                         const itemElement = document.getElementById(parent.id)
-                        screenControlObject.itemDisplaySummary(
+                        screenControlObject.displayItemSummary(
                         itemElement, projectsObject.projectsArray, i, j 
                     );
 
                     screenControlObject.displayNewItemForm();
                     let x = 1;
-                    screenControlObject.populateEditItemFormWithData(i, j, x);
-                            alert('populateEditItems has been called, i and j, index category')
-                    this.newItemCancelBtnListener();
+                    screenControlObject.populateEditItemForm(i, j, x);
+                            alert('populateEditItems has been called, i and j, index category' + i + j + x)
+                    this.listenerNewItemCancelBtn();
 
                     formsRetrieveObject.getEditFormInfo(i, j);
 
-                    this.deleteChecklistItemListener();
-      
-                })
-            } )
-            },
-
-
-        editItemCancelListener() {
-            let cancelEditBtn = document.querySelector('.cancelEditBtn');
-            cancelEditBtn.addEventListener('click', (e) => {
-                screenControlObject.displayFullList();
-
-                this.enableNewItemCategoryButtons();
+                    this.listenerDeleteChecklistItem();
+                    })
             })
-        },
-
-   
+            },  
 
 // Utilities - enabling and disabling new item/category buttons, upon selection of new item/category
     disableNewItemCategoryButtons(){
-        let createNewCategoryButton = document.querySelector('.createNewCategory');
-            createNewCategoryButton.disabled = true;
-        let createNewItemButton = document.querySelector('.createNewItem');
-            createNewItemButton.disabled = true;
+        let newCategoryButton = document.querySelector('.createNewCategory');
+            newCategoryButton.disabled = true;
+        let newItemButton = document.querySelector('.createNewItem');
+            newItemButton.disabled = true;
     },
 
     enableNewItemCategoryButtons(){
-        let createNewCategoryButton = document.querySelector('.createNewCategory');
-            createNewCategoryButton.disabled = false;
-        let createNewItemButton = document.querySelector('.createNewItem');
-            createNewItemButton.disabled = false;
+        let newCategoryButton = document.querySelector('.createNewCategory');
+            newCategoryButton.disabled = false;
+        let newItemButton = document.querySelector('.createNewItem');
+            newItemButton.disabled = false;
     },
 }
 

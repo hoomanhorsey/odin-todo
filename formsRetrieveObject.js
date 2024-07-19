@@ -42,7 +42,7 @@ getNewItemFormInfo() {
 
         projectsObject.addItem(category, newItem);
 
-        screenControlObject.displayFullList();
+        screenControlObject.displayAllCategoriesItems();
         
         eventListenerObject.enableNewItemCategoryButtons()
         })
@@ -54,6 +54,7 @@ getEditFormInfo(categoryindex, itemindex) {
     console.log('saved item ' + savedItem['title'])
 
     const submitEditFormData = document.querySelector('.submitItemFormBtn')
+    
     submitEditFormData.addEventListener('click', (e) => {
         e.preventDefault();
         alert('submit pressed')
@@ -62,19 +63,6 @@ getEditFormInfo(categoryindex, itemindex) {
 
         console.log(projectsObject.projectsArray[categoryindex]['items'][itemindex]['title']);
         console.log(projectsObject.projectsArray[categoryindex]['items'][itemindex]['description']);
-
-
-        // if (savedItem.title === title) {
-        //     console.log('Matched, no need to change')
-        // } else {
-        //     console.log('Need to update')
-            
-
-        //     projectsObject.projectsArray[categoryindex]['items'][itemindex]['title'] = title;
-
-        //     console.log(projectsObject.projectsArray[categoryindex]['items'][itemindex]['title']);
-
-        // }
 
         let category = document.querySelector('.select-category').value;
         let title = document.querySelector('.input-title').value;
@@ -112,16 +100,16 @@ getEditFormInfo(categoryindex, itemindex) {
         console.log(updatedItem)
 
         projectsObject.updateItem(categoryindex, itemindex, updatedItem);
-        // screenControlObject.displayFullList();
 
         const itemElement = document.getElementById(`ref${categoryindex+itemindex}`)
 
         console.log(itemElement)
-        screenControlObject.itemDisplayFull(
+        screenControlObject.displayItemFull(
             itemElement, projectsObject.projectsArray);
 
-        
-
+        let formDiv =  document.querySelector('.newItemFormDiv')
+        console.log(formDiv)
+        formDiv.remove();
 
 })
 
@@ -135,7 +123,7 @@ getNewCategoryFormInfo() {
         e.preventDefault();
         let newCategoryName = document.querySelector('.input-newCategory').value;
         projectsObject.addCategoryToProjectsArray(newCategoryName);
-        screenControlObject.displayFullList(projectsObject.projectsArray);
+        screenControlObject.displayAllCategoriesItems(projectsObject.projectsArray);
 
         eventListenerObject.enableNewItemCategoryButtons()
         });

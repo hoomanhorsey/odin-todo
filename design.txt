@@ -42,13 +42,16 @@
 
 - properties
 - methods
-    - displayList()
-        - setItemElementDetails()
-    - itemDisplaySummary()
-    - itemDisplayFull()
+    - displayAllCategoriesItems()
+            - setItemElementDetails()
+        - displayItemSummary()
+
+    - displayItemFull()
+
     - displayNewItemForm()
-    - populateEditItemFormWithData()
+    - populateEditItemForm()
         - checklistCreation()
+        
     - displayNewCategoryForm()
 
 *formsCreateObject*
@@ -69,26 +72,25 @@
 
 - methods
 
-    - itemListenerExpand()
+    - listenerItemLExpand()
         - itemExpand()
-    - itemListenerCollapse()
+    - listenerItemCollapse()
 
-    - createNewItemListener()
-        - newItemCancelBtnListener()
+    - listenerCreateNewItem()
+        - listenerNewItemCancelBtn()
 
-    - createNewCategoryListener()
-        - newCategoryCancelBtnListener()
+    - listenerCreateNewCategory()
+        - listenerNewCategoryCancelBtn()
     
-    - addChecklistItemListener()
-    - addEditChecklistItemListener()
-    - deleteChecklistItemListener()
+    - listenerAddChecklistItem()
+    - listenerDeleteChecklistItem()
 
-    - checklistToggleListener()
+    - listenerChecklistToggle()
 
-    - itemEditListener()
-        - editItemCancelListener() 
-
-
+    - listenerItemEdit()
+       
+    - disableNewItemCategoryButtons()
+    - enableNewItemCategoryButtons()
 
 
 ///FUNCTIONS///

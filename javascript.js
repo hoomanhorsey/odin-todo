@@ -5,10 +5,10 @@ import { eventListenerObject } from "./eventListeners.js";
 addEventListener("DOMContentLoaded", () => {
 
     setTimeout( () => {
-        eventListenerObject.createNewItemListener(); 
-        eventListenerObject.createNewCategoryListener();
+        eventListenerObject.listenerCreateNewItem(); 
+        eventListenerObject.listenerCreateNewCategory();
      }, 1000)
 
-screenControlObject.displayFullList()
+screenControlObject.displayAllCategoriesItems()
 
 });

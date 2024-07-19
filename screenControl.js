@@ -4,7 +4,7 @@ import { formsCreateObject } from "./formsCreateObject.js";
 
 const screenControlObject = {
 
-    displayFullList() {
+    displayAllCategoriesItems() {
 
         const array = projectsObject.getProjectsArray();
         const categories = document.querySelector('.categories');
@@ -25,7 +25,7 @@ const screenControlObject = {
                     // creates item Element, and then appends it to category
                     itemElement =  categoryElement.appendChild(this.setItemElementDetails(array, i, j));
                 // display item Summary
-                this.itemDisplaySummary(itemElement, array, i, j);
+                this.displayItemSummary(itemElement, array, i, j);
                 }}
             },
 
@@ -36,26 +36,26 @@ const screenControlObject = {
                 return itemElement;
             },
 
-    itemDisplaySummary(itemElement, array) {
-        
-        itemElement.classList.add('displaySummary');
-        itemElement.classList.remove('displayFull', 'zIndexHigh' ); 
-        // zIndexHigh positions the display of the element in front of other items       
+        displayItemSummary(itemElement, array) {
+            
+            itemElement.classList.add('displaySummary');
+            itemElement.classList.remove('displayFull', 'zIndexHigh' ); 
+            // zIndexHigh positions the display of the element in front of other items       
 
-        let itemElementId = itemElement.id;
-        let i = itemElementId[3]
-        let j = itemElementId[4]
+            let itemElementId = itemElement.id;
+            let i = itemElementId[3]
+            let j = itemElementId[4]
 
-        itemElement.innerHTML = `
-            <p class="item-expand"> [+] </p>
-            <p class="itemTitle" > ${array[i]['items'][j]['title']} </p> 
-            <p> Priority: ${array[i]['items'][j]['priority']} </p> 
-            <p> Due date: ${array[i]['items'][j]['dueDate']} </p> `
+            itemElement.innerHTML = `
+                <p class="item-expand"> [+] </p>
+                <p class="itemTitle" > ${array[i]['items'][j]['title']} </p> 
+                <p> Priority: ${array[i]['items'][j]['priority']} </p> 
+                <p> Due date: ${array[i]['items'][j]['dueDate']} </p> `
 
-        eventListenerObject.itemListenerExpand();
-    },
+            eventListenerObject.listenerItemExpand();
+        },
 
-    itemDisplayFull(itemElement, array) {
+    displayItemFull(itemElement, array) {
         itemElement.classList.add('displayFull', 'zIndexHigh');
         itemElement.classList.remove('displaySummary');
 
@@ -80,15 +80,13 @@ const screenControlObject = {
                     checklistHTML += 
                         `<li>
                             ${array[i]['items'][j]['checklist'][k] ['checkItem']}
-                            <input class="checkbox"   
-                            type="checkbox" checked></input> 
+                            <input class="checkbox" id=${'checkbox'+ i + j + k} type="checkbox" checked></input> 
                         </li>`
                 } else {
                     checklistHTML += 
                         `<li>
                             ${array[i]['items'][j]['checklist'][k] ['checkItem']}
-                            <input class="checkbox"  
-                            type="checkbox" ></input> 
+                            <input class="checkbox" id=${'checkbox' + i + j + k}  type="checkbox" ></input> 
                         </li>`
                 }       
             };         
@@ -120,15 +118,15 @@ const screenControlObject = {
                     <button class="editItem"> edit</button>
                     <button class="deleteItem">delete button but maybe include it in edit</button> </div>`
             }
-            eventListenerObject.itemEditListener();
-            eventListenerObject.itemListenerCollapse();
+            eventListenerObject.listenerItemEdit();
+            eventListenerObject.listenerItemCollapse();
         },
 
     displayNewItemForm() {
 
         // Get category to apend form too.        
         let categoriesDiv = document.querySelector('.categories')  
-        // Append new form to categories div, created by createNewItemForm function
+        // Append new form to 'categories' div, created by createNewItemForm function
         categoriesDiv.appendChild(formsCreateObject.createNewItemForm());
       
         // Populating form with 'category' select options
@@ -144,11 +142,11 @@ const screenControlObject = {
                 optionElement.textContent = projectsObject.projectsArray[i]['category'];
                 selectCategory.appendChild(optionElement);
                 }  
-        eventListenerObject.addChecklistItemListener();
-        eventListenerObject.deleteChecklistItemListener() 
+        eventListenerObject.listenerAddChecklistItem();
+        eventListenerObject.listenerDeleteChecklistItem() 
         },
 
-    populateEditItemFormWithData(categoryindex, itemindex) {
+    populateEditItemForm(categoryindex, itemindex) {
 
         let array = projectsObject.getProjectsArray();
 
@@ -184,7 +182,8 @@ const screenControlObject = {
 
         checklistCreation(categoryindex, itemindex, checklistElement) {
 
-            // NOTE: checklistCreation differs from checklist creation in itemDisplayFull()
+            alert('checklist creation called')
+            // NOTE: checklistCreation differs from checklist creation in displayItemFull()
             // as it includes a 'input' text box.
             let itemElement = checklistElement;
             let i = categoryindex;
@@ -213,7 +212,7 @@ const screenControlObject = {
                         `<li>
                             <input type="text" name="title" class="input-checklist" 
                                 value="${array[i]['items'][j]['checklist'][k] ['checkItem']}"></input> 
-                            <input class="checkbox" type="checkbox" ></input> 
+                            <input class="checkbox"  type="checkbox" ></input> 
                             <button class="checklistDeleteBtn"> - </button>
                         </li>`
                 }       
@@ -229,8 +228,6 @@ const screenControlObject = {
         newCategoryForm = formsCreateObject.createNewCategoryForm(newCategoryForm);
         newCategory.appendChild(newCategoryForm);
         },
-        
     } 
-//end of screenControlObject
 
 export { screenControlObject};
