@@ -4,97 +4,96 @@
 
 *projectsObject*
 
-- properties
-    - projectsArray 
-      
-      An array consisting of objects that contain all the data.
-      Each object contains key value pair:
-        - 'category': 'categoryName'
-        - 'items' : [array of objects representing each item]
+        - properties
+            - projectsArray 
+            
+            An array consisting of objects that contain all the data.
+            Each object contains key value pair:
+                - 'category': 'categoryName'
+                - 'items' : [array of objects representing each item]
 
-      projectsArray: [ 
-        { 
-            'category': 'categoryName' ,
-            'items' : 
-                [
-                    firstItem, secondItem, thirdItem,
-                ]
-        }
-      ]
+            projectsArray: [ 
+                { 
+                    'category': 'categoryName' ,
+                    'items' : 
+                        [
+                            firstItem, secondItem, thirdItem,
+                        ]
+                }
+            ]
 
-- methods
+        - methods
 
-    - getProjectsArray()
-    - addCategoryToProjectsArray()
-    - deleteCategoryFromProjectArray()
-    - addItem()
-    - deleteItem()
-    - getItem()
-    - toggleChecklistCheckbox()
-    - updateItem()
+            - getProjectsArray()
+            - addCategoryToProjectsArray()
+            - deleteCategoryFromProjectArray()
+            - addItem()
+            - deleteItem()
+            - getItem()
+            - toggleChecklistCheckbox()
+            - updateItem()
 
-- loose function
-    - checkIfCategoryExists()
+        - loose function
+            - checkIfCategoryExists()
 
-// end of projectsObject description
+        // end of projectsObject description
 
 *screenControlObject*
 
-- properties
-- methods
-    - displayAllCategoriesItems()
-            - setItemElementDetails()
-        - displayItemSummary()
+        - properties
+        - methods
+            - displayAllCategoriesAndItems()
+                    - setItemElementDetails()
+                - displayItemSummary()
 
-    - displayItemFull()
+            - displayItemFull()
 
-    - displayNewItemForm()
-    - populateEditItemForm()
-        - checklistCreation()
-        
-    - displayNewCategoryForm()
+            - displayNewItemForm()
+            - populateEditItemForm()
+                - checklistCreation()
+                
+            - displayNewCategoryForm()
 
 *formsCreateObject*
 
-- methods
-    - createNewItemForm()
-    - createNewCategoryForm()
+        - methods
+            - createNewItemForm()
+            - createNewCategoryForm()
 
 *formsRetrieveObject*
 
-- methods
-    - getNewItemFormInfo()
-    - getEditFormInfo()
-    - getNewCategoryFormInfo()
+        - methods
+            - getNewItemFormInfo()
+            - getEditFormInfo()
+            - getNewCategoryFormInfo()
 
 
 *eventListeners*
 
-- methods
+        - methods
 
-    - listenerItemLExpand()
-        - itemExpand()
-    - listenerItemCollapse()
+            - listenerItemLExpand()
+                - itemExpand()
+            - listenerItemCollapse()
 
-    - listenerCreateNewItem()
-        - listenerNewItemCancelBtn()
+            - listenerCreateNewItem()
+                - listenerNewItemCancelBtn()
 
-    - listenerCreateNewCategory()
-        - listenerNewCategoryCancelBtn()
-    
-    - listenerAddChecklistItem()
-    - listenerDeleteChecklistItem()
+            - listenerCreateNewCategory()
+                - listenerNewCategoryCancelBtn()
+            
+            - listenerAddChecklistItem()
+            - listenerDeleteChecklistItem()
 
-    - listenerChecklistToggle()
+            - listenerChecklistToggle()
 
-    - listenerItemEdit()
-       
-    - disableNewItemCategoryButtons()
-    - enableNewItemCategoryButtons()
+            - listenerItemEdit()
+            
+            - disableNewItemCategoryButtons()
+            - enableNewItemCategoryButtons()
 
 
 ///FUNCTIONS///
-
 
 
 

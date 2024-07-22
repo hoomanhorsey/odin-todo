@@ -16,33 +16,36 @@ const fourthItem = new Todo('Live Life, give it time',  'This is the fourth item
 const fifthItem = new Todo('Fifth Item', 'This is the fifth item', checklist5, '2024-11-10', 'Low', 'incomplete')
 
 
-const projectsObject = {   
-
+const projectArray = {
     // main array for storing items
-    projectsArray: [ 
+    // set up as a separate object, kept private as not returned by this module
+       projectArray: [ 
         {   category : 'Home',
             items: [thirdItem, fourthItem, fifthItem] // initial population of array
         },
         {   category : 'Sport',
-            items: [firstItem, secondItem, fourthItem] 
+            items: [firstItem, secondItem, fourthItem, fifthItem] 
         }, 
         {   category : 'Leisure',
-            items: [firstItem, secondItem]
+            items: [firstItem, secondItem, fifthItem]
         }
     ],
-   
-    // methods
+}
 
-    getProjectsArray(){
-        return this.projectsArray;
+
+const projectsObject = {   
+ 
+    // methods
+    getProjectArray(){
+        return projectArray.projectArray;
     },
 
-    addCategoryToProjectsArray(newCategory) {
+    addCategoryToProjectArray(newCategory) {
         // checklist:         // - checks if category already exists - DONE        // - converts category to upper case, or lowercase - TODO 
         if (checkIfCategoryExists(newCategory) > 0) {
             console.log(`The category "${newCategory}" already exists. Please choose a new category`)
         } else {
-        this.projectsArray.push({category: `${newCategory}`, items: []});
+        projectArray.projectArray.push({category: `${newCategory}`, items: []});
         };
     },
 
@@ -54,11 +57,11 @@ const projectsObject = {
             console.log(`The category "${oldCategory}" doesn't exist and so cannot be deleted`);
             return;
         } else if (categoryIndex >= 0) {
-            if (this.projectsArray[categoryIndex]['items'].length !=0){     
+            if (projectArray.projectArray[categoryIndex]['items'].length !=0){     
                 console.log(`The '${oldCategory}' category cannot be deleted as it has items attached to it. Please reassign or delete them first before deleting this category.`)
                 return;
             } else {
-                this.projectsArray.splice(categoryIndex, 1);
+                projectArray.projectArray.splice(categoryIndex, 1);
                 console.log('The category of "' + oldCategory + '" has been deleted');          
                 return;
                 } 
@@ -67,56 +70,42 @@ const projectsObject = {
 
     addItem(category, itemName) {
         // checklist:         // - check if item of same name already exists - TODO - or maybe it's okay if there are two items of the same name....  
-        for (let i = 0; i < (this.projectsArray.length); i++) {
-            if (this.projectsArray[i]['category'] === category) {
-                 this.projectsArray[i]['items'].push(itemName); 
+        for (let i = 0; i < (projectArray.projectArray.length); i++) {
+            if (projectArray.projectArray[i]['category'] === category) {
+                 projectArray.projectArray[i]['items'].push(itemName); 
             }
         };
     },
 
     deleteItem(category, itemName){
         // checklist:      // - check if item exists - DONE .  If it doesn't exist, returns.
-        for (let i = 0; i < (this.projectsArray.length); i++) {
+        for (let i = 0; i < (projectArray.projectArray.length); i++) {
             // finds the matching category
-            if (this.projectsArray[i]['category'] === category) {
-                let index = this.projectsArray[i]['items'].findIndex(obj => obj['title'] === itemName);
-                this.projectsArray[i]['items'].splice(index, 1);
+            if (projectArray.projectArray[i]['category'] === category) {
+                let index = projectArray.projectArray[i]['items'].findIndex(obj => obj['title'] === itemName);
+                projectArray.projectArray[i]['items'].splice(index, 1);
                 return;
                 }
             }
     },
 
     getItem(categoryIndex, itemIndex) {
-        return this.projectsArray[categoryIndex]['items'][itemIndex];
+        return projectArray.projectArray[categoryIndex]['items'][itemIndex];
     },
 
     toggleChecklistCheckbox(i, j, k, status) {
         console.log('this.toggleChecklistCheckbox has been called: ' + status)
-        this.projectsArray[i]['items'][j]['checklist'][k]['checked'] = status;
+        projectArray.projectArray[i]['items'][j]['checklist'][k]['checked'] = status;
     },
 
     updateItem(categoryIndex, itemIndex, updatedItem) {
-
-        console.log('updatedItem in projectsObject has been called. Now just need to insert it into the array, using the category index and item index numbers. Though note if you change category you have to delete the old entry',  categoryIndex + itemIndex + updatedItem.title);
-        console.table(this.projectsArray)
-
-
-        console.log(this.projectsArray[categoryIndex]['items'][itemIndex]['title'])
-
-        console.log(updatedItem)
-        console.log(this.projectsArray[categoryIndex]['items'][itemIndex])
-
-        this.projectsArray[categoryIndex]['items'][itemIndex] = updatedItem;
-        console.log(this.projectsArray[categoryIndex]['items'][itemIndex])
-
+          projectArray.projectArray[categoryIndex]['items'][itemIndex] = updatedItem;
         ///placholder - in case I want to create a function to update the array from EditItems
-    }
-    
-    
+    },
 };
 
 function checkIfCategoryExists(categoryName){
-    return projectsObject.projectsArray.findIndex(obj => obj['category'].toLowerCase() === categoryName.toLowerCase());
+    return projectsObject.getProjectArray().findIndex(obj => obj['category'].toLowerCase() === categoryName.toLowerCase());
 }
 
-export {projectsObject, Todo} ;
+export {projectsObject} ;

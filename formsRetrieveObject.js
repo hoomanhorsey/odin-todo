@@ -42,7 +42,7 @@ getNewItemFormInfo() {
 
         projectsObject.addItem(category, newItem);
 
-        screenControlObject.displayAllCategoriesItems();
+        screenControlObject.displayAllCategoriesAndItems();
         
         eventListenerObject.enableNewItemCategoryButtons()
         })
@@ -61,8 +61,8 @@ getEditFormInfo(categoryindex, itemindex) {
         // let title = document.querySelector('.input-title').value;
         // console.log(title)
 
-        console.log(projectsObject.projectsArray[categoryindex]['items'][itemindex]['title']);
-        console.log(projectsObject.projectsArray[categoryindex]['items'][itemindex]['description']);
+        console.log(projectsObject.getProjectArray()[categoryindex]['items'][itemindex]['title']);
+        console.log(projectsObject.getProjectArray()[categoryindex]['items'][itemindex]['description']);
 
         let category = document.querySelector('.select-category').value;
         let title = document.querySelector('.input-title').value;
@@ -105,11 +105,13 @@ getEditFormInfo(categoryindex, itemindex) {
 
         console.log(itemElement)
         screenControlObject.displayItemFull(
-            itemElement, projectsObject.projectsArray);
+            itemElement, projectsObject.getProjectArray());
 
         let formDiv =  document.querySelector('.newItemFormDiv')
         console.log(formDiv)
         formDiv.remove();
+        console.log(projectsObject.getProjectArray()[categoryindex]['items'][itemindex]['title']);
+
 
 })
 
@@ -122,8 +124,8 @@ getNewCategoryFormInfo() {
     newCategoryBtn.addEventListener('click',  (e) => {
         e.preventDefault();
         let newCategoryName = document.querySelector('.input-newCategory').value;
-        projectsObject.addCategoryToProjectsArray(newCategoryName);
-        screenControlObject.displayAllCategoriesItems(projectsObject.projectsArray);
+        projectsObject.addCategoryToProjectArray(newCategoryName);
+        screenControlObject.displayAllCategoriesAndItems(projectsObject.getProjectArray());
 
         eventListenerObject.enableNewItemCategoryButtons()
         });

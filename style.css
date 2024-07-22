@@ -36,10 +36,8 @@ padding: 20px;
 
 .sidebar {
     display: grid;
-
     grid-column: 0/4;
     grid-row: 0/1;
-
 }
 .categories {
     font-size: 1rem;

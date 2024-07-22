@@ -23,7 +23,7 @@ const eventListenerObject ={
             console.log(parent.id)
             const itemElement = document.getElementById(parent.id)
                 screenControlObject.displayItemFull(
-                itemElement, projectsObject.projectsArray);
+                itemElement, projectsObject.getProjectArray());
             
             eventListenerObject.listenerChecklistToggle(); 
 
@@ -44,7 +44,7 @@ const eventListenerObject ={
 
                 const itemElement = document.getElementById(parent.id)
                     screenControlObject.displayItemSummary(
-                    itemElement, projectsObject.projectsArray, 
+                    itemElement, projectsObject.getProjectArray(), 
                     parent.dataset.categoryindex, parent.dataset.itemindex);
                 
                 eventListenerObject.enableNewItemCategoryButtons();
@@ -126,6 +126,7 @@ const eventListenerObject ={
             newChecklistItem.innerHTML = 
                 `<input type="text"  
                 name="title" class="input-checklist"> 
+                
                 <button class="checklistDeleteBtn"> - </button>`
             const parentList = document.getElementById('itemFormChecklistUL');
             parentList.appendChild(newChecklistItem);         
@@ -160,7 +161,7 @@ const eventListenerObject ={
             e.addEventListener('change', () => {
                 console.log(e.id)
 
-                let array = projectsObject.getProjectsArray()
+                let array = projectsObject.getProjectArray()
                 console.log(array)
 
                 // console.log(array[0]['category']['items'])
@@ -212,8 +213,6 @@ const eventListenerObject ={
     //             del.preventDefault();
     //             e.parentNode.remove()
 
-
-
     listenerItemEdit(){
             let editButtons = document.querySelectorAll('.editItem');
             editButtons.forEach((e) => {
@@ -229,13 +228,13 @@ const eventListenerObject ={
                     // redisplay of summary of item
                         const itemElement = document.getElementById(parent.id)
                         screenControlObject.displayItemSummary(
-                        itemElement, projectsObject.projectsArray, i, j 
+                        itemElement, projectsObject.getProjectArray(), i, j 
                     );
 
                     screenControlObject.displayNewItemForm();
-                    let x = 1;
-                    screenControlObject.populateEditItemForm(i, j, x);
-                            alert('populateEditItems has been called, i and j, index category' + i + j + x)
+                    
+                    this.populateEditItemForm(i, j);
+                            alert('populateEditItems has been called, i and j, index category' + i + j )
                     this.listenerNewItemCancelBtn();
 
                     formsRetrieveObject.getEditFormInfo(i, j);
@@ -244,6 +243,105 @@ const eventListenerObject ={
                     })
             })
             },  
+
+            populateEditItemForm(categoryindex, itemindex) {
+
+                let i = categoryindex; 
+                let j = itemindex;
+
+                let array = projectsObject.getProjectArray();
+        
+                //inserting category type
+                let categorySelector = document.getElementById('categorySelector')
+                categorySelector.value = array[i]['category'];
+        
+                // inserting title
+                let title = document.getElementById('title');
+                title.value = array[i]['items'][j]['title'];
+        
+                // inserting description
+                let description = document.getElementById('description');
+                description.value = array[i]['items'][j]['description']
+        
+                // checklist length
+                let itemFormChecklistElement = document.getElementById('itemFormChecklistUL')
+                console.log(itemFormChecklistElement)
+                itemFormChecklistElement.value = this.checklistCreation(i, j, itemFormChecklistElement);
+        
+                // inserting dueDate
+                let dueDate = document.getElementById('dueDate');
+                dueDate.value = array[i]['items'][j]['dueDate']
+        
+                // inserting status
+                let status = document.getElementById('status');
+                status.value = array[i]['items'][j]['status']
+        
+                // inserting priority
+                let priority = document.getElementById('priority');
+                priority.value = array[i]['items'][j]['priority']
+
+                // create delete btn (form template doesn't include by default)
+                let formUtilityBtnDiv = document.getElementById('formUtilityBtnDiv');
+                let deleteBtn = document.createElement('button')
+                deleteBtn.innerHTML = 'delete'
+                deleteBtn.id = `delref${i + j}`
+                formUtilityBtnDiv.appendChild(deleteBtn)
+                console.log(formUtilityBtnDiv, deleteBtn)
+            },
+
+            listenerFormDeleteBtn(){
+
+            // TODO
+            // Get ref of item to be deleted.
+            // Delete item from array.
+            // Loop through each of the items in the same category, starting from the 
+                // index item
+            // Amend each item so that the index item is reduced by 1.
+            // Reprint display screen
+
+
+
+            },
+
+            checklistCreation(categoryindex, itemindex, checklistElement) {
+
+                alert('checklist creation called')
+                // NOTE: checklistCreation differs from checklist creation in displayItemFull()
+                // as it includes a 'input' text box.
+                let itemElement = checklistElement;
+                let i = categoryindex;
+                let j = itemindex;
+    
+                let array = projectsObject.getProjectArray();
+    
+                //test for checklist
+                let checklistHTML = '';
+                // items in the checklist array.
+                var checkItemsNumber = (array[i]['items'][j]['checklist'].length)
+    
+                // Creates checklist HTML <li> items based on checklist array
+                // if none, then there is no HTML created.  
+                for (let k= 0; k < checkItemsNumber; k++) {
+                    if (array[i]['items'][j]['checklist'][k]['checked']) {
+                        checklistHTML += 
+                            `<li>
+                                <input type="text" name="title" class="input-checklist" 
+                                    value="${array[i]['items'][j]['checklist'][k] ['checkItem']}"></input> 
+                                <input class="checkbox" type="checkbox" checked></input> 
+                                <button class="checklistDeleteBtn"> - </button> 
+                            </li>`
+                    } else {
+                        checklistHTML += 
+                            `<li>
+                                <input type="text" name="title" class="input-checklist" 
+                                    value="${array[i]['items'][j]['checklist'][k] ['checkItem']}"></input> 
+                                <input class="checkbox"  type="checkbox" ></input> 
+                                <button class="checklistDeleteBtn"> - </button>
+                            </li>`
+                    }       
+                };
+                itemElement.innerHTML = checklistHTML;
+            },
 
 // Utilities - enabling and disabling new item/category buttons, upon selection of new item/category
     disableNewItemCategoryButtons(){

@@ -1,5 +1,4 @@
 import { screenControlObject } from "./screenControl.js";
-import { projectsObject } from "./projectsObject.js";
 import { eventListenerObject } from "./eventListeners.js";
 
 addEventListener("DOMContentLoaded", () => {
@@ -9,6 +8,6 @@ addEventListener("DOMContentLoaded", () => {
         eventListenerObject.listenerCreateNewCategory();
      }, 1000)
 
-screenControlObject.displayAllCategoriesItems()
+screenControlObject.displayAllCategoriesAndItems()
 
 });

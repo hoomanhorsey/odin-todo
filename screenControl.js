@@ -4,9 +4,9 @@ import { formsCreateObject } from "./formsCreateObject.js";
 
 const screenControlObject = {
 
-    displayAllCategoriesItems() {
+    displayAllCategoriesAndItems() {
 
-        const array = projectsObject.getProjectsArray();
+        const array = projectsObject.getProjectArray();
         const categories = document.querySelector('.categories');
         
         categories.innerHTML = '';
@@ -25,7 +25,7 @@ const screenControlObject = {
                     // creates item Element, and then appends it to category
                     itemElement =  categoryElement.appendChild(this.setItemElementDetails(array, i, j));
                 // display item Summary
-                this.displayItemSummary(itemElement, array, i, j);
+                this.displayItemSummary(itemElement, array);
                 }}
             },
 
@@ -105,8 +105,7 @@ const screenControlObject = {
                         <ul> ${ checklistHTML} </ul>
                     </p>
 
-                    <button class="editItem"> edit</button>
-                    <button class="deleteItem">delete button but maybe include it in edit</button> `
+                    <button class="editItem"> edit</button>`
 
                 // or if there is no checklist present
             } else {
@@ -115,8 +114,7 @@ const screenControlObject = {
                     <p class="item-description" > ${array[i]['items'][j]['description']} </p>
                     <p> ${ array[i]['items'][j]['dueDate']} </p>
             
-                    <button class="editItem"> edit</button>
-                    <button class="deleteItem">delete button but maybe include it in edit</button> </div>`
+                    <button class="editItem"> edit</button>`
             }
             eventListenerObject.listenerItemEdit();
             eventListenerObject.listenerItemCollapse();
@@ -135,7 +133,7 @@ const screenControlObject = {
             const selectCategory = document.getElementById('categorySelector');
             
             // Iterating through the array and creating an option for each category.
-            for (let i = 0; i < projectsObject.projectsArray.length; i++) {
+            for (let i = 0; i < projectsObject.getProjectArray.length; i++) {
                 
                 const optionElement = document.createElement('option');
                 optionElement.value = projectsObject.projectsArray[i]['category'];
@@ -144,80 +142,6 @@ const screenControlObject = {
                 }  
         eventListenerObject.listenerAddChecklistItem();
         eventListenerObject.listenerDeleteChecklistItem() 
-        },
-
-    populateEditItemForm(categoryindex, itemindex) {
-
-        let array = projectsObject.getProjectsArray();
-
-        //inserting category type
-        let categorySelector = document.getElementById('categorySelector')
-        categorySelector.value = array[categoryindex]['category'];
-
-        // inserting title
-        let title = document.getElementById('title');
-        title.value = array[categoryindex]['items'][itemindex]['title']
-
-        // inserting description
-        let description = document.getElementById('description');
-        description.value = array[categoryindex]['items'][itemindex]['description']
-
-        // checklist length
-        let itemFormChecklistElement = document.getElementById('itemFormChecklistUL')
-        console.log(itemFormChecklistElement)
-        itemFormChecklistElement.value = this.checklistCreation(categoryindex, itemindex, itemFormChecklistElement);
-
-        // inserting dueDate
-        let dueDate = document.getElementById('dueDate');
-        dueDate.value = array[categoryindex]['items'][itemindex]['dueDate']
-
-        // inserting status
-        let status = document.getElementById('status');
-        status.value = array[categoryindex]['items'][itemindex]['status']
-
-        // inserting priority
-        let priority = document.getElementById('priority');
-        priority.value = array[categoryindex]['items'][itemindex]['priority']
-    },
-
-        checklistCreation(categoryindex, itemindex, checklistElement) {
-
-            alert('checklist creation called')
-            // NOTE: checklistCreation differs from checklist creation in displayItemFull()
-            // as it includes a 'input' text box.
-            let itemElement = checklistElement;
-            let i = categoryindex;
-            let j = itemindex;
-
-            let array = projectsObject.getProjectsArray();
-
-            //test for checklist
-            let checklistHTML = '';
-            // items in the checklist array.
-            var checkItemsNumber = (array[i]['items'][j]['checklist'].length)
-
-            // Creates checklist HTML <li> items based on checklist array
-            // if none, then there is no HTML created.  
-            for (let k= 0; k < checkItemsNumber; k++) {
-                if (array[i]['items'][j]['checklist'][k]['checked']) {
-                    checklistHTML += 
-                        `<li>
-                            <input type="text" name="title" class="input-checklist" 
-                                value="${array[i]['items'][j]['checklist'][k] ['checkItem']}"></input> 
-                            <input class="checkbox" type="checkbox" checked></input> 
-                            <button class="checklistDeleteBtn"> - </button> 
-                        </li>`
-                } else {
-                    checklistHTML += 
-                        `<li>
-                            <input type="text" name="title" class="input-checklist" 
-                                value="${array[i]['items'][j]['checklist'][k] ['checkItem']}"></input> 
-                            <input class="checkbox"  type="checkbox" ></input> 
-                            <button class="checklistDeleteBtn"> - </button>
-                        </li>`
-                }       
-            };
-            itemElement.innerHTML = checklistHTML;
         },
 
     displayNewCategoryForm() {
