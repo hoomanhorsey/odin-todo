@@ -5,14 +5,14 @@
 *projectsObject*
 
         - properties
-            - projectsArray 
+            - projectArray 
             
             An array consisting of objects that contain all the data.
             Each object contains key value pair:
                 - 'category': 'categoryName'
                 - 'items' : [array of objects representing each item]
 
-            projectsArray: [ 
+            projectArray: [ 
                 { 
                     'category': 'categoryName' ,
                     'items' : 
@@ -24,7 +24,7 @@
 
         - methods
 
-            - getProjectsArray()
+            - getProjectArray()
             - addCategoryToProjectsArray()
             - deleteCategoryFromProjectArray()
             - addItem()

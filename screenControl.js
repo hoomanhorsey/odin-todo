@@ -132,12 +132,15 @@ const screenControlObject = {
             // Retrieving the category selector element
             const selectCategory = document.getElementById('categorySelector');
             
+            let projectArray = projectsObject.getProjectArray();
+            console.log(projectArray[1])
+
             // Iterating through the array and creating an option for each category.
-            for (let i = 0; i < projectsObject.getProjectArray.length; i++) {
+            for (let i = 0; i < projectArray.length; i++) {
                 
                 const optionElement = document.createElement('option');
-                optionElement.value = projectsObject.projectsArray[i]['category'];
-                optionElement.textContent = projectsObject.projectsArray[i]['category'];
+                optionElement.value = projectArray[i]['category'];
+                optionElement.textContent = projectArray[i]['category'];
                 selectCategory.appendChild(optionElement);
                 }  
         eventListenerObject.listenerAddChecklistItem();

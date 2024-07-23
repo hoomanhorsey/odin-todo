@@ -240,8 +240,10 @@ const eventListenerObject ={
                     formsRetrieveObject.getEditFormInfo(i, j);
 
                     this.listenerDeleteChecklistItem();
+                    this.listenerFormDeleteBtn()
+
                     })
-            })
+                })
             },  
 
             populateEditItemForm(categoryindex, itemindex) {
@@ -285,23 +287,52 @@ const eventListenerObject ={
                 let deleteBtn = document.createElement('button')
                 deleteBtn.innerHTML = 'delete'
                 deleteBtn.id = `delref${i + j}`
+                deleteBtn.classList.add('deleteBtn');
+
                 formUtilityBtnDiv.appendChild(deleteBtn)
                 console.log(formUtilityBtnDiv, deleteBtn)
             },
 
             listenerFormDeleteBtn(){
 
-            // TODO
-            // Get ref of item to be deleted.
-            // Delete item from array.
-            // Loop through each of the items in the same category, starting from the 
-                // index item
-            // Amend each item so that the index item is reduced by 1.
-            // Reprint display screen
+                let deleteBtn = document.querySelector('.deleteBtn');
+                
+                deleteBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    console.log(deleteBtn + ' ' + deleteBtn.id)
+
+                    let delref = deleteBtn.id;
+                    let categoryindex = delref[6];
+                    let itemindex = delref[7];
+
+                    console.log(delref[6] + delref[7])
+
+                    let array = projectsObject.getProjectArray()
+
+                    console.log(array[categoryindex]['items'][itemindex]);
+
+                    projectsObject.deleteItem(categoryindex, itemindex);
+
+                    
+                    screenControlObject.displayAllCategoriesAndItems();;
+
+
+                    eventListenerObject.enableNewItemCategoryButtons();
+
+
+                }            )
+
+                // TODO
+                // Get ref of item to be deleted.
+                // Delete item from array.
+                // Loop through each of the items in the same category, starting from the 
+                    // index item
+                // Amend each item so that the index item is reduced by 1.
+                // Reprint display screen
 
 
 
-            },
+                },
 
             checklistCreation(categoryindex, itemindex, checklistElement) {
 

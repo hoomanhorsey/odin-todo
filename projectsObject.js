@@ -15,7 +15,6 @@ const thirdItem = new Todo('Do SWAT', 'This is the third item', checklist3, '202
 const fourthItem = new Todo('Live Life, give it time',  'This is the fourth item', checklist4, '2024-05-03', 'High', 'incomplete')
 const fifthItem = new Todo('Fifth Item', 'This is the fifth item', checklist5, '2024-11-10', 'Low', 'incomplete')
 
-
 const projectArray = {
     // main array for storing items
     // set up as a separate object, kept private as not returned by this module
@@ -32,9 +31,7 @@ const projectArray = {
     ],
 }
 
-
 const projectsObject = {   
- 
     // methods
     getProjectArray(){
         return projectArray.projectArray;
@@ -79,14 +76,34 @@ const projectsObject = {
 
     deleteItem(category, itemName){
         // checklist:      // - check if item exists - DONE .  If it doesn't exist, returns.
-        for (let i = 0; i < (projectArray.projectArray.length); i++) {
-            // finds the matching category
-            if (projectArray.projectArray[i]['category'] === category) {
-                let index = projectArray.projectArray[i]['items'].findIndex(obj => obj['title'] === itemName);
-                projectArray.projectArray[i]['items'].splice(index, 1);
-                return;
-                }
-            }
+
+        let answer = prompt("Are you sure you want to delete? Type 'YES' to confirm") 
+        
+        if (answer === 'YES') {
+            console.log(category, itemName)
+
+            console.log(projectArray.projectArray[category]['items'][itemName])
+            projectArray.projectArray[category]['items'].splice(itemName, 1);
+            projectArray.projectArray[category]['items'][itemName];
+            console.log(projectArray.projectArray)
+        
+        } else { 
+            
+            alert("Okay. Item won't be deleted") 
+            return }
+        
+
+        // for (let i = 0; i < (projectArray.projectArray.length); i++) {
+        //     // finds the matching category
+        //     if (projectArray.projectArray[i]['category'] === category) {
+        //         let index = projectArray.projectArray[i]['items'].findIndex(obj => obj['title'] === itemName);
+        //         projectArray.projectArray[i]['items'].splice(index, 1);
+        //         return;
+        //         }
+        //     }
+
+
+
     },
 
     getItem(categoryIndex, itemIndex) {
