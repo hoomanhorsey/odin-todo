@@ -25,6 +25,8 @@ getNewItemFormInfo() {
         const checklistTally = newItemFormChecklist.children.length;
 
         // iterating through checklist to add 'id'
+        // Note 'id' is used temporarily to capture last order of checkboxes but doesn't 
+        // follow throught to display of checkbox
         for (let i = 0; i < (checklistTally); i++) {
             const children = newItemFormChecklist.children;
             children[i].firstElementChild.id = `checklist${i}`;
@@ -57,23 +59,15 @@ getEditFormInfo(categoryindex, itemindex) {
     
     submitEditFormData.addEventListener('click', (e) => {
         e.preventDefault();
-        alert('submit pressed')
-        // let title = document.querySelector('.input-title').value;
-        // console.log(title)
 
-        console.log(projectsObject.getProjectArray()[categoryindex]['items'][itemindex]['title']);
-        console.log(projectsObject.getProjectArray()[categoryindex]['items'][itemindex]['description']);
-
-        let category = document.querySelector('.select-category').value;
+        // let category = document.querySelector('.select-category').value;
         let title = document.querySelector('.input-title').value;
         let description = document.querySelector('.input-description').value;
         let dueDate = document.querySelector('.input-dueDate').value;
-
         let status = document.querySelector('.select-status').value;
         let priority = document.querySelector('.select-priority').value;
 
         const itemFormChecklist = document.getElementById('itemFormChecklistUL');
-
 
         const checklistTally = itemFormChecklist.children.length;
        
@@ -82,6 +76,7 @@ getEditFormInfo(categoryindex, itemindex) {
             const children = itemFormChecklist.children;
             
              children[i].firstElementChild.id = `checklist${i}`;
+             children[i].firstElementChild.nextElementSibling.id = `tempCheckbox${i}`;
             // children[i].id = `checklist${i}`;
             console.log(children[i])
         }
@@ -90,9 +85,17 @@ getEditFormInfo(categoryindex, itemindex) {
         for (let j = 0 ; j < (checklistTally); j++) {
             const checklistItem = document.getElementById(`checklist${j}`).value;
             console.log(checklistItem)
+            console.log(document.getElementById(`tempCheckbox${j}`));
+
+            if (document.getElementById(`tempCheckbox${j}`).checked) {
+                alert('checked')
+                const tempObject = {checkItem: `${checklistItem}`, checked: true};
+                checklist.push(tempObject);
+            } else {
  
             const tempObject = {checkItem: `${checklistItem}`, checked: false};
             checklist.push(tempObject);
+            }
         }
 
         const updatedItem = new Todo(title, description, checklist, dueDate, priority, status);   
