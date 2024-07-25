@@ -36,6 +36,7 @@ createNewItemForm ()
                 <ul id="itemFormChecklistUL">
                     <li class="checklistItem"> 
                         <input type="text" name="title" class="input-checklist" > 
+                        <input class="checkbox" type="checkbox" ></input> 
                         <button class="checklistDeleteBtn"> - </button>
                     </li>
                 </ul>

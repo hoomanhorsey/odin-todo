@@ -9,24 +9,28 @@ const checklist5 = [{checkItem: "No body knows me", checked: false}, {checkItem:
 
 
 // Instantiating 'Todo Items
-const firstItem = new Todo('See a man about a dog', 'This is the first item', checklist1, '2024-12-12', 'High', 'incomplete');
-const secondItem = new Todo('Fix a hole', 'This is the second item', checklist2, '2024-10-06', 'Low', 'incomplet  e')
-const thirdItem = new Todo('Do SWAT', 'This is the third item', checklist3, '2024-09-22', 'Medium', 'incomplete')
-const fourthItem = new Todo('Live Life, give it time',  'This is the fourth item', checklist4, '2024-05-03', 'High', 'incomplete')
-const fifthItem = new Todo('Fifth Item', 'This is the fifth item', checklist5, '2024-11-10', 'Low', 'incomplete')
+const firstItem = new Todo('Scratch coffe table', 'This is the first item', checklist1, '2024-12-12', 'High', 'incomplete');
+const secondItem = new Todo('Eat chicken', 'This is the second item', checklist2, '2024-10-06', 'High', 'incomplet  e')
+const thirdItem = new Todo('Vom up a hairball', 'This is the third item', checklist3, '2024-09-22', 'Medium', 'incomplete')
+const fourthItem = new Todo("Scratch Yosh's legs",  'This is the fourth item', checklist4, '2024-05-03', 'Low', 'incomplete')
+const fifthItem = new Todo('Sit on Rug', 'This is the fifth item', checklist5, '2024-11-10', 'Low', 'incomplete')
+const sixthItem = new Todo('Snooze in the sleeping bag hollow', 'This is the fifth item', checklist5, '2024-11-10', 'Low', 'incomplete')
+const seventhItem = new Todo('Stare out back window', 'This is the fifth item', checklist5, '2024-11-10', 'Low', 'incomplete')
+const eightItem = new Todo('Miaow outside the portal', 'This is the fifth item', checklist5, '2024-11-10', 'Low', 'incomplete')
+const ninthItem = new Todo('Go zoomies', 'This is the fifth item', checklist5, '2024-11-10', 'Low', 'incomplete')
 
 const projectArray = {
     // main array for storing items
     // set up as a separate object, kept private as not returned by this module
        projectArray: [ 
         {   category : 'Home',
-            items: [thirdItem, fourthItem, fifthItem] // initial population of array
+            items: [firstItem, secondItem, thirdItem] // initial population of array
         },
         {   category : 'Sport',
-            items: [firstItem, secondItem, fourthItem, fifthItem] 
+            items: [fourthItem, fifthItem, sixthItem, seventhItem] 
         }, 
         {   category : 'Leisure',
-            items: [firstItem, secondItem, fifthItem]
+            items: [eightItem, ninthItem]
         }
     ],
 }
@@ -39,15 +43,14 @@ const projectsObject = {
 
     addCategoryToProjectArray(newCategory) {
         // checklist:         // - checks if category already exists - DONE        // - converts category to upper case, or lowercase - TODO 
-        if (checkIfCategoryExists(newCategory) > 0) {
-            console.log(`The category "${newCategory}" already exists. Please choose a new category`)
+        if (checkIfCategoryExists(newCategory) >= 0) {
+            alert(`The category "${newCategory}" already exists. Please choose a new category`)
         } else {
         projectArray.projectArray.push({category: `${newCategory}`, items: []});
         };
     },
 
     deleteCategoryFromProjectArray(oldCategory) {    
-        // checklist:         // - check if category exists - DONE .  If it doesn't exist, returns.         // - if category exists, checks if category has items - DONE. If category has items, returns
         let categoryIndex = checkIfCategoryExists(oldCategory); // returns index if exists, -1 if not
 
         if (categoryIndex < 0)  {
@@ -66,7 +69,6 @@ const projectsObject = {
     },
 
     addItem(category, itemName) {
-        // checklist:         // - check if item of same name already exists - TODO - or maybe it's okay if there are two items of the same name....  
         for (let i = 0; i < (projectArray.projectArray.length); i++) {
             if (projectArray.projectArray[i]['category'] === category) {
                  projectArray.projectArray[i]['items'].push(itemName); 
@@ -75,8 +77,6 @@ const projectsObject = {
     },
 
     deleteItem(category, itemName){
-        // checklist:      // - check if item exists - DONE .  If it doesn't exist, returns.
-
         let answer = prompt("Are you sure you want to delete? Type 'YES' to confirm") 
         
         if (answer === 'YES') {
@@ -88,22 +88,8 @@ const projectsObject = {
             console.log(projectArray.projectArray)
         
         } else { 
-            
             alert("Okay. Item won't be deleted") 
             return }
-        
-
-        // for (let i = 0; i < (projectArray.projectArray.length); i++) {
-        //     // finds the matching category
-        //     if (projectArray.projectArray[i]['category'] === category) {
-        //         let index = projectArray.projectArray[i]['items'].findIndex(obj => obj['title'] === itemName);
-        //         projectArray.projectArray[i]['items'].splice(index, 1);
-        //         return;
-        //         }
-        //     }
-
-
-
     },
 
     getItem(categoryIndex, itemIndex) {
@@ -117,12 +103,34 @@ const projectsObject = {
 
     updateItem(categoryIndex, itemIndex, updatedItem) {
           projectArray.projectArray[categoryIndex]['items'][itemIndex] = updatedItem;
-        ///placholder - in case I want to create a function to update the array from EditItems
     },
 };
 
 function checkIfCategoryExists(categoryName){
-    return projectsObject.getProjectArray().findIndex(obj => obj['category'].toLowerCase() === categoryName.toLowerCase());
+    alert('cat check' + ' ' + categoryName)
+
+    let test = projectsObject.getProjectArray().findIndex(obj => obj['category'].toLowerCase() === categoryName.toLowerCase());
+    console.log(test)
+    return test
+
+    // let btest = projectsObject.getProjectArray()
+    // let testResult =  btest.findIndex(testForDuplicate)
+    // console.log(testResult)
+
+    // const barray = projectsObject.getProjectArray();
+    // const bindex = barray.findIndex(element => element['category'] === categoryName)
+    // console.log(bindex)
+
+    // const array = [1, 2, 3, 4, 5];
+    // const index = array.findIndex(element => element === 3);
+    // console.log(index); // Output: 2
+
+    function testForDuplicate(category) {
+        console.log(categoryName + ' ' + category)
+        return categoryName === category
+    }
+
+
 }
 
 export {projectsObject} ;

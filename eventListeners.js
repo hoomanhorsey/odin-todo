@@ -108,8 +108,6 @@ const eventListenerObject ={
 
     /// ****Checklist Manipulation****
 
-    // New Item - Add checklist items 
-
     listenerAddChecklistItem() {       
         let addChecklistItemBtn = document.getElementById('addCheckListItem');
 
@@ -117,24 +115,18 @@ const eventListenerObject ={
             e.preventDefault();  
 
             const newChecklistItem = document.createElement('li'); 
+                newChecklistItem.classList.add('checklistItem');        
+                newChecklistItem.innerHTML = 
+                    `<input type="text"  
+                    name="title" class="input-checklist">
+                    <input class="checkbox" type="checkbox" ></input> 
+                    <button class="checklistDeleteBtn"> - </button>`
 
-            newChecklistItem.classList.add('checklistItem');        
-            newChecklistItem.innerHTML = 
-                `<input type="text"  
-                name="title" class="input-checklist"> 
-                
-                <button class="checklistDeleteBtn"> - </button>`
             const parentList = document.getElementById('itemFormChecklistUL');
-            parentList.appendChild(newChecklistItem);         
-
-            eventListenerObject.listenerDeleteChecklistItem();
+            parentList.appendChild(newChecklistItem);   
+            
+            this.listenerDeleteChecklistItem();
         })
-
-        // `<input type="text" id="checklist${ (checklistTally.children.length) }" 
-        // name="title" class="input-checklist"> 
-        // <button class="checklistDeleteBtn"> - </button>`
-
-///TODO - Need to add IDs to checklist via a for loop, upon submit button. Not as you create them. Because otherwise as they jumble in and out of order, they will go in and out of order.
     },
 
     listenerDeleteChecklistItem() {
@@ -142,8 +134,6 @@ const eventListenerObject ={
 
         deleteChecklistItemBtn.forEach((e) => {        
             e.addEventListener('click', (del) => {      
-                
-                // alert('press del')
                 del.preventDefault();
                 e.parentNode.remove()
             })
@@ -152,56 +142,16 @@ const eventListenerObject ={
      
     listenerChecklistToggle() {
         let checkboxes = document.querySelectorAll('.checkbox');
-        checkboxes.forEach( (e) => {
-            console.log(e)
+        checkboxes.forEach((e) => {
             e.addEventListener('change', () => {
-                console.log(e.id)
-
-                let array = projectsObject.getProjectArray()
-                console.log(array)
-
-                // console.log(array[0]['category']['items'])
-
-                console.log(array[0]['items'][0]['checklist'][0]['checked'])
-
-                // Need to create a function that changes the array in the project object.
-                console.log(e.id[8])
-                console.log(e.id[9])
-                console.log(e.id[10])
-
-
-                /// NOTE - The checklist id is in the format 'checkbox###':
-                /// first # = i
-                /// second # = j
-                /// third # = k
-
                 if (e.checked) {
-                    console.log("and it's checked")
                     projectsObject.toggleChecklistCheckbox(e.id[8], e.id[9], e.id[10], true )
-
                 } else {
-                               //insert logic to update for non-check
-                    console.log("no, it's not checked")
                     projectsObject.toggleChecklistCheckbox(e.id[8], e.id[9], e.id[10], false )
-
-                    // array[0]['items'][0]['checklist'][0]['checked'] = false;
                 }
-            }          
-                // pass array into function
-                // get referenct to item in array
-                // pass reference to item in array.
-                // update state of checkbox in array....
-            )
-            })      
+            })
+        })      
     },
-
-
-    // let deleteChecklistItemBtn = document.querySelectorAll('.checklistDeleteBtn');
-
-    //     deleteChecklistItemBtn.forEach((e) => {        
-    //         e.addEventListener('click', (del) => {             
-    //             del.preventDefault();
-    //             e.parentNode.remove()
 
     listenerItemEdit(){
         let editButtons = document.querySelectorAll('.editItem');
@@ -215,7 +165,6 @@ const eventListenerObject ={
                 let i = itemElementId[3]
                 let j = itemElementId[4]
 
-                
                 screenControlObject.displayNewItemForm();
                     this.populateEditItemForm(i, j);
                     this.listenerDeleteChecklistItem();
@@ -253,7 +202,6 @@ const eventListenerObject ={
         
                 // checklist length
                 let itemFormChecklistElement = document.getElementById('itemFormChecklistUL');
-                console.log(itemFormChecklistElement)
                 itemFormChecklistElement.value = this.checklistCreation(i, j, itemFormChecklistElement);
         
                 // inserting dueDate

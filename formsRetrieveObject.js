@@ -26,19 +26,15 @@ getNewItemFormInfo() {
 
         // iterating through checklist to add 'id'
         // Note 'id' is used temporarily to capture last order of checkboxes but doesn't 
-        // follow throught to display of checkbox
+        // follow through to display of checkbox
         for (let i = 0; i < (checklistTally); i++) {
             const children = newItemFormChecklist.children;
             children[i].firstElementChild.id = `checklist${i}`;
+            children[i].firstElementChild.nextElementSibling.id = `tempCheckbox${i}`;
         }
         
-        // iterating through checklist to add to array
-        const checklist = [];
-        for (let j = 0 ; j < (checklistTally); j++) {
-            const checklistItem = document.getElementById(`checklist${j}`).value;
-            const tempObject = {checkItem: `${checklistItem}`, checked: false};
-            checklist.push(tempObject);
-        }
+        // gather checklist form data and add to 'checklist' object
+        let checklist = this.addFormChecklistToArray(checklistTally);
 
         const newItem = new Todo(title, description, checklist, dueDate, priority, status);   
 
@@ -53,7 +49,6 @@ getNewItemFormInfo() {
 getEditFormInfo(categoryindex, itemindex) {
 
     let savedItem = projectsObject.getItem(categoryindex, itemindex);
-    console.log('saved item ' + savedItem['title'])
 
     const submitEditFormData = document.querySelector('.submitItemFormBtn')
     
@@ -71,55 +66,45 @@ getEditFormInfo(categoryindex, itemindex) {
 
         const checklistTally = itemFormChecklist.children.length;
        
-        // iterating through checklist to add 'id'
+        // iterating through checklist to add 'id' and temp checkbox id
         for (let i = 0; i < (checklistTally); i++) {
             const children = itemFormChecklist.children;
             
              children[i].firstElementChild.id = `checklist${i}`;
-             children[i].firstElementChild.nextElementSibling.id = `tempCheckbox${i}`;
-            // children[i].id = `checklist${i}`;
-            console.log(children[i])
+            children[i].firstElementChild.nextElementSibling.id = `tempCheckbox${i}`;
         }
-
-        const checklist = [];
-        for (let j = 0 ; j < (checklistTally); j++) {
-            const checklistItem = document.getElementById(`checklist${j}`).value;
-            console.log(checklistItem)
-            console.log(document.getElementById(`tempCheckbox${j}`));
-
-            if (document.getElementById(`tempCheckbox${j}`).checked) {
-                alert('checked')
-                const tempObject = {checkItem: `${checklistItem}`, checked: true};
-                checklist.push(tempObject);
-            } else {
- 
-            const tempObject = {checkItem: `${checklistItem}`, checked: false};
-            checklist.push(tempObject);
-            }
-        }
+        // gather checklist form data and add to 'checklist' object
+        let checklist = this.addFormChecklistToArray(checklistTally);
 
         const updatedItem = new Todo(title, description, checklist, dueDate, priority, status);   
-        console.log(checklist)
-        console.log(updatedItem)
 
         projectsObject.updateItem(categoryindex, itemindex, updatedItem);
 
         const itemElement = document.getElementById(`ref${categoryindex+itemindex}`)
-
-        console.log(itemElement)
         screenControlObject.displayItemFull(
             itemElement, projectsObject.getProjectArray());
+        
+        eventListenerObject.listenerChecklistToggle(); 
 
         let formDiv =  document.querySelector('.newItemFormDiv')
-        console.log(formDiv)
         formDiv.remove();
-        console.log(projectsObject.getProjectArray()[categoryindex]['items'][itemindex]['title']);
-
-
-})
-
-
+    })
 },
+
+        addFormChecklistToArray(checklistTally) {
+            const checklist = [];
+            for (let j = 0 ; j < (checklistTally); j++) {
+                const checklistItem = document.getElementById(`checklist${j}`).value;
+                if (document.getElementById(`tempCheckbox${j}`).checked) {
+                    const tempObject = {checkItem: `${checklistItem}`, checked: true};
+                    checklist.push(tempObject);
+                    } else { 
+                    const tempObject = {checkItem: `${checklistItem}`, checked: false };
+                    checklist.push(tempObject);
+                    };
+                }
+            return checklist;
+        },
 
 getNewCategoryFormInfo() {
     const newCategoryBtn = document.querySelector('.newCategoryBtn');

@@ -106,7 +106,17 @@ TODO
 
 Tasks 
 
-
+- Checklist problem
+    - Doesn't record items:
+        - maximise Item
+        - expand to edit
+        - adding new checklist items. 
+        - Then returning to Full Display. 
+        - Then ticking checkboxes. 
+        - Then minimising. 
+        - Then maximising, CHECKED ITEMS NOT RECORDDED!
+            - But only after first return to full display.
+            - Possible that checklist toggle listener hasn't bene engaged once it goes back to full....
 
 
 - Deleting checklist items
