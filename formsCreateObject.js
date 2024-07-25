@@ -85,7 +85,6 @@ createNewCategoryForm (newCategoryForm) {
     </form>`
     return newCategoryForm;
     }, 
-
 }
 
 export { formsCreateObject } ;
