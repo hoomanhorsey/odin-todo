@@ -81,6 +81,7 @@ createNewCategoryForm (newCategoryForm) {
             <input type="text" id="newCategory" name="newCategory" class="input-newCategory" value="New Category Name">
             <button class="newCategoryCancelBtn" >cancel</button>     
             <button type="submit" class="newCategoryBtn">Submit</button>
+             <button type="submit" class="delCategoryBtn">Delete</button>
         </div>
     </form>`
     return newCategoryForm;

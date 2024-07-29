@@ -88,12 +88,21 @@ padding: 20px;
     font-weight: 900;
  }
 
+.displayFull, .newItemForm, .newItemFormDiv {
+    /* Creates an animated transition */
+    transition: all 0.2s; 
+
+    
+}
+
+
+
 .displayFull, .newItemForm, .newCategoryForm {
 
     position: absolute;
     top: 70%;
     left: 50%;
-    transform: translate(-50%, -50%); /* Centers the child element */
+    transform: translate(-50%, -50%);  /* Centers the child element */
     width: 80%; /* Adjust width to take most of the screen */
     height: 75%; /* Adjust height to take most of the screen */
     color: black; /* Example text color */
@@ -102,6 +111,9 @@ padding: 20px;
     font-size: 1.5rem;
     border-style: dotted;
     border-radius: 5px;
+
+
+
 
     /* margin: 10px;
     padding: 15px;
@@ -123,6 +135,7 @@ padding: 20px;
     margin: 10px;
     padding: 15px;
     font-family: 'Courier New', Courier, monospace;
+
 }
 
 .zIndexHigh {
@@ -170,11 +183,13 @@ background-color: rgb(70, 85, 223)    ;
     margin: 10px;
     padding: 15px;
     font-family: 'Courier New', Courier, monospace;
+
 }
 
 .formDiv{
     margin: 5px 0px;
     padding: 5px 0px;
+    
 }
 
 .input-title {

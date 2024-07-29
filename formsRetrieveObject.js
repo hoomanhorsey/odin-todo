@@ -48,8 +48,6 @@ getNewItemFormInfo() {
 
 getEditFormInfo(categoryindex, itemindex) {
 
-    let savedItem = projectsObject.getItem(categoryindex, itemindex);
-
     const submitEditFormData = document.querySelector('.submitItemFormBtn')
     
     submitEditFormData.addEventListener('click', (e) => {
@@ -61,6 +59,8 @@ getEditFormInfo(categoryindex, itemindex) {
         let dueDate = document.querySelector('.input-dueDate').value;
         let status = document.querySelector('.select-status').value;
         let priority = document.querySelector('.select-priority').value;
+
+        console.log(priority)
 
         const itemFormChecklist = document.getElementById('itemFormChecklistUL');
 

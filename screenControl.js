@@ -50,21 +50,23 @@ const screenControlObject = {
                 <p class="item-expand"> [+] </p>
                 <p class="itemTitle" > ${array[i]['items'][j]['title']} </p> 
                 <p> Priority: ${array[i]['items'][j]['priority']} </p> 
-                <p> Due date: ${array[i]['items'][j]['dueDate']} </p> `
-
+                <p> Due date: ${array[i]['items'][j]['dueDate']} </p> 
+                `
             eventListenerObject.listenerItemExpand();
+            
         },
 
     displayItemFull(itemElement, array) {
-        itemElement.classList.add('displayFull', 'zIndexHigh');
-        itemElement.classList.remove('displaySummary');
 
         let itemElementId = itemElement.id; 
         // parsing array[index] references from the 'ref' id
         let i = itemElementId[3];
         let j = itemElementId[4];
 
-        // checklistCreation(i, j, checklistHTML)
+        alert(array[i]['items'][j].priority)
+     
+        itemElement.className = '';
+        itemElement.classList.add('item', 'displayFull', 'zIndexHigh', array[i]['items'][j].priority );
 
         // Prepare checklist for 'item' html, prior to preparing item
         let checklistHTML = '';
@@ -118,6 +120,13 @@ const screenControlObject = {
             }
             eventListenerObject.listenerItemEdit();
             eventListenerObject.listenerItemCollapse();
+
+            window.scroll({
+                top: 0, 
+                left: 0, 
+                behavior: 'smooth'
+              });
+            
         },
 
     displayNewItemForm() {
@@ -154,6 +163,7 @@ const screenControlObject = {
     
         newCategoryForm = formsCreateObject.createNewCategoryForm(newCategoryForm);
         newCategory.appendChild(newCategoryForm);
+    eventListenerObject.listenerDeleteNewCategory();
         },
     } 
 

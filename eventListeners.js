@@ -35,12 +35,14 @@ const eventListenerObject ={
     
     listenerItemCollapse() {
         let items = document.querySelectorAll('.item-collapse');
+
     
         items.forEach((e) => {
             e.addEventListener('click', () => {
+
                 const parent = e.parentNode;
                 const itemElement = document.getElementById(parent.id)
-                
+              
                 screenControlObject.displayItemSummary(
                     itemElement, projectsObject.getProjectArray(), 
                     parent.dataset.categoryindex, 
@@ -105,6 +107,30 @@ const eventListenerObject ={
 
                 this.enableNewItemCategoryButtons();
         })},
+
+    listenerDeleteNewCategory() {
+        let delCategoryButton = document.querySelector('.delCategoryBtn');
+
+
+
+        this.listenerNewCategoryCancelBtn();           
+        this.disableNewItemCategoryButtons();
+        delCategoryButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            alert('del')
+
+            let delCategoryName = document.querySelector('.input-newCategory').value;
+
+            alert(delCategoryName)
+
+
+            projectsObject.deleteCategoryFromProjectArray(delCategoryName);   
+            screenControlObject.displayAllCategoriesAndItems(); 
+
+            })
+       
+    },
+
 
     /// ****Checklist Manipulation****
 
