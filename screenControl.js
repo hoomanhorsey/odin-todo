@@ -62,8 +62,6 @@ const screenControlObject = {
         // parsing array[index] references from the 'ref' id
         let i = itemElementId[3];
         let j = itemElementId[4];
-
-        alert(array[i]['items'][j].priority)
      
         itemElement.className = '';
         itemElement.classList.add('item', 'displayFull', 'zIndexHigh', array[i]['items'][j].priority );

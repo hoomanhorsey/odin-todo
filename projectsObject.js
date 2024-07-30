@@ -42,9 +42,8 @@ const projectsObject = {
     },
 
     addCategoryToProjectArray(newCategory) {
-        // checklist:         // - checks if category already exists - DONE        // - converts category to upper case, or lowercase - TODO 
         if (checkIfCategoryExists(newCategory) >= 0) {
-            alert(`The category "${newCategory}" already exists. Please choose a new category`)
+            alert(`The category "${newCategory}" already exists. Please choose a different category name.`)
         } else {
         projectArray.projectArray.push({category: `${newCategory}`, items: []});
         };
@@ -54,11 +53,11 @@ const projectsObject = {
         let categoryIndex = checkIfCategoryExists(oldCategory); // returns index if exists, -1 if not
 
         if (categoryIndex < 0)  {
-            console.log(`The category "${oldCategory}" doesn't exist and so cannot be deleted`);
+            alert(`The category "${oldCategory}" doesn't exist and so cannot be deleted.`);
             return;
         } else if (categoryIndex >= 0) {
             if (projectArray.projectArray[categoryIndex]['items'].length !=0){     
-                console.log(`The '${oldCategory}' category cannot be deleted as it has items attached to it. Please reassign or delete them first before deleting this category.`)
+                alert(`The '${oldCategory}' category cannot be deleted as it has items attached to it. Please reassign items or delete them first before deleting this category.`)
                 return;
             } else {
                 projectArray.projectArray.splice(categoryIndex, 1);
@@ -107,10 +106,9 @@ const projectsObject = {
 };
 
 function checkIfCategoryExists(categoryName){
-    alert('cat check' + ' ' + categoryName)
 
     let test = projectsObject.getProjectArray().findIndex(obj => obj['category'].toLowerCase() === categoryName.toLowerCase());
-    console.log(test)
+    console.log('this returns the index of an existing category if there is one, and -1 if there isnt: ' + test)
     return test
 
     // let btest = projectsObject.getProjectArray()

@@ -111,22 +111,16 @@ const eventListenerObject ={
     listenerDeleteNewCategory() {
         let delCategoryButton = document.querySelector('.delCategoryBtn');
 
-
-
         this.listenerNewCategoryCancelBtn();           
         this.disableNewItemCategoryButtons();
         delCategoryButton.addEventListener('click', (e) => {
             e.preventDefault();
-            alert('del')
 
             let delCategoryName = document.querySelector('.input-newCategory').value;
 
-            alert(delCategoryName)
-
-
             projectsObject.deleteCategoryFromProjectArray(delCategoryName);   
             screenControlObject.displayAllCategoriesAndItems(); 
-
+            this.enableNewItemCategoryButtons()
             })
        
     },

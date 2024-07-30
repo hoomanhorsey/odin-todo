@@ -60,8 +60,6 @@ getEditFormInfo(categoryindex, itemindex) {
         let status = document.querySelector('.select-status').value;
         let priority = document.querySelector('.select-priority').value;
 
-        console.log(priority)
-
         const itemFormChecklist = document.getElementById('itemFormChecklistUL');
 
         const checklistTally = itemFormChecklist.children.length;
@@ -78,7 +76,25 @@ getEditFormInfo(categoryindex, itemindex) {
 
         const updatedItem = new Todo(title, description, checklist, dueDate, priority, status);   
 
-        projectsObject.updateItem(categoryindex, itemindex, updatedItem);
+        // category check
+        let category = document.querySelector('.select-category').value;
+        console.log(category)
+        let array =  projectsObject.getProjectArray()
+        console.log(array[1]['category'])
+
+        if (category != array[categoryindex]['category']) {
+            alert('need to change category in array- need to build logic to add item to new category, and delete previous one. Item is not updated... yet')
+
+            // - run the delet item function with the current category and item index
+            // insert a new item using the updated item details function         
+
+        } else {
+            alert('no need to change category in array. item is updated')
+            projectsObject.updateItem(categoryindex, itemindex, updatedItem);
+        }
+
+
+   
 
         const itemElement = document.getElementById(`ref${categoryindex+itemindex}`)
         screenControlObject.displayItemFull(
