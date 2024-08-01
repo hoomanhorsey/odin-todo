@@ -58,6 +58,7 @@ const screenControlObject = {
 
     displayItemFull(itemElement, array) {
 
+        console.log(itemElement.id)
         let itemElementId = itemElement.id; 
         // parsing array[index] references from the 'ref' id
         let i = itemElementId[3];

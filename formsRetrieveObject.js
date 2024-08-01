@@ -78,32 +78,57 @@ getEditFormInfo(categoryindex, itemindex) {
 
         // category check
         let category = document.querySelector('.select-category').value;
-        console.log(category)
+        console.log('category value from the form:' + category)
         let array =  projectsObject.getProjectArray()
-        console.log(array[1]['category'])
-
-        if (category != array[categoryindex]['category']) {
-            alert('need to change category in array- need to build logic to add item to new category, and delete previous one. Item is not updated... yet')
-
-            // - run the delet item function with the current category and item index
-            // insert a new item using the updated item details function         
-
-        } else {
-            alert('no need to change category in array. item is updated')
-            projectsObject.updateItem(categoryindex, itemindex, updatedItem);
-        }
-
-
-   
-
-        const itemElement = document.getElementById(`ref${categoryindex+itemindex}`)
-        screenControlObject.displayItemFull(
-            itemElement, projectsObject.getProjectArray());
-        
-        eventListenerObject.listenerChecklistToggle(); 
 
         let formDiv =  document.querySelector('.newItemFormDiv')
         formDiv.remove();
+
+        // if category is being changed
+        if (category != array[categoryindex]['category']) {
+            console.log('Changing the category. Data: the old category index = ' + categoryindex)
+                         
+            projectsObject.deleteItem(categoryindex, itemindex);
+            projectsObject.addItem(category, updatedItem)
+
+            let newCategoryIndex = array.findIndex(item => item.category === category);
+
+            let newItemIndex = (array[newCategoryIndex]['items'].length) - 1;
+
+            console.log('newCategoryIndex: ' + newCategoryIndex + ', newItemIndex: ' + newItemIndex);
+
+            console.log('new project item priority ' + projectsObject.getItem(newCategoryIndex, newItemIndex).priority)
+
+
+            screenControlObject.displayAllCategoriesAndItems();
+
+            // - run the delet item function with the current category and item index
+            // insert a new item using the updated item details function   
+            // const itemElement = document.getElementById(`ref${categoryindex+itemindex}`)
+            const itemElement = document.createElement('div');
+                itemElement.id = `ref${newCategoryIndex}${newItemIndex}`
+
+            console.log(itemElement.id)
+            let categories = document.querySelector('.categories');
+            categories.append(itemElement)
+            screenControlObject.displayItemFull(
+                 itemElement, projectsObject.getProjectArray());   
+              
+
+        } else {
+            console.log('no need to change category in array. item is updated')
+            projectsObject.updateItem(categoryindex, itemindex, updatedItem);
+
+            const itemElement = document.getElementById(`ref${categoryindex+itemindex}`)
+            screenControlObject.displayItemFull(
+                itemElement, projectsObject.getProjectArray());
+        };
+        
+        eventListenerObject.listenerChecklistToggle(); 
+
+        eventListenerObject.listenerItemCollapse();
+        eventListenerObject.listenerItemEdit();   
+    
     })
 },
 

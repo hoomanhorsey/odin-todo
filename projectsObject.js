@@ -68,9 +68,17 @@ const projectsObject = {
     },
 
     addItem(category, itemName) {
+
         for (let i = 0; i < (projectArray.projectArray.length); i++) {
+            console.log('addItem: category: ' + category +' , item: ' + itemName.title)
+
             if (projectArray.projectArray[i]['category'] === category) {
+
+                console.log('inside test' + category + '' + itemName.title)
+                console.log(projectArray.projectArray[i]['items'])
                  projectArray.projectArray[i]['items'].push(itemName); 
+                 console.log(projectArray.projectArray[i]['items']); 
+                
             }
         };
     },
@@ -127,8 +135,6 @@ function checkIfCategoryExists(categoryName){
         console.log(categoryName + ' ' + category)
         return categoryName === category
     }
-
-
 }
 
 export {projectsObject} ;

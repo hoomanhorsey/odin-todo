@@ -90,7 +90,7 @@ padding: 20px;
 
 .displayFull, .newItemForm, .newItemFormDiv {
     /* Creates an animated transition */
-    transition: all 0.2s; 
+    transition: all .5s; 
 
     
 }

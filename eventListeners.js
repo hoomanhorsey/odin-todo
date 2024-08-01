@@ -173,14 +173,81 @@ const eventListenerObject ={
         })      
     },
 
-    listenerItemEdit(){
-        let editButtons = document.querySelectorAll('.editItem');
-        editButtons.forEach((e) => {
-            e.addEventListener('click', (pointerEvent) => {
-                pointerEvent.stopPropagation();
-            
-                const parent = e.parentNode;
+    // listenerItemEdit(){
+    //     let editButtons = document.querySelectorAll('.editItem');
+    //     editButtons.forEach((e) => {
+    //         e.addEventListener('click', (pointerEvent) => {
 
+    //             console.log('clicked on edit button')
+    //             pointerEvent.stopPropagation();
+            
+    //             const parent = e.parentNode;
+
+    //             let itemElementId = parent.id;
+    //             let i = itemElementId[3]
+    //             let j = itemElementId[4]
+
+    //             screenControlObject.displayNewItemForm();
+    //                 this.populateEditItemForm(i, j);
+    //                 this.listenerDeleteChecklistItem();
+
+    //             // redisplay of summary of item
+    //             const itemElement = document.getElementById(parent.id);
+    //             screenControlObject.displayItemSummary(
+    //                 itemElement, projectsObject.getProjectArray(), i, j);
+
+    //             this.listenerNewItemCancelBtn();
+    //             this.listenerFormDeleteBtn();
+
+    //             formsRetrieveObject.getEditFormInfo(i, j);
+    //             })
+    //         })
+    //     },  
+    //     listenerItemEdit(){
+
+
+    //     let editButtons = document.querySelectorAll('.editItem');
+    //     editButtons.forEach((e) => {
+    //         const eValue = e.value
+    //         e.addEventListener('click', this.displayEditForm(eValue))})
+    //     },
+            
+        //     (pointerEvent) => {
+        //         pointerEvent.stopPropagation();
+
+        //         console.log('clicked on edit button')
+            
+        //         const parent = e.parentNode;
+
+        //         let itemElementId = parent.id;
+        //         let i = itemElementId[3]
+        //         let j = itemElementId[4]
+
+        //         screenControlObject.displayNewItemForm();
+        //             this.populateEditItemForm(i, j);
+        //             this.listenerDeleteChecklistItem();
+
+        //         // redisplay of summary of item
+        //         const itemElement = document.getElementById(parent.id);
+        //         screenControlObject.displayItemSummary(
+        //             itemElement, projectsObject.getProjectArray(), i, j);
+
+        //         this.listenerNewItemCancelBtn();
+        //         this.listenerFormDeleteBtn();
+
+        //         formsRetrieveObject.getEditFormInfo(i, j);
+        //         })
+        //     })
+        // },  
+
+        // tried to create a separate function for add event listener
+        displayEditForm(pointerEvent){
+            console.log(pointerEvent)
+            pointerEvent.stopPropagation();   
+            console.log('clicked on edit button, as separate function')
+            const parent = e.parentNode;
+
+            console.log
                 let itemElementId = parent.id;
                 let i = itemElementId[3]
                 let j = itemElementId[4]
@@ -189,18 +256,63 @@ const eventListenerObject ={
                     this.populateEditItemForm(i, j);
                     this.listenerDeleteChecklistItem();
 
-                // redisplay of summary of item
-                const itemElement = document.getElementById(parent.id);
-                screenControlObject.displayItemSummary(
-                    itemElement, projectsObject.getProjectArray(), i, j);
+        },
 
-                this.listenerNewItemCancelBtn();
-                this.listenerFormDeleteBtn();
-
-                formsRetrieveObject.getEditFormInfo(i, j);
+        listenerItemEdit(){
+            let editButtons = document.querySelectorAll('.editItem');
+            editButtons.forEach((e) => {
+                e.addEventListener('click', (pointerEvent) => {
+                    pointerEvent.stopPropagation();
+    
+                    console.log('clicked on edit button')
+                
+                    const parent = e.parentNode;
+    
+                    let itemElementId = parent.id;
+                    let i = itemElementId[3]
+                    let j = itemElementId[4]
+    
+                    screenControlObject.displayNewItemForm();
+                        this.populateEditItemForm(i, j);
+                        this.listenerDeleteChecklistItem();
+    
+                    // redisplay of summary of item
+                    const itemElement = document.getElementById(parent.id);
+                    screenControlObject.displayItemSummary(
+                        itemElement, projectsObject.getProjectArray(), i, j);
+    
+                    this.listenerNewItemCancelBtn();
+                    this.listenerFormDeleteBtn();
+    
+                    formsRetrieveObject.getEditFormInfo(i, j);
+                    })
                 })
-            })
-        },  
+            },  
+
+        editFunctionality(){
+            console.log('clicked on edit functionality button')
+            pointerEvent.stopPropagation();
+        
+            const parent = e.parentNode;
+
+            let itemElementId = parent.id;
+            let i = itemElementId[3]
+            let j = itemElementId[4]
+
+            screenControlObject.displayNewItemForm();
+                this.populateEditItemForm(i, j);
+                this.listenerDeleteChecklistItem();
+
+            // redisplay of summary of item
+            const itemElement = document.getElementById(parent.id);
+            screenControlObject.displayItemSummary(
+                itemElement, projectsObject.getProjectArray(), i, j);
+
+            this.listenerNewItemCancelBtn();
+            this.listenerFormDeleteBtn();
+
+            formsRetrieveObject.getEditFormInfo(i, j);
+        },
 
             populateEditItemForm(categoryindex, itemindex) {
                 let i = categoryindex; 
