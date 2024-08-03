@@ -19,10 +19,10 @@ const secondItem = new Todo('Eat chicken', 'Eat the delicious chicken', checklis
 const thirdItem = new Todo('Vom up a hairball', 'On no I feel like me going to be sick!', checklist3, '2024-09-22', 'Medium', 'incomplete')
 const fourthItem = new Todo("Scratch Yosh's legs",  "Try and slice one of Yosh's legs off", checklist4, '2024-05-03', 'Low', 'incomplete')
 const fifthItem = new Todo('Lie on Rug', 'This a easy one. Lie on the rug', checklist5, '2024-11-10', 'Low', 'incomplete')
-const sixthItem = new Todo('Snooze in the sleeping bag hollow', 'This is the fifth item', checklist6, '2024-11-10', 'Low', 'incomplete')
-const seventhItem = new Todo('Stare out back door', 'This is the fifth item', checklist7, '2024-11-10', 'Low', 'incomplete')
-const eighthItem = new Todo('Miaow outside the portal', 'This is the fifth item', checklist8, '2024-11-10', 'Low', 'incomplete')
-const ninthItem = new Todo('Go zoomies', 'This is the fifth item', checklist9, '2024-11-10', 'Low', 'incomplete')
+const sixthItem = new Todo('Snooze in the sleeping bag hollow', 'Time to snooze in the hollow!', checklist6, '2024-11-10', 'Low', 'incomplete')
+const seventhItem = new Todo('Stare out back door', 'If I keep staring something will happen. I just know it.', checklist7, '2024-11-10', 'Low', 'incomplete')
+const eighthItem = new Todo('Miaow outside the portal', 'If I keep miaowing someone will help me move through the portal', checklist8, '2024-11-10', 'Low', 'incomplete')
+const ninthItem = new Todo('Go zoomies', 'Zooming around the world', checklist9, '2024-11-10', 'Low', 'incomplete')
 
 const projectArray = {
     // main array for storing items
