@@ -113,7 +113,7 @@ getEditFormInfo(categoryindex, itemindex) {
             categories.append(itemElement)
             screenControlObject.displayItemFull(
                  itemElement, projectsObject.getProjectArray());   
-              
+            // eventListenerObject.listenerItemCollapse();
 
         } else {
             console.log('no need to change category in array. item is updated')
@@ -126,7 +126,7 @@ getEditFormInfo(categoryindex, itemindex) {
         
         eventListenerObject.listenerChecklistToggle(); 
 
-        eventListenerObject.listenerItemCollapse();
+        // eventListenerObject.listenerItemCollapse();
         eventListenerObject.listenerItemEdit();   
     
     })
