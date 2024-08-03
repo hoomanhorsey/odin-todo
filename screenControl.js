@@ -125,7 +125,6 @@ const screenControlObject = {
                 behavior: 'smooth'
               });
             eventListenerObject.listenerItemCollapse();
-
         },
 
     displayNewItemForm() {
