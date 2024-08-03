@@ -1,23 +1,28 @@
 
 import { Todo } from "./class.js";
 
-const checklist1 = [{checkItem: "No body knows me", checked: false}, {checkItem: "Everybody knows this is knowhere", checked: true}];
-const checklist2 = [{checkItem: "No body knows me", checked: false}, {checkItem: "Everybody knows this is knowhere", checked: true}];
-const checklist3 = [{checkItem: "No body knows me", checked: false}, {checkItem: "Everybody knows this is knowhere", checked: true}];
-const checklist4 = [{checkItem: "No body knows me", checked: false}, {checkItem: "Everybody knows this is knowhere", checked: true}];
-const checklist5 = [{checkItem: "No body knows me", checked: false}, {checkItem: "Everybody knows this is knowhere", checked: true}];
+const checklist1 = [{checkItem: "Scratch with right paw", checked: false}, {checkItem: "Scratch with left paw", checked: false}];
+const checklist2 = [{checkItem: "Get the chicken with paw", checked: false}, {checkItem: "Get chicken onto ground", checked: false}, {checkItem: "Nom nom nom the chicken", checked: false}];
+const checklist3 = [{checkItem: "Find place to vom, preferably someobody's bed", checked: false}, {checkItem: "Get the riddim going", checked: false}, {checkItem: "Do the hurl", checked: false}];
+const checklist4 = [{checkItem: "Find a hide place", checked: false}, {checkItem: "Wait for a leg", checked: false}, {checkItem: "Pounce on leg!", checked: false}];
+const checklist5 = [{checkItem: "Get on rug", checked: false}, {checkItem: "Lower body onto rug", checked: false}, {checkItem: "Roll to side", checked: false}, {checkItem: "Close eyes", checked: false}];
+const checklist6 = [{checkItem: "Jump onto Andrew's bed", checked: false}, {checkItem: "Find hollow in sleep bag", checked: false}, {checkItem: "Lie down in hollow", checked: false}, {checkItem: "Snooze", checked: false}];
+const checklist7 = [{checkItem: "Go sit near back door", checked: false}, {checkItem: "#", checked: false}, {checkItem: "#", checked: false}, {checkItem: "#", checked: false}];
+const checklist8 = [{checkItem: "Go to portal", checked: false}, {checkItem: "Do miaow", checked: false}, {checkItem: "Do another miaow", checked: false}, {checkItem: "Then another miawo", checked: false}];
+const checklist9 = [{checkItem: "Stand still", checked: false}, {checkItem: "Run very fast one direction", checked: false}, {checkItem: "Turn around", checked: false}, {checkItem: "Run very fast in other direction", checked: false}];
+const checklistProForma = [{checkItem: "#", checked: false}, {checkItem: "#", checked: false}, {checkItem: "#", checked: false}, {checkItem: "#", checked: false}];
 
 
 // Instantiating 'Todo Items
-const firstItem = new Todo('Scratch coffe table', 'This is the first item', checklist1, '2024-12-12', 'High', 'incomplete');
-const secondItem = new Todo('Eat chicken', 'This is the second item', checklist2, '2024-10-06', 'High', 'incomplet  e')
-const thirdItem = new Todo('Vom up a hairball', 'This is the third item', checklist3, '2024-09-22', 'Medium', 'incomplete')
-const fourthItem = new Todo("Scratch Yosh's legs",  'This is the fourth item', checklist4, '2024-05-03', 'Low', 'incomplete')
-const fifthItem = new Todo('Sit on Rug', 'This is the fifth item', checklist5, '2024-11-10', 'Low', 'incomplete')
-const sixthItem = new Todo('Snooze in the sleeping bag hollow', 'This is the fifth item', checklist5, '2024-11-10', 'Low', 'incomplete')
-const seventhItem = new Todo('Stare out back window', 'This is the fifth item', checklist5, '2024-11-10', 'Low', 'incomplete')
-const eightItem = new Todo('Miaow outside the portal', 'This is the fifth item', checklist5, '2024-11-10', 'Low', 'incomplete')
-const ninthItem = new Todo('Go zoomies', 'This is the fifth item', checklist5, '2024-11-10', 'Low', 'incomplete')
+const firstItem = new Todo('Scratch coffe table', 'Scratch the coffee table. But only on the leg. And only one leg.', checklist1, '2024-12-12', 'High', 'incomplete');
+const secondItem = new Todo('Eat chicken', 'Eat the delicious chicken', checklist2, '2024-10-06', 'High', 'incomplete')
+const thirdItem = new Todo('Vom up a hairball', 'On no I feel like me going to be sick!', checklist3, '2024-09-22', 'Medium', 'incomplete')
+const fourthItem = new Todo("Scratch Yosh's legs",  "Try and slice one of Yosh's legs off", checklist4, '2024-05-03', 'Low', 'incomplete')
+const fifthItem = new Todo('Lie on Rug', 'This a easy one. Lie on the rug', checklist5, '2024-11-10', 'Low', 'incomplete')
+const sixthItem = new Todo('Snooze in the sleeping bag hollow', 'This is the fifth item', checklist6, '2024-11-10', 'Low', 'incomplete')
+const seventhItem = new Todo('Stare out back door', 'This is the fifth item', checklist7, '2024-11-10', 'Low', 'incomplete')
+const eighthItem = new Todo('Miaow outside the portal', 'This is the fifth item', checklist8, '2024-11-10', 'Low', 'incomplete')
+const ninthItem = new Todo('Go zoomies', 'This is the fifth item', checklist9, '2024-11-10', 'Low', 'incomplete')
 
 const projectArray = {
     // main array for storing items
@@ -30,7 +35,7 @@ const projectArray = {
             items: [fourthItem, fifthItem, sixthItem, seventhItem] 
         }, 
         {   category : 'Leisure',
-            items: [eightItem, ninthItem]
+            items: [eighthItem, ninthItem]
         }
     ],
 }
@@ -83,20 +88,26 @@ const projectsObject = {
         };
     },
 
-    deleteItem(category, itemName){
-        let answer = prompt("Are you sure you want to delete? Type 'YES' to confirm") 
+    deleteItem(category, itemName, delBtn){
         
-        if (answer === 'YES') {
-            console.log(category, itemName)
+        if (delBtn === 1) {
+            let answer = prompt("Are you sure you want to delete? Type 'YES' to confirm") 
+            
+            if (answer === 'YES') {
+                console.log(category, itemName)
 
-            console.log(projectArray.projectArray[category]['items'][itemName])
+                console.log(projectArray.projectArray[category]['items'][itemName])
+                projectArray.projectArray[category]['items'].splice(itemName, 1);
+                projectArray.projectArray[category]['items'][itemName];
+                console.log(projectArray.projectArray)
+            
+            } else { 
+                alert("Okay. Item won't be deleted") 
+                return }
+        } else {
             projectArray.projectArray[category]['items'].splice(itemName, 1);
             projectArray.projectArray[category]['items'][itemName];
-            console.log(projectArray.projectArray)
-        
-        } else { 
-            alert("Okay. Item won't be deleted") 
-            return }
+        }
     },
 
     getItem(categoryIndex, itemIndex) {

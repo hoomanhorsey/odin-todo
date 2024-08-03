@@ -32,61 +32,24 @@ const eventListenerObject ={
             eventListenerObject.listenerChecklistToggle(); 
             eventListenerObject.disableNewItemCategoryButtons();
             },
-    
+    // Function sets listener to collapse item, and standalone function
+    // to collapse item
+
     listenerItemCollapse() {
         let items = document.querySelectorAll('.item-collapse');
         console.log('listener Item Collapse called')
     
         items.forEach((e) => {
-            e.addEventListener('click',this.itemCollapse)})},
-            
-        //     () => {
-
-        //         const parent = e.parentNode;
-        //         const itemElement = document.getElementById(parent.id)
-              
-        //         screenControlObject.displayItemSummary(
-        //             itemElement, projectsObject.getProjectArray(), 
-        //             parent.dataset.categoryindex, 
-        //             parent.dataset.itemindex);
-                
-        //         eventListenerObject.enableNewItemCategoryButtons();
-        //         });
-        //     });
-        // },
-
-        // listenerItemCollapse() {
-        //     let items = document.querySelectorAll('.item-collapse');
-        //     console.log('listener Item Collapse called')
-        
-        //     items.forEach((e) => {
-        //         e.addEventListener('click', () => {
-    
-        //             const parent = e.parentNode;
-        //             const itemElement = document.getElementById(parent.id)
-                  
-        //             screenControlObject.displayItemSummary(
-        //                 itemElement, projectsObject.getProjectArray(), 
-        //                 parent.dataset.categoryindex, 
-        //                 parent.dataset.itemindex);
-                    
-        //             eventListenerObject.enableNewItemCategoryButtons();
-        //             });
-        //         });
-        //     },
-    
+            e.addEventListener('click',this.itemCollapse)})},  
 
         itemCollapse(e) {
-            console.log('item collapsed')
+            console.log('item collapsing')
             const parent = e.target.parentNode;
             const itemElement = document.getElementById(parent.id)
-          
-            screenControlObject.displayItemSummary(
-                itemElement, projectsObject.getProjectArray(), 
-                parent.dataset.categoryindex, 
-                parent.dataset.itemindex);
-            
+            itemElement.remove();
+                     
             eventListenerObject.enableNewItemCategoryButtons();
+            screenControlObject.displayAllCategoriesAndItems();
         },
 
 
@@ -214,54 +177,19 @@ const eventListenerObject ={
         editButtons.forEach((e) => {
             e.addEventListener('click', this.testHandler)
                 }
-            )},
-                
-            //     (pointerEvent) => {
-            //     pointerEvent.stopPropagation();
-            
-            //     const parent = e.parentNode;
-
-            //     let itemElementId = parent.id;
-            //     let i = itemElementId[3]
-            //     let j = itemElementId[4]
-
-            //     screenControlObject.displayNewItemForm();
-            //         this.populateEditItemForm(i, j);
-            //         this.listenerDeleteChecklistItem();
-
-            //     // redisplay of summary of item
-            //     const itemElement = document.getElementById(parent.id);
-            //     screenControlObject.displayItemSummary(
-            //         itemElement, projectsObject.getProjectArray(), i, j);
-
-            //     this.listenerNewItemCancelBtn();
-            //     this.listenerFormDeleteBtn();
-
-            //     formsRetrieveObject.getEditFormInfo(i, j);
-            //     })
-            // }
-        
+            )},        
 
         testHandler(event){
 
             // remove listenerItemCollapse
-
             let collapseBtn = document.querySelector('.item-collapse')
-            console.log(collapseBtn)
-            collapseBtn.removeEventListener('click', eventListenerObject.itemCollapse);
-            console.log('hi')
+            collapseBtn.removeEventListener('click', eventListenerObject.itemCollapse);          
             
-            
-            alert('testHandler called')
-            console.log(event)
             event.stopPropagation();
-            console.log(event.target)
             let button = event.target;
 
 
             let buttonParent = button.parentNode;
-            console.log(buttonParent)
-            console.log(buttonParent.id)
 
             let itemElementId = buttonParent.id;
                  let i = itemElementId[3]
@@ -282,34 +210,6 @@ const eventListenerObject ={
                      formsRetrieveObject.getEditFormInfo(i, j);
 
         },
-        // listenerItemEdit(){
-        //     let editButtons = document.querySelectorAll('.editItem');
-        //     editButtons.forEach((e) => {
-        //         e.addEventListener('click', (pointerEvent) => {
-        //             pointerEvent.stopPropagation();
-                
-        //             const parent = e.parentNode;
-    
-        //             let itemElementId = parent.id;
-        //             let i = itemElementId[3]
-        //             let j = itemElementId[4]
-    
-        //             screenControlObject.displayNewItemForm();
-        //                 this.populateEditItemForm(i, j);
-        //                 this.listenerDeleteChecklistItem();
-    
-        //             // redisplay of summary of item
-        //             const itemElement = document.getElementById(parent.id);
-        //             screenControlObject.displayItemSummary(
-        //                 itemElement, projectsObject.getProjectArray(), i, j);
-    
-        //             this.listenerNewItemCancelBtn();
-        //             this.listenerFormDeleteBtn();
-    
-        //             formsRetrieveObject.getEditFormInfo(i, j);
-        //             })
-        //         })
-        //     },  
 
             populateEditItemForm(categoryindex, itemindex) {
                 let i = categoryindex; 
@@ -364,7 +264,9 @@ const eventListenerObject ={
                         let categoryindex = delref[6];
                         let itemindex = delref[7];
 
-                        projectsObject.deleteItem(categoryindex, itemindex);
+                        // Variable to let know delItem function to engage prompt
+                        let delBtn = 1;
+                        projectsObject.deleteItem(categoryindex, itemindex, delBtn  );
                         
                         screenControlObject.displayAllCategoriesAndItems();;
 

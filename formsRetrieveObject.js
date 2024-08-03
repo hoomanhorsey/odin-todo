@@ -87,8 +87,10 @@ getEditFormInfo(categoryindex, itemindex) {
         // if category is being changed
         if (category != array[categoryindex]['category']) {
             console.log('Changing the category. Data: the old category index = ' + categoryindex)
-                         
-            projectsObject.deleteItem(categoryindex, itemindex);
+            
+            // Variable to let know delItem function to bypass confirm prompt
+            let delBtn = 0;
+            projectsObject.deleteItem(categoryindex, itemindex, delBtn);
             projectsObject.addItem(category, updatedItem)
 
             let newCategoryIndex = array.findIndex(item => item.category === category);
