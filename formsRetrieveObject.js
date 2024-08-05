@@ -78,7 +78,6 @@ getEditFormInfo(categoryindex, itemindex) {
 
         // category check
         let category = document.querySelector('.select-category').value;
-        console.log('category value from the form:' + category)
         let array =  projectsObject.getProjectArray()
 
         let formDiv =  document.querySelector('.newItemFormDiv')
@@ -99,9 +98,6 @@ getEditFormInfo(categoryindex, itemindex) {
 
             console.log('newCategoryIndex: ' + newCategoryIndex + ', newItemIndex: ' + newItemIndex);
 
-            console.log('new project item priority ' + projectsObject.getItem(newCategoryIndex, newItemIndex).priority)
-
-
             screenControlObject.displayAllCategoriesAndItems();
 
             // - run the delet item function with the current category and item index
@@ -110,7 +106,6 @@ getEditFormInfo(categoryindex, itemindex) {
             const itemElement = document.createElement('div');
                 itemElement.id = `ref${newCategoryIndex}${newItemIndex}`
 
-            console.log(itemElement.id)
             let categories = document.querySelector('.categories');
             categories.append(itemElement)
             screenControlObject.displayItemFull(

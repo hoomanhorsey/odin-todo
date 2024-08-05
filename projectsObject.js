@@ -84,12 +84,9 @@ const projectsObject = {
             } else {
                 // Getting local array
                 localArray.splice(categoryIndex, 1);
-
                 // projectArray.projectArray.splice(categoryIndex, 1);
-                console.log('The category of "' + oldCategory + '" has been deleted');    
-
+     
                  // Saving locally
-
                 this.localStorageSet(localArray)      
                 return;
                 } 
@@ -99,14 +96,9 @@ const projectsObject = {
     addItem(category, itemName) {
 
         let localArray = this.localStorageGet();
-        
+
         for (let i = 0; i < (localArray.length); i++) {
-            console.log('addItem: category: ' + category +' , item: ' + itemName.title)
-
             if (localArray[i]['category'] === category) {
-
-                console.log('inside test' + category + '' + itemName.title)
-                 localArray[i]['items'].push(itemName); 
 
                 // Saving locally
                 this.localStorageSet(localArray)
@@ -120,7 +112,6 @@ const projectsObject = {
             let answer = prompt("Are you sure you want to delete? Type 'YES' to confirm") 
             
             if (answer === 'YES') {
-                console.log(category, itemName)
 
                 let localArray = this.localStorageGet();
 
@@ -177,12 +168,10 @@ const projectsObject = {
     },
 
     localStorageSet(array) {
-        console.log('called LocalStorageSet')
         localStorage.setItem('localArray', JSON.stringify(array));
     },
 
     localStorageGet() {
-        console.log('called localStorageGET')
         let localArrayJSON = localStorage.getItem('localArray');
         let localArray = JSON.parse(localArrayJSON);
         return localArray
@@ -194,27 +183,9 @@ function checkIfCategoryExists(categoryName){
 
     const localArray = projectsObject.localStorageGet();
 
-
     let test = localArray.findIndex(obj => obj['category'].toLowerCase() === categoryName.toLowerCase());
     console.log('this returns the index of an existing category if there is one, and -1 if there isnt: ' + test)
-    return test
-
-    // let btest = projectsObject.getProjectArray()
-    // let testResult =  btest.findIndex(testForDuplicate)
-    // console.log(testResult)
-
-    // const barray = projectsObject.getProjectArray();
-    // const bindex = barray.findIndex(element => element['category'] === categoryName)
-    // console.log(bindex)
-
-    // const array = [1, 2, 3, 4, 5];
-    // const index = array.findIndex(element => element === 3);
-    // console.log(index); // Output: 2
-
-    function testForDuplicate(category) {
-        console.log(categoryName + ' ' + category)
-        return categoryName === category
-    }
+    return test;
 
 }
 
