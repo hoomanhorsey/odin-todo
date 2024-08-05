@@ -42,31 +42,55 @@ const projectArray = {
 
 const projectsObject = {   
     // methods
-    getProjectArray(){
+    getDefaultProjectArray(){
+        console.log('getting default Array for prefill')
         return projectArray.projectArray;
+    },
+    // get the local storage array
+    getProjectArray(){
+        const localArray = this.localStorageGet();
+        return localArray;
+        // return projectArray.projectArray;
     },
 
     addCategoryToProjectArray(newCategory) {
         if (checkIfCategoryExists(newCategory) >= 0) {
             alert(`The category "${newCategory}" already exists. Please choose a different category name.`)
         } else {
-        projectArray.projectArray.push({category: `${newCategory}`, items: []});
+
+        // Saving locally
+        let localArray = this.localStorageGet();
+        localArray.push({category: `${newCategory}`, items: []});
+        this.localStorageSet(localArray)
+
+        // projectArray.projectArray.push({category: `${newCategory}`, items: []});
+
         };
     },
 
     deleteCategoryFromProjectArray(oldCategory) {    
+
+        const localArray = this.localStorageGet();
+
         let categoryIndex = checkIfCategoryExists(oldCategory); // returns index if exists, -1 if not
 
         if (categoryIndex < 0)  {
             alert(`The category "${oldCategory}" doesn't exist and so cannot be deleted.`);
             return;
         } else if (categoryIndex >= 0) {
-            if (projectArray.projectArray[categoryIndex]['items'].length !=0){     
+            if (localArray[categoryIndex]['items'].length !=0){     
                 alert(`The '${oldCategory}' category cannot be deleted as it has items attached to it. Please reassign items or delete them first before deleting this category.`)
                 return;
             } else {
-                projectArray.projectArray.splice(categoryIndex, 1);
-                console.log('The category of "' + oldCategory + '" has been deleted');          
+                // Getting local array
+                localArray.splice(categoryIndex, 1);
+
+                // projectArray.projectArray.splice(categoryIndex, 1);
+                console.log('The category of "' + oldCategory + '" has been deleted');    
+
+                 // Saving locally
+
+                this.localStorageSet(localArray)      
                 return;
                 } 
             }
@@ -74,16 +98,17 @@ const projectsObject = {
 
     addItem(category, itemName) {
 
-        for (let i = 0; i < (projectArray.projectArray.length); i++) {
+        let localArray = this.localStorageGet();
+        for (let i = 0; i < (localArray.length); i++) {
             console.log('addItem: category: ' + category +' , item: ' + itemName.title)
 
-            if (projectArray.projectArray[i]['category'] === category) {
+            if (localArray[i]['category'] === category) {
 
                 console.log('inside test' + category + '' + itemName.title)
-                console.log(projectArray.projectArray[i]['items'])
-                 projectArray.projectArray[i]['items'].push(itemName); 
-                 console.log(projectArray.projectArray[i]['items']); 
-                
+                 localArray[i]['items'].push(itemName); 
+
+                          // Saving locally
+                this.localStorageSet(localArray)
             }
         };
     },
@@ -96,37 +121,81 @@ const projectsObject = {
             if (answer === 'YES') {
                 console.log(category, itemName)
 
-                console.log(projectArray.projectArray[category]['items'][itemName])
-                projectArray.projectArray[category]['items'].splice(itemName, 1);
-                projectArray.projectArray[category]['items'][itemName];
-                console.log(projectArray.projectArray)
+                let localArray = this.localStorageGet();
+
+
+                localArray[category]['items'].splice(itemName, 1);
+                localArray[category]['items'][itemName];
+
+                  // Saving locally
+                  this.localStorageSet(localArray)
             
             } else { 
                 alert("Okay. Item won't be deleted") 
                 return }
         } else {
-            projectArray.projectArray[category]['items'].splice(itemName, 1);
-            projectArray.projectArray[category]['items'][itemName];
+            let localArray = this.localStorageGet();
+
+
+            localArray[category]['items'].splice(itemName, 1);
+            localArray[category]['items'][itemName];
+
+            // Saving locally
+            this.localStorageSet(localArray)
         }
     },
 
     getItem(categoryIndex, itemIndex) {
-        return projectArray.projectArray[categoryIndex]['items'][itemIndex];
+
+        const localArray = this.localStorageGet();
+        
+        return localArray[categoryIndex]['items'][itemIndex];
+        // return projectArray.projectArray[categoryIndex]['items'][itemIndex];
     },
 
     toggleChecklistCheckbox(i, j, k, status) {
         console.log('this.toggleChecklistCheckbox has been called: ' + status)
-        projectArray.projectArray[i]['items'][j]['checklist'][k]['checked'] = status;
+
+        const localArray = this.localStorageGet();
+
+        localArray[i]['items'][j]['checklist'][k]['checked'] = status;
+
+        this.localStorageSet(localArray);
+
+
+        // projectArray.projectArray[i]['items'][j]['checklist'][k]['checked'] = status;
     },
 
     updateItem(categoryIndex, itemIndex, updatedItem) {
-          projectArray.projectArray[categoryIndex]['items'][itemIndex] = updatedItem;
+        const localArray = this.localStorageGet();
+
+        localArray[categoryIndex]['items'][itemIndex] = updatedItem;
+
+        this.localStorageSet(localArray);
+
+        //   projectArray.projectArray[categoryIndex]['items'][itemIndex] = updatedItem;
     },
+
+    localStorageSet(array) {
+        console.log('called LocalStorageSet')
+        localStorage.setItem('localArray', JSON.stringify(array));
+    },
+
+    localStorageGet() {
+        console.log('called localStorageGET')
+        let localArrayJSON = localStorage.getItem('localArray');
+        let localArray = JSON.parse(localArrayJSON);
+        return localArray
+    }
+
 };
 
 function checkIfCategoryExists(categoryName){
 
-    let test = projectsObject.getProjectArray().findIndex(obj => obj['category'].toLowerCase() === categoryName.toLowerCase());
+    const localArray = projectsObject.localStorageGet();
+
+
+    let test = localArray.findIndex(obj => obj['category'].toLowerCase() === categoryName.toLowerCase());
     console.log('this returns the index of an existing category if there is one, and -1 if there isnt: ' + test)
     return test
 
@@ -146,6 +215,9 @@ function checkIfCategoryExists(categoryName){
         console.log(categoryName + ' ' + category)
         return categoryName === category
     }
+
 }
+
+
 
 export {projectsObject} ;
