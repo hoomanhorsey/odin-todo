@@ -208,7 +208,6 @@ const eventListenerObject ={
                      eventListenerObject.listenerFormDeleteBtn();
     
                      formsRetrieveObject.getEditFormInfo(i, j);
-
         },
 
             populateEditItemForm(categoryindex, itemindex) {

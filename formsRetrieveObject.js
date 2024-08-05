@@ -95,7 +95,7 @@ getEditFormInfo(categoryindex, itemindex) {
 
             let newCategoryIndex = array.findIndex(item => item.category === category);
 
-            let newItemIndex = (array[newCategoryIndex]['items'].length) - 1;
+            let newItemIndex = (array[newCategoryIndex]['items'].length);
 
             console.log('newCategoryIndex: ' + newCategoryIndex + ', newItemIndex: ' + newItemIndex);
 

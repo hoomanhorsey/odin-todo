@@ -99,6 +99,7 @@ const projectsObject = {
     addItem(category, itemName) {
 
         let localArray = this.localStorageGet();
+        
         for (let i = 0; i < (localArray.length); i++) {
             console.log('addItem: category: ' + category +' , item: ' + itemName.title)
 
@@ -107,7 +108,7 @@ const projectsObject = {
                 console.log('inside test' + category + '' + itemName.title)
                  localArray[i]['items'].push(itemName); 
 
-                          // Saving locally
+                // Saving locally
                 this.localStorageSet(localArray)
             }
         };
@@ -122,7 +123,6 @@ const projectsObject = {
                 console.log(category, itemName)
 
                 let localArray = this.localStorageGet();
-
 
                 localArray[category]['items'].splice(itemName, 1);
                 localArray[category]['items'][itemName];
