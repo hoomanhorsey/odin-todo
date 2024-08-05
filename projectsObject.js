@@ -7,22 +7,22 @@ const checklist3 = [{checkItem: "Find place to vom, preferably someobody's bed",
 const checklist4 = [{checkItem: "Find a hide place", checked: false}, {checkItem: "Wait for a leg", checked: false}, {checkItem: "Pounce on leg!", checked: false}];
 const checklist5 = [{checkItem: "Get on rug", checked: false}, {checkItem: "Lower body onto rug", checked: false}, {checkItem: "Roll to side", checked: false}, {checkItem: "Close eyes", checked: false}];
 const checklist6 = [{checkItem: "Jump onto Andrew's bed", checked: false}, {checkItem: "Find hollow in sleep bag", checked: false}, {checkItem: "Lie down in hollow", checked: false}, {checkItem: "Snooze", checked: false}];
-const checklist7 = [{checkItem: "Go sit near back door", checked: false}, {checkItem: "#", checked: false}, {checkItem: "#", checked: false}, {checkItem: "#", checked: false}];
+const checklist7 = [{checkItem: "Go sit near back door", checked: false}, {checkItem: "Stare out back door", checked: false}];
 const checklist8 = [{checkItem: "Go to portal", checked: false}, {checkItem: "Do miaow", checked: false}, {checkItem: "Do another miaow", checked: false}, {checkItem: "Then another miawo", checked: false}];
 const checklist9 = [{checkItem: "Stand still", checked: false}, {checkItem: "Run very fast one direction", checked: false}, {checkItem: "Turn around", checked: false}, {checkItem: "Run very fast in other direction", checked: false}];
 const checklistProForma = [{checkItem: "#", checked: false}, {checkItem: "#", checked: false}, {checkItem: "#", checked: false}, {checkItem: "#", checked: false}];
 
 
 // Instantiating 'Todo Items
-const firstItem = new Todo('Scratch coffe table', 'Scratch the coffee table. But only on the leg. And only one leg.', checklist1, '2024-12-12', 'High', 'incomplete');
+const firstItem = new Todo('Scratch coffe table', 'Scratch the coffee table. But only on the leg. And only one leg.', checklist1, '2024-12-12', 'Low', 'incomplete');
 const secondItem = new Todo('Eat chicken', 'Eat the delicious chicken', checklist2, '2024-10-06', 'High', 'incomplete')
 const thirdItem = new Todo('Vom up a hairball', 'On no I feel like me going to be sick!', checklist3, '2024-09-22', 'Medium', 'incomplete')
-const fourthItem = new Todo("Scratch Yosh's legs",  "Try and slice one of Yosh's legs off", checklist4, '2024-05-03', 'Low', 'incomplete')
-const fifthItem = new Todo('Lie on Rug', 'This a easy one. Lie on the rug', checklist5, '2024-11-10', 'Low', 'incomplete')
-const sixthItem = new Todo('Snooze in the sleeping bag hollow', 'Time to snooze in the hollow!', checklist6, '2024-11-10', 'Low', 'incomplete')
+const fourthItem = new Todo("Scratch Yosh's legs",  "Try and slice one of Yosh's legs off", checklist4, '2024-05-03', 'Medium', 'incomplete')
+const fifthItem = new Todo('Lie on Rug', 'This a easy one. Lie on the rug', checklist5, '2024-11-10', 'Medium', 'incomplete')
+const sixthItem = new Todo('Snooze in the sleeping bag hollow', 'Time to snooze in the hollow!', checklist6, '2024-11-10', 'High', 'incomplete')
 const seventhItem = new Todo('Stare out back door', 'If I keep staring something will happen. I just know it.', checklist7, '2024-11-10', 'Low', 'incomplete')
 const eighthItem = new Todo('Miaow outside the portal', 'If I keep miaowing someone will help me move through the portal', checklist8, '2024-11-10', 'Low', 'incomplete')
-const ninthItem = new Todo('Go zoomies', 'Zooming around the world', checklist9, '2024-11-10', 'Low', 'incomplete')
+const ninthItem = new Todo('Go zoomies', 'Zooming around the world', checklist9, '2024-11-10', 'Medium', 'incomplete')
 
 const projectArray = {
     // main array for storing items
