@@ -21,6 +21,7 @@ addEventListener("DOMContentLoaded", () => {
 
         const defaultArray = projectsObject.getDefaultProjectArray()
         localStorage.setItem("localArray", JSON.stringify(defaultArray))
+        console.log(localStorage.getItem('localArray'))
         
       } else {
         console.log('local storage already filled');
