@@ -2,6 +2,7 @@ import { projectsObject } from "./projectsObject.js";
 import { eventListenerObject } from "./eventListeners.js";
 import { formsCreateObject } from "./formsCreateObject.js";
 
+
 const screenControlObject = {
 
     displayAllCategoriesAndItems() {
@@ -61,8 +62,13 @@ const screenControlObject = {
         console.log(itemElement.id)
         let itemElementId = itemElement.id; 
         // parsing array[index] references from the 'ref' id
-        let i = itemElementId[3];
-        let j = itemElementId[4];
+
+        // extracting values via descructuring....old code below
+        const [,,, i, j, ]= itemElementId;
+        console.log(i, j )
+
+        // let i = itemElementId[3];
+        // let j = itemElementId[4];
      
         itemElement.className = '';
         itemElement.classList.add('item', 'displayFull', 'zIndexHigh', array[i]['items'][j].priority );
