@@ -16,7 +16,7 @@ addEventListener("DOMContentLoaded", () => {
   // Check local storage session, prefilling if empty
   if (!localStorage.getItem("localArray")) {
     console.log(
-      "Nothing stored locally. Populating with default prefill array",
+      "Nothing stored locally. Populating with default prefill array"
     );
 
     const defaultArray = projectsObject.getDefaultProjectArray();
