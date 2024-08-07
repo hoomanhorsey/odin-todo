@@ -10,7 +10,7 @@ const checklist6 = [{checkItem: "Jump onto Andrew's bed", checked: false}, {chec
 const checklist7 = [{checkItem: "Go sit near back door", checked: false}, {checkItem: "Stare out back door", checked: false}];
 const checklist8 = [{checkItem: "Go to portal", checked: false}, {checkItem: "Do miaow", checked: false}, {checkItem: "Do another miaow", checked: false}, {checkItem: "Then another miawo", checked: false}];
 const checklist9 = [{checkItem: "Stand still", checked: false}, {checkItem: "Run very fast one direction", checked: false}, {checkItem: "Turn around", checked: false}, {checkItem: "Run very fast in other direction", checked: false}];
-const checklistProForma = [{checkItem: "#", checked: false}, {checkItem: "#", checked: false}, {checkItem: "#", checked: false}, {checkItem: "#", checked: false}];
+// const checklistProForma = [{checkItem: "#", checked: false}, {checkItem: "#", checked: false}, {checkItem: "#", checked: false}, {checkItem: "#", checked: false}];
 
 
 // Instantiating 'Todo Items
@@ -217,7 +217,4 @@ function checkIfCategoryExists(categoryName){
     }
 
 }
-
-
-
-export {projectsObject} ;
+export {projectsObject};
