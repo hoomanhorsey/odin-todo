@@ -3,30 +3,28 @@ import { eventListenerObject } from "./eventListeners.js";
 import { projectsObject } from "./projectsObject.js";
 
 addEventListener("DOMContentLoaded", () => {
+  setTimeout(() => {
+    eventListenerObject.listenerCreateNewItem();
+    eventListenerObject.listenerCreateNewCategory();
+  }, 1000);
 
-    setTimeout( () => {
-        eventListenerObject.listenerCreateNewItem(); 
-        eventListenerObject.listenerCreateNewCategory();
-     }, 1000)
+  //  check session
 
-    //  check session
+  // deleting local storage
+  //  localStorage.setItem("localArray", "")
 
-        // deleting local storage
-    //  localStorage.setItem("localArray", "")
+  // Check local storage session, prefilling if empty
+  if (!localStorage.getItem("localArray")) {
+    console.log(
+      "Nothing stored locally. Populating with default prefill array",
+    );
 
-    // Check local storage session, prefilling if empty
-    if (!localStorage.getItem("localArray")) {
+    const defaultArray = projectsObject.getDefaultProjectArray();
+    localStorage.setItem("localArray", JSON.stringify(defaultArray));
+    console.log(localStorage.getItem("localArray"));
+  } else {
+    console.log("local storage already filled");
+  }
 
-        console.log('Nothing stored locally. Populating with default prefill array');
-
-        const defaultArray = projectsObject.getDefaultProjectArray()
-        localStorage.setItem("localArray", JSON.stringify(defaultArray))
-        console.log(localStorage.getItem('localArray'))
-        
-      } else {
-        console.log('local storage already filled');
-      }
-
-screenControlObject.displayAllCategoriesAndItems()
-
+  screenControlObject.displayAllCategoriesAndItems();
 });

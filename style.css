@@ -1,218 +1,196 @@
-
-
 * {
-    font-family: 'Courier New', Courier, monospace;
-
+  font-family: "Courier New", Courier, monospace;
 }
 body {
-    display:grid;
-    grid-template-columns: 1fr; 
-    grid-template-rows: 1fr 6fr;
-
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 6fr;
 }
 
 .title {
-    grid-column: 1/3;
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr;
-    justify-content: center;
-    align-items: center;
-    
+  grid-column: 1/3;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  justify-content: center;
+  align-items: center;
 }
 .header {
-font-size: 6rem;
-justify-self: center;
-padding: 20px;
+  font-size: 6rem;
+  justify-self: center;
+  padding: 20px;
 }
 
 .container {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
 }
-
 
 .sidebar {
-    display: grid;
-    grid-column: 0/4;
-    grid-row: 0/1;
+  display: grid;
+  grid-column: 0/4;
+  grid-row: 0/1;
 }
 .categories {
-    font-size: 1rem;
+  font-size: 1rem;
 
-    grid-column: 1/4; 
-    grid-row: 2/10;
-    grid-template-columns: 1fr 1fr 1fr 1fr; 
+  grid-column: 1/4;
+  grid-row: 2/10;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
 
-    display: flex;
-    height: 500px;  
-    min-width: 1000px;
-    min-height: 1000px;
-
+  display: flex;
+  height: 500px;
+  min-width: 1000px;
+  min-height: 1000px;
 }
 
 .category {
-    display: grid;
-    font-size: 3rem;
-    border-style: solid;
-    border-radius: 5px;
-    padding: 10px;
-    margin: 10px;
-    flex-wrap: wrap;
-    min-width: 250px;
+  display: grid;
+  font-size: 3rem;
+  border-style: solid;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px;
+  flex-wrap: wrap;
+  min-width: 250px;
 }
 
-
 .item {
-    font-size: 1rem;
-    border-style: dotted;
-    border-radius: 5px;
+  font-size: 1rem;
+  border-style: dotted;
+  border-radius: 5px;
 
-    margin: 10px;
-    padding: 15px;
-    font-family: 'Courier New', Courier, monospace;
+  margin: 10px;
+  padding: 15px;
+  font-family: "Courier New", Courier, monospace;
 }
 
 .item:hover {
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-    border-style: solid;
- }
-
-
-.item-expand, .item-collapse {
-    text-align: end;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  border-style: solid;
 }
 
-.item-expand:hover, .item-collapse:hover {
-    font-weight: 900;
- }
-
-.displayFull, .newItemForm, .newItemFormDiv {
-    /* Creates an animated transition */
-    transition: all .5s; 
-
-    
+.item-expand,
+.item-collapse {
+  text-align: end;
 }
 
+.item-expand:hover,
+.item-collapse:hover {
+  font-weight: 900;
+}
 
+.displayFull,
+.newItemForm,
+.newItemFormDiv {
+  /* Creates an animated transition */
+  transition: all 0.5s;
+}
 
-.displayFull, .newItemForm, .newCategoryForm {
+.displayFull,
+.newItemForm,
+.newCategoryForm {
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Centers the child element */
+  width: 80%; /* Adjust width to take most of the screen */
+  height: 75%; /* Adjust height to take most of the screen */
+  color: black; /* Example text color */
+  padding: 20px; /* Example padding */
 
-    position: absolute;
-    top: 70%;
-    left: 50%;
-    transform: translate(-50%, -50%);  /* Centers the child element */
-    width: 80%; /* Adjust width to take most of the screen */
-    height: 75%; /* Adjust height to take most of the screen */
-    color: black; /* Example text color */
-    padding: 20px; /* Example padding */
-    
-    font-size: 1.5rem;
-    border-style: dotted;
-    border-radius: 5px;
+  font-size: 1.5rem;
+  border-style: dotted;
+  border-radius: 5px;
 
-
-
-
-    /* margin: 10px;
+  /* margin: 10px;
     padding: 15px;
     min-width: 500px; */
 }
 
-.newItemForm, .newCategoryForm {
-    background-color: lightgray;
-    opacity: 0.98;
+.newItemForm,
+.newCategoryForm {
+  background-color: lightgray;
+  opacity: 0.98;
 }
 
-
-
 .displaySummary {
-    font-size: 1rem;
-    border-style: dotted;
-    border-radius: 5px;
+  font-size: 1rem;
+  border-style: dotted;
+  border-radius: 5px;
 
-    margin: 10px;
-    padding: 15px;
-    font-family: 'Courier New', Courier, monospace;
-
+  margin: 10px;
+  padding: 15px;
+  font-family: "Courier New", Courier, monospace;
 }
 
 .zIndexHigh {
-    z-index: 3;
+  z-index: 3;
 }
 
 .itemTitle {
-    font-weight: 550;
-    font-style: italic;
-    
+  font-weight: 550;
+  font-style: italic;
 }
 
 .item-description {
-    padding: 20px 20px;
-    border-radius: 5px;
-    border-width: .1px;
-    border-style: solid;
+  padding: 20px 20px;
+  border-radius: 5px;
+  border-width: 0.1px;
+  border-style: solid;
 }
 
-
 .Low {
-background-color: rgb(220, 220, 250);
+  background-color: rgb(220, 220, 250);
 }
 
 .Medium {
-background-color: rgb(140, 121, 245);
+  background-color: rgb(140, 121, 245);
 }
 
 .High {
-background-color: rgb(70, 85, 223)    ;
+  background-color: rgb(70, 85, 223);
 }
-
-
-
-
 
 /* edit form */
 
 .newItemForm {
-    font-size: 1rem;
+  font-size: 1rem;
 
-    border-style: dotted;
-    border-radius: 5px;
+  border-style: dotted;
+  border-radius: 5px;
 
-    margin: 10px;
-    padding: 15px;
-    font-family: 'Courier New', Courier, monospace;
-
+  margin: 10px;
+  padding: 15px;
+  font-family: "Courier New", Courier, monospace;
 }
 
-.formDiv{
-    margin: 5px 0px;
-    padding: 5px 0px;
-    
+.formDiv {
+  margin: 5px 0px;
+  padding: 5px 0px;
 }
 
 .input-title {
-    font-size: 1.5rem;
+  font-size: 1.5rem;
 
-    margin: 0px;
-    padding: 5px;
+  margin: 0px;
+  padding: 5px;
 }
 
 .input-description {
-    font-size: 1.5rem;
+  font-size: 1.5rem;
 
-    margin: 0px;
-    padding: 10px;
+  margin: 0px;
+  padding: 10px;
 }
 
 .input-dueDate {
-    
-    font-size: 1.5rem;
-    margin: 0px;
-    padding: 0px;
+  font-size: 1.5rem;
+  margin: 0px;
+  padding: 0px;
 }
 
 .checklistDiv {
-    font-size: 1.5rem;
+  font-size: 1.5rem;
 }

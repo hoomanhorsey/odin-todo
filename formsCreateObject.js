@@ -4,13 +4,10 @@
 // import { Todo } from "./class.js";
 
 const formsCreateObject = {
-
-createNewItemForm ()  
-{
-    let newItemForm = document.createElement('div'); // New div for form.
-    newItemForm.classList.add('newItemFormDiv');
-    newItemForm.innerHTML = 
-    `<form action="https://httpbin.org/post" method="post" class="newItemForm" autocomplete="off">
+  createNewItemForm() {
+    let newItemForm = document.createElement("div"); // New div for form.
+    newItemForm.classList.add("newItemFormDiv");
+    newItemForm.innerHTML = `<form action="https://httpbin.org/post" method="post" class="newItemForm" autocomplete="off">
     
         <div class="formDiv" >
             <label for="category" class="label-category">Category</label>
@@ -68,14 +65,13 @@ createNewItemForm ()
             <button class="newItemCancelBtn"  >cancel</button>            
             <button type="submit" class="submitItemFormBtn">Submit</button>
         </div>
-    </form>`
+    </form>`;
 
     return newItemForm;
-    }, 
+  },
 
-createNewCategoryForm (newCategoryForm) {
-    newCategoryForm.innerHTML = 
-    `<form class="newCategoryForm" id="newCategoryForm" action="https://httpbin.org/post" method="post" class="newItemForm" autocomplete="off">
+  createNewCategoryForm(newCategoryForm) {
+    newCategoryForm.innerHTML = `<form class="newCategoryForm" id="newCategoryForm" action="https://httpbin.org/post" method="post" class="newItemForm" autocomplete="off">
         <div class="formDiv">
             <label for="newCategory" class="label-newCategory">New Category</label>
             <input type="text" id="newCategory" name="newCategory" class="input-newCategory" value="New Category Name">
@@ -83,9 +79,9 @@ createNewCategoryForm (newCategoryForm) {
             <button type="submit" class="newCategoryBtn">Submit</button>
              <button type="submit" class="delCategoryBtn">Delete</button>
         </div>
-    </form>`
+    </form>`;
     return newCategoryForm;
-    }, 
-}
+  },
+};
 
-export { formsCreateObject } ;
+export { formsCreateObject };
