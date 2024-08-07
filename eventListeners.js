@@ -22,7 +22,7 @@ const eventListenerObject = {
 
     screenControlObject.displayItemFull(
       itemElement,
-      projectsObject.getProjectArray(),
+      projectsObject.getProjectArray()
     );
 
     var items = document.querySelectorAll(".item-expand");
@@ -149,7 +149,7 @@ const eventListenerObject = {
 
   listenerDeleteChecklistItem() {
     let deleteChecklistItemBtn = document.querySelectorAll(
-      ".checklistDeleteBtn",
+      ".checklistDeleteBtn"
     );
 
     deleteChecklistItemBtn.forEach((e) => {
@@ -169,14 +169,14 @@ const eventListenerObject = {
             e.id[8],
             e.id[9],
             e.id[10],
-            true,
+            true
           );
         } else {
           projectsObject.toggleChecklistCheckbox(
             e.id[8],
             e.id[9],
             e.id[10],
-            false,
+            false
           );
         }
       });
@@ -214,7 +214,7 @@ const eventListenerObject = {
       itemElement,
       projectsObject.getProjectArray(),
       i,
-      j,
+      j
     );
 
     eventListenerObject.listenerNewItemCancelBtn();
@@ -243,12 +243,12 @@ const eventListenerObject = {
 
     // checklist length
     let itemFormChecklistElement = document.getElementById(
-      "itemFormChecklistUL",
+      "itemFormChecklistUL"
     );
     itemFormChecklistElement.value = this.checklistCreation(
       i,
       j,
-      itemFormChecklistElement,
+      itemFormChecklistElement
     );
 
     // inserting dueDate
